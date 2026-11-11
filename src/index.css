@@ -1,0 +1,181 @@
+@import url('@fontsource/inter/latin-400.css');
+@import url('@fontsource/inter/latin-500.css');
+@import url('@fontsource/inter/latin-600.css');
+@import url('@fontsource/inter/latin-700.css');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ============================================
+       Hitachi Dawn Design System Tokens
+       ============================================ */
+
+    /* Base tokens (theme-invariant) */
+    --base-light: 180 20% 98%;        /* #FBFCFC */
+    --base-dark: 0 0% 13%;            /* #222222 */
+    --base-neutral: 207 50% 90%;      /* #D8E6F1 */
+    --base-positive: 95 32% 86%;      /* #D7E6CF */
+    --base-warning: 46 81% 92%;       /* #FBF2D8 */
+    --base-negative: 358 65% 91%;     /* #F6DCDD */
+
+    /* Atmosphere scale */
+    --atmo-0: 0 0% 100%;              /* #FFFFFF */
+    --atmo-1: 180 20% 98%;            /* #FBFCFC */
+    --atmo-2: 0 0% 94%;               /* #F0F0F0 (Hitachi DS 3.1) */
+    --atmo-3: 0 0% 91%;               /* #E8E8E8 */
+    --atmo-4: 0 0% 85%;               /* #D9D9D9 */
+    --atmo-5: 0 0% 70%;               /* #B3B3B3 */
+    --atmo-6: 0 0% 65%;               /* #A7A7A7 */
+    --atmo-7: 0 0% 57%;               /* #929292 */
+    --atmo-8: 0 0% 45%;               /* #737373 */
+    --atmo-9: 0 0% 41%;               /* #696969 */
+    --atmo-10: 0 0% 30%;              /* #4D4D4D */
+
+    /* Brand */
+    --brand: 0 100% 40%;              /* #CC0000 */
+    --brand-foreground: 0 0% 100%;
+    --brand-secondary: 0 0% 5%;       /* #0C0C0C */
+    --brand-secondary-invert: 0 0% 100%;
+    --brand-active-txt: 0 100% 40%;   /* #CC0000 */
+
+    /* Text roles */
+    --text-primary: 0 0% 13%;         /* #222222 */
+    --text-secondary: 0 1% 42%;       /* #6C6B6B */
+    --text-tertiary: 0 0% 60%;        /* #999999 */
+
+    /* Surfaces */
+    --surface-page: 180 20% 98%;      /* #FBFCFC */
+    --surface-secondary: 0 0% 94%;    /* #F0F0F0 */
+    --surface-card: 210 27% 97%;      /* #F6F8FA */
+    --surface-light: 0 0% 96%;        /* #F4F4F4 */
+    --surface-dark: 0 0% 27%;         /* #444444 */
+
+    /* Semantic accents */
+    --danger-text: 0 100% 40%;        /* #CC0000 */
+    --red-primary: 353 68% 46%;       /* #C82333 */
+    --red-accent: 355 65% 51%;        /* #D42D3D */
+    --red-light: 348 71% 94%;         /* #FBE5E8 */
+    --red-muted: 350 47% 86%;         /* #EFC8CE */
+    --green-text: 139 67% 25%;        /* #146C2E */
+    --green-accent: 100 76% 28%;      /* #237E11 */
+    --green-light: 137 30% 90%;       /* #DEEDE2 */
+    --green-highlight: 75 52% 80%;    /* #DBE9B0 */
+    --info-tint: 226 55% 92%;         /* #E0E6F5 */
+    --slate-text: 217 33% 17%;        /* #1E293B */
+    --slate-border: 213 27% 84%;      /* #CBD5E1 */
+    --slate-surface: 210 40% 96%;     /* #F1F5F9 */
+
+    /* Action accents */
+    --action-primary: 211 100% 35%;   /* #0056B3 */
+
+
+    /* Shadcn semantic mapping → Dawn */
+    --background: var(--atmo-0);
+    --foreground: var(--base-dark);
+
+    --card: var(--atmo-0);
+    --card-foreground: var(--base-dark);
+
+    --popover: var(--atmo-0);
+    --popover-foreground: var(--base-dark);
+
+    --primary: var(--base-dark);
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: var(--atmo-1);
+    --secondary-foreground: var(--base-dark);
+
+    --muted: var(--atmo-2);
+    --muted-foreground: var(--atmo-8);
+
+    --accent: var(--atmo-2);
+    --accent-foreground: var(--base-dark);
+
+    --destructive: 0 100% 40%;        /* #CC0000 brand red for errors */
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;            /* keep amber for icons/badges */
+    --warning-foreground: 38 92% 14%;
+
+    --success: 142 50% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --border: var(--atmo-3);
+    --input: var(--atmo-3);
+    --ring: 223 40% 55%;              /* #5B78BE — Categorical.Cat1.140 (focus border state) */
+
+    --table-row-alt: var(--atmo-1);
+    --table-border: var(--atmo-3);
+    --table-text: var(--base-dark);
+    --table-hover: var(--atmo-2);
+    --table-highlight-error: var(--base-negative);
+    --table-highlight-warning: var(--base-warning);
+
+    --radius: 0.375rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 215 25% 8%;
+    --foreground: 210 20% 95%;
+    --card: 215 25% 11%;
+    --card-foreground: 210 20% 95%;
+    --popover: 215 25% 11%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 210 20% 95%;
+    --primary-foreground: 215 25% 8%;
+    --secondary: 215 20% 18%;
+    --secondary-foreground: 210 20% 95%;
+    --muted: 215 20% 16%;
+    --muted-foreground: 215 12% 55%;
+    --accent: 215 20% 20%;
+    --accent-foreground: 210 20% 95%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 215 20% 20%;
+    --input: 215 20% 20%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+  }
+
+}
+
+@layer utilities {
+  .grid-dashboard {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    padding: 0 40px;
+  }
+}
