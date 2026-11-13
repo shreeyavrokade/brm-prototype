@@ -9,6 +9,7 @@ import {
 } from "@/store/transactionsStore";
 import ReturnSubmissionModal from "./ReturnSubmissionModal";
 import { toast } from "@/hooks/use-toast";
+import { brand } from "@/config/brand";
 
 export const BilateralTransactionsWidget = () => {
   const all = useTransactions();
@@ -35,7 +36,7 @@ export const BilateralTransactionsWidget = () => {
 
       <div className="space-y-3 p-4">
         {ready.length === 0 && (
-          <p className="text-sm text-atmo-9">No transactions are awaiting SPP approval.</p>
+          <p className="text-sm text-atmo-9">No transactions are awaiting {brand.clientShortName} approval.</p>
         )}
 
         {ready.map((t) => (

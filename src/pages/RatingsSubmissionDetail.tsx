@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { deriveDatasetStatus, hasReviewableIssues } from "@/components/submission/datasetStatus";
 import { setDatasetStatus } from "@/store/datasetStatusStore";
+import { brand } from "@/config/brand";
 
 const RatingsSubmissionDetail = () => {
   const { id = "" } = useParams();
@@ -80,7 +81,7 @@ const RatingsSubmissionDetail = () => {
           warnings={warnings}
           datasetLabel="Ratings"
           onInspect={() => setPanelOpen(true)}
-          onSubmit={() => toast.success("Submitted to SPP Model Build")}
+          onSubmit={() => toast.success("Submitted to " + brand.clientShortName + " Model Build")}
         />
       }
       sidePanel={

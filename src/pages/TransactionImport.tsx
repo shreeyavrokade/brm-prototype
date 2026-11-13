@@ -10,11 +10,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { addPair, nextTransactionId, initialAckState, type TransactionRecord } from "@/store/transactionsStore";
+import { brand } from "@/config/brand";
 
 const STEPS = ["Upload File", "Review Submission Details", "Supporting Information"];
 
 const SPP_MEMBERS = new Set([
-  "AEP", "SPP", "WFEC", "Westar", "OG&E", "KCP&L", "Sunflower Electric",
+  "AEP", brand.clientCode, "WFEC", "Westar", "OG&E", "KCP&L", "Sunflower Electric",
   "City of Wichita", "City of Topeka", "City of Liberal", "Tri-State G&T",
   "AECI", "Springfield Util",
 ]);
@@ -187,8 +188,8 @@ const TransactionImport = () => {
                     <label className="text-sm font-medium text-primary-200 block mb-1.5">Transaction Name</label>
                     <Input value={txName} onChange={(e) => setTxName(e.target.value)} />
                   </div>
-                  <ReadField label="From Area" value={`${parsed.fromArea}${SPP_MEMBERS.has(parsed.fromArea) ? " (SPP Member)" : " (External)"}`} />
-                  <ReadField label="To Area" value={`${parsed.toArea}${SPP_MEMBERS.has(parsed.toArea) ? " (SPP Member)" : " (External / Non-SPP Entity)"}`} />
+                  <ReadField label="From Area" value={`${parsed.fromArea}${SPP_MEMBERS.has(parsed.fromArea) ? " (" + brand.clientShortName + " Member)" : " (External)"}`} />
+                  <ReadField label="To Area" value={`${parsed.toArea}${SPP_MEMBERS.has(parsed.toArea) ? " (" + brand.clientShortName + " Member)" : " (External / Outside Footprint)"}`} />
                   <ReadField label="Start Date" value={parsed.startDate} />
                   <ReadField label="Stop Date" value={parsed.stopDate} />
                   <ReadField label="Capacity Type" value={parsed.capacityType} />
@@ -206,7 +207,7 @@ const TransactionImport = () => {
                 <p className="text-sm text-atmo-9 mb-6">
                   {external
                     ? "External counterparty detected. Proof of Coordination is required prior to submission."
-                    : "Both counterparties are within the SPP footprint. Supporting documents are optional."}
+                    : "Both counterparties are within the " + brand.clientShortName + " footprint. Supporting documents are optional."}
                 </p>
 
                 {external ? (
@@ -215,7 +216,7 @@ const TransactionImport = () => {
                       <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
                       <div className="text-sm">
                         <div className="font-semibold mb-1">Proof of Coordination Required</div>
-                        The selected counterparty ({externalName}) is outside the SPP footprint.
+                        The selected counterparty ({externalName}) is outside the {brand.clientShortName} footprint.
                         A signed coordination artifact (.pdf or .msg) must be attached before submission.
                       </div>
                     </div>
@@ -232,7 +233,7 @@ const TransactionImport = () => {
                       <Lock className="h-3.5 w-3.5" />
                       <span>
                         <span className="font-semibold">Gated Security:</span>{" "}
-                        Strictly restricted to Submitting Entity and SPP Staff.
+                        Strictly restricted to Submitting Entity and {brand.clientShortName} Staff.
                       </span>
                     </div>
                   </>

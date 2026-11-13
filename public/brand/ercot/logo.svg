@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 200 40" role="img" aria-label="ERCOT">
+  <!-- TEMPORARY TEXT WORDMARK — not the official ERCOT logo.
+       Replace this file with the official logo (SVG or PNG, ~200x40, transparent),
+       keeping the name logo.svg, or point logoSrc in src/config/brand.ts at logo.png. -->
+  <text x="2" y="28" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="#222222" letter-spacing="2">ERCOT</text>
+</svg>

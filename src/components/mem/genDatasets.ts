@@ -1,3 +1,5 @@
+import { brand } from "@/config/brand";
+
 // Dataset schemas + mock rows for MEM Gen Sections 1-3 + Reference.
 
 export type ColType =
@@ -43,7 +45,7 @@ const mkRows = (n: number, builder: (i: number) => Record<string, any>) =>
   Array.from({ length: n }, (_, i) => ({ id: `r${i + 1}`, ...builder(i) }));
 
 const UNITS = ["Antelope CC1", "Cimarron WF", "Comanche GT", "Elk City WF", "Greenwood CC", "Hugo CT2", "Latan ST3", "OG&E Solar"];
-const AREAS = ["SPP-N", "SPP-S", "SPP-E", "SPP-W"];
+const AREAS = ["N", "S", "E", "W"].map((d) => `${brand.clientCode}-${d}`);
 const CATEGORIES = ["Combined Cycle", "Wind", "Gas Turbine", "Steam", "Solar", "Hydro"];
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -54,7 +56,7 @@ const generator: DatasetConfig = {
   id: "generator",
   name: "Generator",
   tip:
-    "The Generator data table establishes your resources, serving as the vital foundation for downstream economic profiles. As necessary, you may revise the commissioning and retirement dates, but cannot add or delete new rows. Please use comments to report any discrepancies in locked fields so SPP can resolve them.",
+    "The Generator data table establishes your resources, serving as the vital foundation for downstream economic profiles. As necessary, you may revise the commissioning and retirement dates, but cannot add or delete new rows. Please use comments to report any discrepancies in locked fields so " + brand.clientShortName + " can resolve them.",
   columns: [
     { key: "submittalYear", label: "Submittal Year", type: "number" },
     { key: "unitName", label: "Unit Name" },
@@ -141,7 +143,7 @@ const annualProfiles: DatasetConfig = {
   id: "annual-profiles",
   name: "Annual Profiles",
   tip:
-    "The Annual Profiles data table defines monthly generator limits. This is vital because the highest monthly value automatically calculates your unit's overall maximum capacity in market simulations. Please review pre-populated prior-year values and, as necessary, revise the month columns to reflect upcoming plans. Use comments to report any discrepancies in locked fields so SPP can resolve them.",
+    "The Annual Profiles data table defines monthly generator limits. This is vital because the highest monthly value automatically calculates your unit's overall maximum capacity in market simulations. Please review pre-populated prior-year values and, as necessary, revise the month columns to reflect upcoming plans. Use comments to report any discrepancies in locked fields so " + brand.clientShortName + " can resolve them.",
   columns: [
     { key: "submittalYear", label: "Submittal Year", type: "number" },
     { key: "unitName", label: "Unit Name" },
@@ -205,7 +207,7 @@ const otherEcon: DatasetConfig = {
   id: "other-economic",
   name: "Other Economic Parameters",
   tip:
-    "The Other Economic Parameters table defines your generators' operating limits and maintenance costs. This is vital because seasonal minimum capacities and O&M rates directly determine unit commitment and dispatch in market simulations. Please review pre-populated baseline and, as necessary, revise the seasonal minimums and O&M values but you cannot add or delete new rows. Use comments to report any discrepancies in locked fields so SPP can resolve them.",
+    "The Other Economic Parameters table defines your generators' operating limits and maintenance costs. This is vital because seasonal minimum capacities and O&M rates directly determine unit commitment and dispatch in market simulations. Please review pre-populated baseline and, as necessary, revise the seasonal minimums and O&M values but you cannot add or delete new rows. Use comments to report any discrepancies in locked fields so " + brand.clientShortName + " can resolve them.",
   columns: [
     { key: "submittalYear", label: "Submittal Year", type: "number" },
     { key: "unitName", label: "Unit Name" },
@@ -266,7 +268,7 @@ const ownership: DatasetConfig = {
   id: "ownership",
   name: "Ownership and Accreditation",
   tip:
-    "The Ownership and Accreditation data table defines generator ownership shares and renewable accreditation parameters. This is critical for accurate cost accounting and resource adequacy tracking in market simulations. Please review pre-populated baseline and, as necessary, revise the firm service, accreditation, and tax credit fields, but you cannot add or delete new rows. Use comments to report any discrepancies in locked fields so SPP can resolve them.",
+    "The Ownership and Accreditation data table defines generator ownership shares and renewable accreditation parameters. This is critical for accurate cost accounting and resource adequacy tracking in market simulations. Please review pre-populated baseline and, as necessary, revise the firm service, accreditation, and tax credit fields, but you cannot add or delete new rows. Use comments to report any discrepancies in locked fields so " + brand.clientShortName + " can resolve them.",
   columns: [
     { key: "submittalYear", label: "Submittal Year", type: "number" },
     { key: "unitName", label: "Unit Name" },
@@ -355,7 +357,7 @@ const hydroEnergy: DatasetConfig = {
   id: "hydro-energy",
   name: "Hydro Energy Limits",
   tip:
-    "The Hydro Energy Limits data table defines your hydro units' annual energy boundaries. This is critical because these limits directly constrain hourly hydro dispatch and capacity factors in market simulations. Please review pre-populated baseline and, as necessary, revise the the Annual Energy (MWh) field to reflect upcoming limits, but you cannot add or delete new rows. Use comments to report any discrepancies in locked fields so SPP can resolve them.",
+    "The Hydro Energy Limits data table defines your hydro units' annual energy boundaries. This is critical because these limits directly constrain hourly hydro dispatch and capacity factors in market simulations. Please review pre-populated baseline and, as necessary, revise the the Annual Energy (MWh) field to reflect upcoming limits, but you cannot add or delete new rows. Use comments to report any discrepancies in locked fields so " + brand.clientShortName + " can resolve them.",
   columns: [
     { key: "submittalYear", label: "Submittal Year", type: "number" },
     { key: "unitName", label: "Unit Name" },
@@ -397,7 +399,7 @@ const fleetPPA: DatasetConfig = {
   name: "Fleet Power Purchase Agreement",
   crud: true,
   tip:
-    "The Fleet Power Purchase Agreement data table tracks capacity transfers and contract terms between areas. This is critical for modeling regional energy flows and avoiding resource double-counting in market simulations. Please review pre-populated baseline and, as necessary, add, modify, or delete PPA records to ensure the baseline matches your current fleet contractual obligations. Use comments to report any discrepancies in locked fields so SPP can resolve them.",
+    "The Fleet Power Purchase Agreement data table tracks capacity transfers and contract terms between areas. This is critical for modeling regional energy flows and avoiding resource double-counting in market simulations. Please review pre-populated baseline and, as necessary, add, modify, or delete PPA records to ensure the baseline matches your current fleet contractual obligations. Use comments to report any discrepancies in locked fields so " + brand.clientShortName + " can resolve them.",
   columns: [
     { key: "submittalYear", label: "Submittal Year", type: "number" },
     { key: "pricingZoneFrom", label: "Pricing Zone From" },
@@ -452,7 +454,7 @@ const hydroOwnership: DatasetConfig = {
   id: "hydro-ownership",
   name: "Hydro Unit Ownership",
   tip:
-    "The Hydro Unit Ownership data table defines monthly ownership shares for hydro resources. This is vital for accurate capacity accounting and cost-allocation tracking. Please review pre-populated baseline and, as necessary, revise the monthly columns to reflect seasonal ownership splits, but you cannot add or delete new rows. Use comments to report any discrepancies in locked fields so SPP can resolve them.",
+    "The Hydro Unit Ownership data table defines monthly ownership shares for hydro resources. This is vital for accurate capacity accounting and cost-allocation tracking. Please review pre-populated baseline and, as necessary, revise the monthly columns to reflect seasonal ownership splits, but you cannot add or delete new rows. Use comments to report any discrepancies in locked fields so " + brand.clientShortName + " can resolve them.",
   columns: [
     { key: "submittalYear", label: "Submittal Year", type: "number" },
     { key: "unitName", label: "Unit Name" },

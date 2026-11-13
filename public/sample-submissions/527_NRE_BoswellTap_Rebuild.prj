@@ -1,0 +1,24 @@
+# Unified Submission Portal - sample topology project file (.prj)
+# DEMO FORMAT: simulated for the sales prototype, not a production PSS/E file.
+# Scenario: HAPPY PATH - passes every validation rule.
+PROJECT=527_NRE_BoswellTap_Rebuild
+AREA=527
+EFFECTIVE_DATE=06/01/2027
+DESCRIPTION=Rebuild of the Boswell 138 kV tap with uprated conductor.
+
+[BUS]
+bus,name,baskv,ide,area,zone,vm,va,owner
+52701,BOSWELL-N,138.00,1,527,1,1.0200,-2.10,527
+52702,BOSWELL-TAP,138.00,1,527,1,1.0100,-3.40,527
+52703,PINE-RIDGE,138.00,2,527,2,0.9950,-4.80,527
+52704,CEDAR-GEN,138.00,2,527,2,1.0300,-1.20,527
+
+[GENERATOR]
+busNumber,genId,pgen,qgen,pmax,pmin,mbase
+52704,G1,160,35,200,40,240
+
+[BRANCH]
+fromBus,toBus,circuit,status,resistance,reactance,charging,rateA,rateB,length
+52701,52702,1,1,0.0040,0.0520,0.26,320,360,7.9
+52702,52703,1,1,0.0035,0.0450,0.31,300,340,11.4
+52703,52704,1,1,0.0030,0.0410,0.29,350,395,9.6

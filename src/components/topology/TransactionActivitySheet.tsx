@@ -9,6 +9,7 @@ import RejectTransactionDialog from "./RejectTransactionDialog";
 import { approveTransaction, type TransactionRecord } from "@/store/transactionsStore";
 import { useState } from "react";
 import { toast } from "sonner";
+import { brand } from "@/config/brand";
 
 interface Props {
   tx: TransactionRecord | null;
@@ -17,7 +18,7 @@ interface Props {
 }
 
 const SPP_MEMBERS = new Set([
-  "AEP", "SPP", "WFEC", "Westar", "OG&E", "KCP&L", "Sunflower Electric",
+  "AEP", brand.clientCode, "WFEC", "Westar", "OG&E", "KCP&L", "Sunflower Electric",
   "City of Wichita", "City of Topeka", "City of Liberal", "Tri-State G&T",
   "AECI", "Springfield Util",
 ]);
@@ -129,8 +130,8 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
               <div className="bg-[#E0E6F5] text-[#222222] p-3 rounded-lg text-xs font-medium flex items-start gap-2 mb-4">
                 <LockKey weight="bold" size={16} className="shrink-0 mt-0.5" />
                 <span>
-                  <span className="font-semibold">Transaction Locked in SPP Review:</span>{" "}
-                  Both counterparties have acknowledged these terms. SPP Staff is currently
+                  <span className="font-semibold">Transaction Locked in {brand.clientShortName} Review:</span>{" "}
+                  Both counterparties have acknowledged these terms. {brand.clientShortName} Staff is currently
                   reviewing the submission for grid capability and proof of coordination.
                   Further commercial revisions are disabled.
                 </span>

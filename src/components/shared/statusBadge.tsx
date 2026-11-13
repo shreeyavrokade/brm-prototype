@@ -1,5 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { brand } from "@/config/brand";
+import StatusHelpTooltip, { type StatusHelp } from "@/components/shared/StatusHelpTooltip";
 
 /**
  * Canonical submission/transaction status pill.
@@ -31,6 +33,51 @@ export const STATUS_TOKENS: Record<StatusKey, { bg: string; fg: string; border: 
 };
 
 
+/** Plain-language meaning + next step for every status, shown on hover/focus/tap. */
+const C = brand.clientShortName;
+export const STATUS_HELP: Record<StatusKey, StatusHelp> = {
+  Draft: {
+    means: "Saved but not submitted yet. Only your organization can see it.",
+    next: "Finish the details and submit it for validation.",
+  },
+  "Validation in Progress": {
+    means: "Automated rules are checking the uploaded file.",
+    next: "No action needed — results appear in a few moments.",
+  },
+  "Review Needed": {
+    means: "Validation found errors or warnings that need attention.",
+    next: "Open it, fix the errors by uploading a corrected version, and review the warnings.",
+  },
+  "Pending Validation": {
+    means: "A corrected version was received and is being re-validated.",
+    next: "No action needed — results appear shortly.",
+  },
+  "Pending Submittal": {
+    means: "Passed validation and is ready to send.",
+    next: `Submit it for ${C} review.`,
+  },
+  "Pending Acceptance": {
+    means: `Submitted and waiting for ${C} to review it.`,
+    next: "Watch for acceptance or a return note in Activity.",
+  },
+  "Acknowledgement Required": {
+    means: "A counterparty must confirm the terms before it can be reviewed.",
+    next: "Acknowledge the terms or send a counter-offer.",
+  },
+  Accepted: {
+    means: `${C} accepted it for the model build.`,
+    next: "Nothing further this cycle.",
+  },
+  Approved: {
+    means: `${C} approved it for the model build.`,
+    next: "Nothing further this cycle — it's locked.",
+  },
+  Rejected: {
+    means: `${C} returned it with notes.`,
+    next: "Read the notes in Activity, correct the submission and resubmit.",
+  },
+};
+
 export const STATUS_PILL_CLASS =
   "border rounded-full font-medium gap-1 px-2.5 py-0.5 text-xs whitespace-nowrap hover:opacity-90";
 
@@ -39,17 +86,26 @@ interface Props {
   /** Optional label override (e.g. Transactions renders "Accepted" as "Approved"). */
   label?: string;
   className?: string;
+  /** Show the meaning/next-step tooltip (default true). */
+  showHelp?: boolean;
 }
 
-export const StatusPill = ({ status, label, className }: Props) => {
+export const StatusPill = ({ status, label, className, showHelp = true }: Props) => {
   const token = STATUS_TOKENS[status] ?? STATUS_TOKENS.Draft;
-  return (
+  const text = label ?? status;
+  const pill = (
     <Badge
       className={cn(STATUS_PILL_CLASS, className)}
       style={{ backgroundColor: token.bg, color: token.fg, borderColor: token.border }}
     >
-      {label ?? status}
+      {text}
     </Badge>
+  );
+  if (!showHelp) return pill;
+  return (
+    <StatusHelpTooltip label={text} help={STATUS_HELP[status]}>
+      {pill}
+    </StatusHelpTooltip>
   );
 };
 

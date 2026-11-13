@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 200 40" role="img" aria-label="Acme Power &amp; Grid (demo brand)">
+  <!-- DEMO BRAND: fictional client logo for white-label walkthroughs. Replace this file to rebrand. -->
+  <rect x="2" y="4" width="32" height="32" rx="7" fill="#2064B4"/>
+  <path d="M20.5 9 L12 22 H18.5 L16 31 L25 17.5 H18.8 Z" fill="#FFFFFF"/>
+  <text x="44" y="19" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#222222" letter-spacing="0.5">ACME</text>
+  <text x="44" y="34" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#6C6B6B" letter-spacing="0.3">Power &amp; Grid</text>
+</svg>

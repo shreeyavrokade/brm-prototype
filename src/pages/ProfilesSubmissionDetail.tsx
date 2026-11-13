@@ -16,6 +16,7 @@ import {
   mockLoadGenRows,
 } from "@/components/topology/mockProfilesInspector";
 import type { ProfilesInspectorRow } from "@/components/topology/mockProfilesInspector";
+import { brand } from "@/config/brand";
 
 const ProfilesSubmissionDetail = () => {
   const { id = "p4" } = useParams();
@@ -115,7 +116,7 @@ const ProfilesSubmissionDetail = () => {
           warnings={warnings}
           datasetLabel="Profiles"
           onInspect={() => setPanelOpen(true)}
-          onSubmit={() => toast.success("Submitted to SPP Model Build")}
+          onSubmit={() => toast.success("Submitted to " + brand.clientShortName + " Model Build")}
         />
       }
       sidePanel={

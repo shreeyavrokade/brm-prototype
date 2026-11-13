@@ -45,6 +45,7 @@ import type { ReviewStatus } from "./mockChangeset";
 import TransactionActivitySheet from "./TransactionActivitySheet";
 import CounterOfferDialog from "./CounterOfferDialog";
 import { toast } from "sonner";
+import { brand } from "@/config/brand";
 
 const STATUS_WEIGHT: Record<ReviewStatus, number> = {
   "Review Needed": 1,
@@ -325,7 +326,7 @@ const TransactionsTable = ({ query = "" }: Props) => {
                                 </div>
                               </TooltipTrigger>
                               <TooltipContent side="left" className="max-w-[240px] text-xs">
-                                Counter offers are locked while the transaction is in SPP Review or finalized.
+                                Counter offers are locked while the transaction is in {brand.clientShortName} Review or finalized.
                               </TooltipContent>
                             </Tooltip>
                           )}

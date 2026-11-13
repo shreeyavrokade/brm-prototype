@@ -22,6 +22,10 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { addRow, nextChangesetId } from "@/store/changesetStore";
 import type { ReviewStatus } from "@/components/topology/mockChangeset";
+import { brand } from "@/config/brand";
+import DemoSampleFiles from "@/components/import/DemoSampleFiles";
+import { NAMING_EXAMPLE, NAMING_RULE, countIssues, parsePrj, type FatalProblem, type ParsedPrj } from "@/lib/topologyPrj";
+import { storeTopologyFile, statusForIssues } from "@/store/topologySubmissionStore";
 
 const STEPS = ["Upload File", "Review Submission Details", "Supporting Information"];
 
@@ -40,12 +44,12 @@ type ProjectType =
   | "Network Status";
 
 const projectTypes: { value: ProjectType; description: string }[] = [
-  { value: "Modeling Correction", description: "Changes to correct or update existing representation. Added upon review and approval by SPP." },
-  { value: "Approved Transmission System Upgrade", description: "Materially modifies the SPP System with a corresponding Project ID, NTC, or SUS number. Must use correct naming format rules." },
-  { value: "Planned Transmission System Upgrade", description: "Planned changes not part of an NTC, SUS, GI, AQ, or internal SPP study." },
+  { value: "Modeling Correction", description: "Changes to correct or update existing representation. Added upon review and approval by " + brand.clientShortName + "." },
+  { value: "Approved Transmission System Upgrade", description: "Materially modifies the " + brand.clientShortName + " system with a corresponding Project ID, NTC, or SUS number. Must use correct naming format rules." },
+  { value: "Planned Transmission System Upgrade", description: "Planned changes not part of an NTC, SUS, GI, AQ, or internal " + brand.clientShortName + " study." },
   { value: "Speculative", description: "Forecasted, unbudgeted changes; excluded from CPP model sets." },
-  { value: "Requested", description: "Pending SPP review and not yet committed into models." },
-  { value: "Acknowledged", description: "Reviewed by SPP and flagged for inclusion into the models." },
+  { value: "Requested", description: "Pending " + brand.clientShortName + " review and not yet committed into models." },
+  { value: "Acknowledged", description: "Reviewed by " + brand.clientShortName + " and flagged for inclusion into the models." },
   { value: "Generation Interconnection", description: "Generation/transmission adjustments with an executed Generation Interconnection Agreement." },
   { value: "Attachment AQ", description: "Load and transmission alterations tied to an approved Attachment AQ load modification." },
   { value: "System Intact Alteration", description: "Corrects base case setpoints of existing topology (voltage/thermal criteria violations). Equipment must already exist in the network database." },
@@ -54,23 +58,23 @@ const projectTypes: { value: ProjectType; description: string }[] = [
 
 const requiredDocs: Partial<Record<ProjectType, string[]>> = {
   "Modeling Correction": [
-    "Proof of coordination for corrections modifying tie lines owned or partially owned by a non-SPP entity.",
+    "Proof of coordination for corrections modifying tie lines owned or partially owned by an entity outside the " + brand.clientShortName + " footprint.",
   ],
   "Approved Transmission System Upgrade": [
     "Corresponding NTC/SUS/etc. document.",
-    "Proof of coordination for modified non-SPP entity tie lines.",
+    "Proof of coordination for modified tie lines with entities outside the " + brand.clientShortName + " footprint.",
   ],
   "Planned Transmission System Upgrade": [
     "TOP Project Evaluation Process Request form (to move from Requested to Acknowledged).",
-    "Proof of coordination for modified non-SPP entity tie lines.",
+    "Proof of coordination for modified tie lines with entities outside the " + brand.clientShortName + " footprint.",
   ],
   "Generation Interconnection": [
     "Signed Generation Interconnection Agreement.",
-    "Proof of coordination for modified non-SPP entity tie lines.",
+    "Proof of coordination for modified tie lines with entities outside the " + brand.clientShortName + " footprint.",
   ],
   "Attachment AQ": [
     "Associated Load Interconnection Study.",
-    "Proof of coordination for modified non-SPP entity tie lines.",
+    "Proof of coordination for modified tie lines with entities outside the " + brand.clientShortName + " footprint.",
   ],
 };
 
@@ -123,14 +127,15 @@ const ImportSubmission = () => {
 
   const [step, setStep] = useState(0);
   const [primaryFile, setPrimaryFile] = useState<UploadedFile | null>(null);
-  const [uploadError, setUploadError] = useState(false);
+  const [uploadError, setUploadError] = useState<FatalProblem | null>(null);
+  const [parsedPrj, setParsedPrj] = useState<ParsedPrj | null>(null);
   const [supportingFiles, setSupportingFiles] = useState<UploadedFile[]>([]);
   const [comments, setComments] = useState<CommentItem[]>(seedComments);
 
   // Form state
   const parsedProjectName = useMemo(
-    () => primaryFile?.name.replace(/\.[^.]+$/, "") ?? "",
-    [primaryFile]
+    () => parsedPrj?.projectName ?? primaryFile?.name.replace(/\.[^.]+$/, "") ?? "",
+    [primaryFile, parsedPrj]
   );
   const submitterName = CURRENT_USER;
   const [projectType, setProjectType] = useState<ProjectType | "">("");
@@ -156,15 +161,30 @@ const ImportSubmission = () => {
   const handleNext = () => setStep((s) => Math.min(s + 1, STEPS.length - 1));
   const handlePrev = () => setStep((s) => Math.max(s - 1, 0));
 
-  const handleAddPrimaryFile = (files: File[]) => {
+  const handleAddPrimaryFile = async (files: File[]) => {
     const f = files[0];
     const lower = f.name.toLowerCase();
-    if (!config.acceptExts.some((ext) => lower.endsWith(ext))) {
-      setUploadError(true);
+    setParsedPrj(null);
+    if (isTopology) {
+      // Simulated intake checks: file type, naming convention, structure.
+      const result = parsePrj(f.name, await f.text());
+      if (!result.ok) {
+        setUploadError(result.problem);
+        setPrimaryFile(null);
+        return;
+      }
+      setParsedPrj(result.parsed);
+      setEffectiveDate(new Date(result.parsed.effectiveDate));
+    } else if (!config.acceptExts.some((ext) => lower.endsWith(ext))) {
+      setUploadError({
+        kind: "file-type",
+        title: "Unsupported file type",
+        messages: [`"${f.name}" can't be imported here. Accepted: ${config.acceptExts.join(", ")}.`],
+      });
       setPrimaryFile(null);
       return;
     }
-    setUploadError(false);
+    setUploadError(null);
     setPrimaryFile({
       id: crypto.randomUUID(),
       name: f.name,
@@ -198,8 +218,9 @@ const ImportSubmission = () => {
   const createRow = (status: ReviewStatus) => {
     const name = parsedProjectName.trim() || "Untitled Submission";
     if (isTopology) {
+      const id = nextChangesetId();
       addRow({
-        id: nextChangesetId(),
+        id,
         projectName: name,
         reviewStatus: status,
         type: projectType || "Modeling Correction",
@@ -208,6 +229,20 @@ const ImportSubmission = () => {
         submissionDate: format(new Date(), "d MMM yyyy"),
         submissionTimestamp: Date.now(),
       });
+      if (parsedPrj) {
+        storeTopologyFile(id, parsedPrj, {
+          validate: status !== "Draft",
+          onDone: (p) => {
+            const { errors, warnings } = countIssues(p.issues);
+            const result = statusForIssues(p);
+            if (result === "Review Needed") {
+              toast.warning(`${name}: validation found ${errors} error${errors !== 1 ? "s" : ""} and ${warnings} warning${warnings !== 1 ? "s" : ""}. Open it to resolve them.`);
+            } else {
+              toast.success(`${name} passed validation — ready for submittal.`);
+            }
+          },
+        });
+      }
     }
     return name;
   };
@@ -220,7 +255,7 @@ const ImportSubmission = () => {
 
   const handleSubmit = () => {
     const name = createRow("Validation in Progress");
-    toast.success(`Submission ${name} sent — Validation in Progress.`);
+    toast.success(`Submission ${name} sent — Validation in Progress. Results appear in a few seconds (simulated).`);
     navigate(config.returnTo);
   };
 
@@ -306,10 +341,36 @@ const ImportSubmission = () => {
                   onFiles={handleAddPrimaryFile}
                 />
 
-                {uploadError && !primaryFile && <UploadErrorCard />}
-                {primaryFile && (
-                  <UploadedFileRow file={primaryFile} onRemove={() => setPrimaryFile(null)} />
+                {uploadError && !primaryFile && (
+                  <UploadErrorCard
+                    title={uploadError.title}
+                    messages={uploadError.messages}
+                    nextStep={
+                      uploadError.kind === "naming"
+                        ? "Rename the file and upload it again."
+                        : uploadError.kind === "file-type"
+                          ? `Export the changeset as a ${config.acceptExts.join(" / ")} file and upload it again.`
+                          : "Fix the lines listed above and upload the file again."
+                    }
+                  />
                 )}
+                {primaryFile && (
+                  <UploadedFileRow
+                    file={primaryFile}
+                    onRemove={() => {
+                      setPrimaryFile(null);
+                      setParsedPrj(null);
+                    }}
+                  />
+                )}
+                {primaryFile && parsedPrj && (
+                  <p role="status" className="mt-2 text-xs text-[#146C2E]">
+                    File checks passed: naming convention, file type and structure ·{" "}
+                    {Object.values(parsedPrj.phases).reduce((n, p) => n + p.rows.length, 0)} records read. Reliability
+                    rules run after you submit.
+                  </p>
+                )}
+                {isTopology && <DemoSampleFiles />}
 
                 {isTopology && (
                 <Accordion type="single" collapsible className="mt-8 bg-atmo-0 border border-atmo-3 rounded-md">
@@ -319,6 +380,15 @@ const ImportSubmission = () => {
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4">
                       <div className="space-y-4 text-sm text-atmo-10">
+                        <div>
+                          <div className="font-semibold text-primary-200 mb-1">All topology files</div>
+                          <p className="text-atmo-9">
+                            {NAMING_RULE} — no spaces. Add _v2, _v3… when uploading a corrected version.
+                          </p>
+                          <p className="mt-1 font-mono text-xs text-atmo-10 bg-atmo-2 inline-block px-2 py-0.5 rounded">
+                            {NAMING_EXAMPLE}
+                          </p>
+                        </div>
                         <div>
                           <div className="font-semibold text-primary-200 mb-1">Approved Transmission System Upgrade</div>
                           <p className="text-atmo-9">
@@ -383,24 +453,26 @@ const ImportSubmission = () => {
                   </div>
                   {isTopology && (
                     <div>
-                      <label className="text-sm font-medium text-primary-200 block mb-1.5">
+                      <label htmlFor="project-type" className="text-sm font-medium text-primary-200 block mb-1.5">
                         Project Type <span className="text-destructive">*</span>
                       </label>
                       <Select value={projectType} onValueChange={(v) => setProjectType(v as ProjectType)}>
-                        <SelectTrigger>
+                        <SelectTrigger id="project-type" aria-describedby={projectType ? "project-type-help" : undefined}>
                           <SelectValue placeholder="Select project type" />
                         </SelectTrigger>
-                        <SelectContent className="max-w-[480px]">
+                        <SelectContent className="max-h-80 w-[var(--radix-select-trigger-width)] max-w-[min(480px,calc(100vw-2rem))]">
                           {projectTypes.map((t) => (
-                            <SelectItem key={t.value} value={t.value} className="py-2">
-                              <div className="flex flex-col">
-                                <span className="font-medium text-primary-200">{t.value}</span>
-                                <span className="text-xs text-atmo-9 mt-0.5 whitespace-normal">{t.description}</span>
-                              </div>
+                            <SelectItem key={t.value} value={t.value} description={t.description}>
+                              <span className="font-medium text-primary-200">{t.value}</span>
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
+                      {projectType && (
+                        <p id="project-type-help" className="mt-1.5 text-xs leading-snug text-hitachi-placeholder">
+                          {projectTypes.find((t) => t.value === projectType)?.description}
+                        </p>
+                      )}
                     </div>
                   )}
                   {isProfiles && (
@@ -510,7 +582,7 @@ const ImportSubmission = () => {
                 </h1>
                 <p className="text-sm text-atmo-9 mb-6">
                   {isProfiles
-                    ? "Add any comments to provide context to SPP."
+                    ? "Add any comments to provide context to " + brand.clientShortName + "."
                     : "You may add supporting documents now. If you're not ready, you can submit them at a later time."}
                 </p>
 
@@ -557,7 +629,7 @@ const ImportSubmission = () => {
                       <div className="flex items-baseline gap-2">
                         <span className="text-sm font-semibold text-foreground">Comment</span>
                         <span className="text-xs text-atmo-8">
-                          Optional information to provide context to SPP.
+                          Optional information to provide context to {brand.clientShortName}.
                         </span>
                       </div>
                     </div>

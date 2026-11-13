@@ -4,10 +4,11 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ActivityFeed from "@/components/dashboard/ActivityFeed";
 import { ACTIVITY_SHEET_CONTENT, ACTIVITY_SHEET_HEADER, ACTIVITY_SHEET_TITLE } from "@/components/shared/ActivitySheet";
 import type { ActivityItem } from "@/components/dashboard/types";
+import { brand } from "@/config/brand";
 
 const sppItems: ActivityItem[] = [
-  { id: "s1", type: "comment", user: "SPP Reviewer", timestamp: "2h ago", message: "Please confirm the Q3 retirement date for this unit." },
-  { id: "s2", type: "history", user: "SPP System", timestamp: "1d ago", message: "Row flagged for verification" },
+  { id: "s1", type: "comment", user: brand.clientShortName + " Reviewer", timestamp: "2h ago", message: "Please confirm the Q3 retirement date for this unit." },
+  { id: "s2", type: "history", user: brand.clientShortName + " System", timestamp: "1d ago", message: "Row flagged for verification" },
 ];
 const memberItems: ActivityItem[] = [
   { id: "m1", type: "comment", user: "You", timestamp: "10m ago", message: "Updated commissioning date per recent filing." },
@@ -31,7 +32,7 @@ const ActivityDrawer = ({ open, onOpenChange, rowLabel }: Props) => {
         </SheetHeader>
         <Tabs value={tab} onValueChange={setTab} className="flex-1 flex flex-col min-h-0">
           <TabsList className="mx-4 mt-3 self-start">
-            <TabsTrigger value="spp">SPP Comments</TabsTrigger>
+            <TabsTrigger value="spp">{brand.clientShortName} Comments</TabsTrigger>
             <TabsTrigger value="member">Member Comments</TabsTrigger>
           </TabsList>
           <TabsContent value="spp" className="flex-1 flex flex-col min-h-0 mt-0">

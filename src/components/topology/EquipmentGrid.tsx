@@ -20,6 +20,7 @@ import {
   busNameMaxLen, commentsMaxLen,
 } from "./equipmentSchemas";
 import { toast } from "sonner";
+import { brand } from "@/config/brand";
 
 const seedActivity = (audit: AuditLog, comments: string): ActivityItem[] => {
   const items: ActivityItem[] = [
@@ -492,7 +493,7 @@ export const GeneratorGrid = ({
     });
     setEditingId(null);
     setDraft(null);
-    toast.success("Ancillary equipment details updated and sent to SPP for review.");
+    toast.success("Ancillary equipment details updated and sent to " + brand.clientShortName + " for review.");
   };
 
   const auxKeys: Array<["aux1BusId"|"aux2BusId"|"aux3BusId"|"aux4BusId"|"aux5BusId", "aux1Id"|"aux2Id"|"aux3Id"|"aux4Id"|"aux5Id"]> = [

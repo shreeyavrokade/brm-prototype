@@ -1,3 +1,5 @@
+import { brand } from "@/config/brand";
+
 export type Season = "Summer" | "Winter" | "Spring" | "Fall";
 
 export interface BranchRatingRow {
@@ -32,7 +34,7 @@ export interface TransformerRatingRow {
 
 const branchSeed: Omit<BranchRatingRow, "id" | "season">[] = [
   { branchId: "TL-345-117", fromBus: "BUS-117", toBus: "BUS-345", circuit: "1", owner: "WFEC", lte: 1240, norm: 1100, ste: 1380, ld: 1450, sharedAsset: true },
-  { branchId: "TL-138-204", fromBus: "BUS-204", toBus: "BUS-138", circuit: "1", owner: "SPP",  lte: 820,  norm: 740,  ste: 910,  ld: 960 },
+  { branchId: "TL-138-204", fromBus: "BUS-204", toBus: "BUS-138", circuit: "1", owner: brand.clientCode,  lte: 820,  norm: 740,  ste: 910,  ld: 960 },
   { branchId: "TL-069-019", fromBus: "BUS-019", toBus: "BUS-069", circuit: "2", owner: "OG&E", lte: 460,  norm: 410,  ste: 510,  ld: 540 },
   { branchId: "TL-138-318", fromBus: "BUS-318", toBus: "BUS-138", circuit: "1", owner: "Xcel", lte: 1010, norm: 920,  ste: 1120, ld: 1180, sharedAsset: true },
   { branchId: "TL-345-489", fromBus: "BUS-489", toBus: "BUS-345", circuit: "1", owner: "AEP",  lte: 1320, norm: 1180, ste: 1460, ld: 1530 },
@@ -40,7 +42,7 @@ const branchSeed: Omit<BranchRatingRow, "id" | "season">[] = [
 
 const transformerSeed: Omit<TransformerRatingRow, "id" | "season">[] = [
   { transformerId: "TR-138-345", fromBus: "BUS-138", toBus: "BUS-345", winding: 2, owner: "WFEC", lte: 560, norm: 500, ste: 620, ld: 660 },
-  { transformerId: "TR-069-138", fromBus: "BUS-069", toBus: "BUS-138", winding: 2, owner: "SPP",  lte: 320, norm: 280, ste: 360, ld: 390, sharedAsset: true },
+  { transformerId: "TR-069-138", fromBus: "BUS-069", toBus: "BUS-138", winding: 2, owner: brand.clientCode,  lte: 320, norm: 280, ste: 360, ld: 390, sharedAsset: true },
   { transformerId: "TR-345-500", fromBus: "BUS-345", toBus: "BUS-500", winding: 3, owner: "OG&E", lte: 980, norm: 880, ste: 1080, ld: 1150 },
   { transformerId: "TR-138-230", fromBus: "BUS-138", toBus: "BUS-230", winding: 2, owner: "AEP",  lte: 610, norm: 540, ste: 680, ld: 720 },
 ];

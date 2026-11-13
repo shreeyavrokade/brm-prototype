@@ -1,6 +1,7 @@
 // Dataset schemas + mock rows for MEM Load Sections 1-3 + Reference.
 
 import type { ColType, DatasetConfig, SectionConfig } from "./genDatasets";
+import { brand } from "@/config/brand";
 
 const mkRows = (n: number, builder: (i: number) => Record<string, any>) =>
   Array.from({ length: n }, (_, i) => ({ id: `r${i + 1}`, ...builder(i) }));
@@ -184,7 +185,7 @@ const annualLossFactor: DatasetConfig = {
   id: "annual-loss-factor",
   name: "Annual Loss Factor",
   tip:
-    "The Annual Loss Factor data table defines the projected transmission energy losses (percentages) for each demand group. This is critical because these values scale load forecasts to accurately simulate total generation requirements and market dispatch under grid losses. Please review pre-populated baseline and, as necessary, revise or delete the annual values to reflect current plans. Use comments to report any discrepancies in locked fields so SPP can resolve them.",
+    "The Annual Loss Factor data table defines the projected transmission energy losses (percentages) for each demand group. This is critical because these values scale load forecasts to accurately simulate total generation requirements and market dispatch under grid losses. Please review pre-populated baseline and, as necessary, revise or delete the annual values to reflect current plans. Use comments to report any discrepancies in locked fields so " + brand.clientShortName + " can resolve them.",
   columns: [
     { key: "submittalYear", label: "Submittal Year", type: "number" },
     { key: "demandGroup", label: "Demand Group" },

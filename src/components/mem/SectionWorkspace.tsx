@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import DatasetGrid from "./DatasetGrid";
 import ActivityDrawer from "./ActivityDrawer";
 import { type SectionConfig } from "./genDatasets";
+import { brand } from "@/config/brand";
 
 interface Props {
   section: SectionConfig;
@@ -131,7 +132,7 @@ const SectionWorkspace = ({
           <p className="leading-relaxed">
             <span className="font-medium">Tip:</span>{" "}
             {activeDs.viewOnly
-              ? "This section is complete and pending SPP review. You have view-only access to these tables. Use the Activity Panel to review row-level comments."
+              ? "This section is complete and pending " + brand.clientShortName + " review. You have view-only access to these tables. Use the Activity Panel to review row-level comments."
               : activeDs.tip}
           </p>
         </div>

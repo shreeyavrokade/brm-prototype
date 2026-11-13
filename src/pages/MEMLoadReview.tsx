@@ -15,6 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
+import { brand } from "@/config/brand";
 
 type StatusKind =
   | "complete"
@@ -234,7 +235,7 @@ const MEMLoadReview = () => {
                 className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-600 hover:text-neutral-900"
               >
                 <ChatDots className="h-4 w-4" />
-                Report Data Discrepancy / Flag Issue to SPP
+                Report Data Discrepancy / Flag Issue to {brand.clientShortName}
               </button>
             }
           >
@@ -366,7 +367,7 @@ const MEMLoadReview = () => {
           disabled={!canSubmit}
           className="bg-white text-neutral-900 hover:bg-neutral-200 disabled:opacity-50"
         >
-          Submit MEM Load Review to SPP
+          Submit MEM Load Review to {brand.clientShortName}
         </Button>
       </div>
     </div>

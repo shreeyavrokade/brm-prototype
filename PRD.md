@@ -255,12 +255,14 @@ These are target requirements for the sales-ready evolution of the prototype. Th
 
 ### 12.4 Additional Figma references
 
+**Product workflow reference:** [Base Reliability Model — Intake Flow Prototype](https://www.figma.com/design/uuEDF0zS746imujffOsc75/Base-Reliability-Model--Copy-?node-id=8004-18175). File `uuEDF0zS746imujffOsc75`, page `8004:18175` (Intake Flow Prototype). Access and page identity verified on November 13, 2026. Use this reference for screen composition and interactive workflow intent; use NEXT 6.3.1 (§12.2) for white-label components, tokens, and interaction styling. Inspect the relevant frames, design context, and screenshots before implementing each screen; page metadata alone is not implementation or visual validation. Record any conflict or adaptation in TRACKER.md.
+
 - Use additional Figma screens and files as references when they are provided.
 - Translate the referenced designs into the existing application; do not treat them as standalone static deliverables.
 - White-label and adapt referenced screens to the generalized product and NEXT Design System.
 - Implement relevant screens, workflows, and interactions in the current codebase, preserving existing interactive behavior and integrating new interactions with existing navigation and state where appropriate.
 - Integrate new screens with existing navigation and workflows.
-- The NEXT Design System file is identified in §12.2. Additional product-screen Figma references have not yet been supplied; incorporate them when provided.
+- The NEXT Design System file is identified in §12.2 and the BRM Intake Flow Prototype reference above supplies product-screen guidance. Incorporate further references when provided.
 
 ### 12.5 Sales demonstration readiness
 

@@ -71,3 +71,7 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Optional GitHub Pages hosting
+
+See [GITHUB_PAGES.md](./GITHUB_PAGES.md) for the separate Pages build and manual deployment workflow. Run `npm run build:pages` to create `dist-pages/`; regular builds remain unchanged.

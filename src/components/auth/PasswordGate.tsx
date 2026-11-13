@@ -3,8 +3,9 @@ import { Lock, LogIn } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { brand } from "@/config/brand";
 
-const MASTER_KEY = "SPP2026";
+const MASTER_KEY = brand.accessPassword;
 const STORAGE_KEY = "mem_authed";
 
 export function PasswordGate({ children }: { children: ReactNode }) {
@@ -36,11 +37,12 @@ export function PasswordGate({ children }: { children: ReactNode }) {
             onSubmit={onSubmit}
             className="bg-white border border-[#D9D9D9] rounded-xl p-8 max-w-md w-full shadow-lg"
           >
+            <img src={brand.logoSrc} alt={brand.logoAlt} className="h-10 w-auto mx-auto mb-5" />
             <h1 className="text-xl font-bold text-[#222222] text-center tracking-tight mb-2">
-              Unified Submission Portal
+              {brand.productName}
             </h1>
             <p className="text-sm text-[#6C6B6B] text-center mb-6">
-              This environment is protected. Please enter the master access password supplied by your SPP Planning Coordinator.
+              This environment is protected. Please enter the master access password supplied by your {brand.coordinatorTitle}.
             </p>
 
             <label

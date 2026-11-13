@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import StatusPill, { type StatusKey } from "@/components/shared/statusBadge";
 import { cn } from "@/lib/utils";
+import { brand } from "@/config/brand";
 
 type Role = "client" | "counterparty" | "ep";
 type Stage = 1 | 2 | 3 | 4;
@@ -19,7 +20,7 @@ type Ack = "Action Needed" | "Acknowledged";
 const ROLES: { key: Role; label: string }[] = [
   { key: "client", label: "Viewing as Client (Submitting Entity)" },
   { key: "counterparty", label: "Viewing as Counterparty (Confirming Entity)" },
-  { key: "ep", label: "Viewing as SPP / EP Engineer" },
+  { key: "ep", label: "Viewing as " + brand.clientShortName + " / EP Engineer" },
 ];
 
 const STAGES: { step: Stage; label: string }[] = [
@@ -46,7 +47,7 @@ const matrix = (stage: Stage, outcome: Outcome): Snapshot => {
       actions: {
         client: "Submission sent. Read-only until the counterparty responds.",
         counterparty: "Counter Panel Enabled — accept the terms or submit a counter offer.",
-        ep: "Not yet in the SPP queue. Bilateral negotiation in progress.",
+        ep: "Not yet in the " + brand.clientShortName + " queue. Bilateral negotiation in progress.",
       },
     };
   if (stage === 2)
@@ -57,7 +58,7 @@ const matrix = (stage: Stage, outcome: Outcome): Snapshot => {
       actions: {
         client: "Counter Panel Enabled — approve as countered or counter again.",
         counterparty: "Counter submitted. Waiting on the submitting entity.",
-        ep: "Not yet in the SPP queue. Bilateral negotiation in progress.",
+        ep: "Not yet in the " + brand.clientShortName + " queue. Bilateral negotiation in progress.",
       },
     };
   if (stage === 3)
@@ -67,8 +68,8 @@ const matrix = (stage: Stage, outcome: Outcome): Snapshot => {
       clientAck: "Acknowledged",
       counterpartyAck: "Acknowledged",
       actions: {
-        client: "Commercial Edits Frozen — Waiting on SPP Review.",
-        counterparty: "Commercial Edits Frozen — Waiting on SPP Review.",
+        client: "Commercial Edits Frozen — Waiting on " + brand.clientShortName + " Review.",
+        counterparty: "Commercial Edits Frozen — Waiting on " + brand.clientShortName + " Review.",
         ep: "Approve for Model Build / Reject Transaction.",
       },
     };
@@ -78,8 +79,8 @@ const matrix = (stage: Stage, outcome: Outcome): Snapshot => {
       clientAck: "Acknowledged",
       counterpartyAck: "Acknowledged",
       actions: {
-        client: "Locked — transaction is included in the SPP model build.",
-        counterparty: "Locked — transaction is included in the SPP model build.",
+        client: "Locked — transaction is included in the " + brand.clientShortName + " model build.",
+        counterparty: "Locked — transaction is included in the " + brand.clientShortName + " model build.",
         ep: "Locked for model build. No further edits permitted.",
       },
     };
@@ -130,7 +131,7 @@ const WorkflowExplainerModal = ({
             Transaction Lifecycle &amp; Role Scoping Architecture
           </DialogTitle>
           <DialogDescription className="text-sm text-atmo-9">
-            Simulate how statuses change across Client, Counterparty, and SPP Engineer views.
+            Simulate how statuses change across Client, Counterparty, and {brand.clientShortName} Engineer views.
           </DialogDescription>
         </DialogHeader>
 
@@ -245,7 +246,7 @@ const WorkflowExplainerModal = ({
             <div className="mt-2">
               {role === "ep" ? (
                 <span className="text-xs text-atmo-9">
-                  Not shown — SPP / EP Engineers track the macro status, not per-party turns.
+                  Not shown — {brand.clientShortName} / EP Engineers track the macro status, not per-party turns.
                 </span>
               ) : (
                 <AckBadge state={ack} />
@@ -274,7 +275,7 @@ const WorkflowExplainerModal = ({
               Macro Status = Model Build Journey
             </div>
             <p className="mt-1.5 text-xs leading-relaxed text-atmo-9">
-              Status tracks the file through SPP's system model phases:{" "}
+              Status tracks the file through {brand.clientShortName}'s system model phases:{" "}
               <span className="font-medium text-foreground">Review Needed → Pending Approval → Accepted</span>{" "}
               (or Rejected). It is a system-wide value every role sees identically.
             </p>

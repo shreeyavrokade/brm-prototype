@@ -1,0 +1,27 @@
+# Unified Submission Portal - sample topology project file (.prj)
+# DEMO FORMAT: simulated for the sales prototype, not a production PSS/E file.
+# Scenario: ALL FIXES CORRECTED (version 3) - 0 errors, 0 warnings. Ready for submittal.
+PROJECT=612_CVP_Ashford_Reconductor
+AREA=612
+EFFECTIVE_DATE=07/15/2027
+DESCRIPTION=Reconductor of the Ashford North - Bellmont 138 kV corridor.
+
+[BUS]
+bus,name,baskv,ide,area,zone,vm,va,owner
+61201,ASHFORD-N,138.00,1,612,1,1.0200,-2.10,612
+61202,ASHFORD-E,138.00,1,612,1,0.9800,-4.90,612
+61203,EAST-LOAD,69.00,1,612,2,0.9800,-4.70,612
+61204,BELLMONT-T,138.00,2,612,2,1.0100,-3.30,612
+61205,RIVER-GEN,138.00,2,612,2,1.0400,-1.00,612
+
+[GENERATOR]
+busNumber,genId,pgen,qgen,pmax,pmin,mbase
+61205,G1,180,40,200,40,240
+61205,G2,190,60,200,40,240
+
+[BRANCH]
+fromBus,toBus,circuit,status,resistance,reactance,charging,rateA,rateB,length
+61201,61202,1,1,0.0045,0.0580,0.28,300,330,8.7
+61202,61204,1,1,0.0033,0.0410,0.35,450,495,15.2
+61204,61205,1,1,0.0040,0.0400,0.30,400,440,11.0
+61203,61204,1,1,0.0040,0.0500,0.20,200,220,6.1

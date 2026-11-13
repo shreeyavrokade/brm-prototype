@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { AlertTriangle } from "lucide-react";
+import { brand } from "@/config/brand";
 
 interface Props {
   open: boolean;
@@ -55,7 +56,7 @@ export const ReturnSubmissionModal = ({
 
         <div className="space-y-2">
           <Label htmlFor="spp-return-notes" className="text-xs font-semibold">
-            SPP Engineer Revision Notes <span className="text-[#C82333]">*</span>
+            {brand.clientShortName} Engineer Revision Notes <span className="text-[#C82333]">*</span>
           </Label>
           <Textarea
             id="spp-return-notes"

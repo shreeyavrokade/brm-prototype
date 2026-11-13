@@ -1,3 +1,5 @@
+import { brand } from "@/config/brand";
+
 export type ProfileStatus = "Active" | "Pending" | "Retired";
 export type ProfileDirectoryStatus = "Draft" | "Review Needed" | "Accepted" | "Rejected";
 export type ProfileKindLabel = "Load Gen" | "Device Control";
@@ -44,12 +46,12 @@ export interface ProfileInterval {
 }
 
 export const mockProfileProjects: ProfileProject[] = [
-  { id: "p1", submittalId: "PRJ-2025-P4", submissionName: "550_KEPCO2025ITPP5-34S", submissionId: "117086", name: "Summer Peak Load Forecast",    entity: "Westar Energy", controlArea: "SPP", status: "Pending", directoryStatus: "Review Needed", profileType: "8760 Hourly Load Curve",       modelClass: "Load Scaling Matrix",                studyType: "MDAG", baseProfileName: "2024MDAG-Base", submitter: "Richards, Darian", profileKindLabel: "Load Gen",       submissionDate: "1/16/2024" },
-  { id: "p2", submittalId: "PRJ-2026-W3", submissionName: "552_KEPCO2025ITPP5-36B", submissionId: "117088", name: "Wind Profile — Buffalo Ridge", entity: "Xcel Energy",   controlArea: "SPP", status: "Pending", directoryStatus: "Review Needed", profileType: "24hr Wind Generation Profile", modelClass: "Gen Dispatch Profiles",              studyType: "ITP",  baseProfileName: "2024MDAG-Wind", submitter: "Nguyen, Linh",     profileKindLabel: "Load Gen",       submissionDate: "1/20/2024" },
-  { id: "p3", submittalId: "PRJ-2026-S2", submissionName: "551_KEPCO2025ITPP5-35A", submissionId: "117087", name: "Solar Generation Profile",     entity: "OG&E",          controlArea: "SPP", status: "Active",  directoryStatus: "Accepted",      profileType: "Solar Dispatch Array",         modelClass: "Gen Dispatch Profiles",              studyType: "ITP",  baseProfileName: "2024MDAG-Solar",submitter: "Watanabe, Haru",   profileKindLabel: "Load Gen",       submissionDate: "1/18/2024" },
-  { id: "p4", submittalId: "PRJ-2026-P4", submissionName: "551_KEPCO2025ITPP5-35A", submissionId: "117087", name: "Winter Reserve Margin",        entity: "AEP",           controlArea: "SPP", status: "Active",  directoryStatus: "Accepted",      profileType: "8760 Hourly Load Curve",       modelClass: "Load Scaling Matrix",                studyType: "MDAG", baseProfileName: "2024MDAG-Win",  submitter: "Watanabe, Haru",   profileKindLabel: "Load Gen",       submissionDate: "1/18/2024" },
-  { id: "p5", submittalId: "PRJ-2026-I1", submissionName: "549_KEPCO2025ITPP5-33H", submissionId: "117085", name: "Hydro Dispatch Profile",       entity: "SWPA",          controlArea: "SPP", status: "Retired", directoryStatus: "Accepted",      profileType: "Interchange Schedule",         modelClass: "Interchange Transaction Schedules",  studyType: "ITP",  baseProfileName: "2024MDAG-Hyd",  submitter: "Garcia, Sofia",    profileKindLabel: "Device Control", submissionDate: "1/12/2024" },
-  { id: "p6", submittalId: "PRJ-2026-L7", submissionName: "548_KEPCO2025ITPP5-32G", submissionId: "117084", name: "Distributed Load Pocket",      entity: "GRDA",          controlArea: "SPP", status: "Pending", directoryStatus: "Draft",         profileType: "8760 Hourly Load Curve",       modelClass: "Load Scaling Matrix",                studyType: "MDAG", baseProfileName: "2024MDAG-DLP",  submitter: "O'Connor, Liam",   profileKindLabel: "Device Control", submissionDate: "" },
+  { id: "p1", submittalId: "PRJ-2025-P4", submissionName: "550_KEPCO2025ITPP5-34S", submissionId: "117086", name: "Summer Peak Load Forecast",    entity: "Westar Energy", controlArea: brand.clientCode, status: "Pending", directoryStatus: "Review Needed", profileType: "8760 Hourly Load Curve",       modelClass: "Load Scaling Matrix",                studyType: "MDAG", baseProfileName: "2024MDAG-Base", submitter: "Richards, Darian", profileKindLabel: "Load Gen",       submissionDate: "1/16/2024" },
+  { id: "p2", submittalId: "PRJ-2026-W3", submissionName: "552_KEPCO2025ITPP5-36B", submissionId: "117088", name: "Wind Profile — Buffalo Ridge", entity: "Xcel Energy",   controlArea: brand.clientCode, status: "Pending", directoryStatus: "Review Needed", profileType: "24hr Wind Generation Profile", modelClass: "Gen Dispatch Profiles",              studyType: "ITP",  baseProfileName: "2024MDAG-Wind", submitter: "Nguyen, Linh",     profileKindLabel: "Load Gen",       submissionDate: "1/20/2024" },
+  { id: "p3", submittalId: "PRJ-2026-S2", submissionName: "551_KEPCO2025ITPP5-35A", submissionId: "117087", name: "Solar Generation Profile",     entity: "OG&E",          controlArea: brand.clientCode, status: "Active",  directoryStatus: "Accepted",      profileType: "Solar Dispatch Array",         modelClass: "Gen Dispatch Profiles",              studyType: "ITP",  baseProfileName: "2024MDAG-Solar",submitter: "Watanabe, Haru",   profileKindLabel: "Load Gen",       submissionDate: "1/18/2024" },
+  { id: "p4", submittalId: "PRJ-2026-P4", submissionName: "551_KEPCO2025ITPP5-35A", submissionId: "117087", name: "Winter Reserve Margin",        entity: "AEP",           controlArea: brand.clientCode, status: "Active",  directoryStatus: "Accepted",      profileType: "8760 Hourly Load Curve",       modelClass: "Load Scaling Matrix",                studyType: "MDAG", baseProfileName: "2024MDAG-Win",  submitter: "Watanabe, Haru",   profileKindLabel: "Load Gen",       submissionDate: "1/18/2024" },
+  { id: "p5", submittalId: "PRJ-2026-I1", submissionName: "549_KEPCO2025ITPP5-33H", submissionId: "117085", name: "Hydro Dispatch Profile",       entity: "SWPA",          controlArea: brand.clientCode, status: "Retired", directoryStatus: "Accepted",      profileType: "Interchange Schedule",         modelClass: "Interchange Transaction Schedules",  studyType: "ITP",  baseProfileName: "2024MDAG-Hyd",  submitter: "Garcia, Sofia",    profileKindLabel: "Device Control", submissionDate: "1/12/2024" },
+  { id: "p6", submittalId: "PRJ-2026-L7", submissionName: "548_KEPCO2025ITPP5-32G", submissionId: "117084", name: "Distributed Load Pocket",      entity: "GRDA",          controlArea: brand.clientCode, status: "Pending", directoryStatus: "Draft",         profileType: "8760 Hourly Load Curve",       modelClass: "Load Scaling Matrix",                studyType: "MDAG", baseProfileName: "2024MDAG-DLP",  submitter: "O'Connor, Liam",   profileKindLabel: "Device Control", submissionDate: "" },
 ];
 
 
@@ -99,7 +101,7 @@ export const getProjectById = (id: string): ProfileProject => {
       submissionId: "000000",
       name: "Profile Submission",
       entity: "Unknown Entity",
-      controlArea: "SPP",
+      controlArea: brand.clientCode,
       status: "Pending",
       directoryStatus: "Review Needed",
       profileType: "8760 Hourly Load Curve",

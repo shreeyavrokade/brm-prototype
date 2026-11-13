@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 200 40" role="img" aria-label="Client logo placeholder">
+  <!-- PLACEHOLDER: shows where the client logo goes. Recommended: SVG, 200x40, transparent background. -->
+  <rect x="1" y="1" width="198" height="38" rx="6" fill="#F6F8FA" stroke="#929292" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="10" y="9" width="22" height="22" rx="4" fill="none" stroke="#929292" stroke-width="1.5"/>
+  <path d="M13 27 L19 19 L23 24 L26 21 L29 27 Z" fill="#B3B3B3"/>
+  <text x="42" y="25" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#6C6B6B" letter-spacing="1">YOUR LOGO HERE</text>
+</svg>

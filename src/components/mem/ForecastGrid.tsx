@@ -10,6 +10,7 @@ import { FORECAST_ROWS, FORECAST_YEARS, sppChangeFor } from "./mockForecast";
 import RowStatusPill from "./RowStatusPill";
 import SppCellDot from "./SppCellDot";
 import { getRowStatus, setRowStatus, useRowStatuses } from "@/store/rowReviewStore";
+import { brand } from "@/config/brand";
 
 interface Props {
   stepTitle: string;
@@ -103,7 +104,7 @@ const ForecastGrid = ({ stepTitle, onBack }: Props) => {
 
       <div className="bg-atmo-2 border border-atmo-3 rounded-md p-3 text-sm text-atmo-10">
         Tip: Review the Annual Load Factor basecase data below. Cells flagged with a red dot were
-        modified by SPP in the prior pass — click Edit on a row to accept those values or revise them.
+        modified by {brand.clientShortName} in the prior pass — click Edit on a row to accept those values or revise them.
       </div>
 
       <div className="flex items-center justify-between gap-3">

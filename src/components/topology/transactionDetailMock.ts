@@ -1,3 +1,5 @@
+import { brand } from "@/config/brand";
+
 // Mock ledger rows for the Transactions File Inspector drill-down
 
 export type CellAction = "ADD" | "MOD" | "DEL" | "NONE";
@@ -63,7 +65,7 @@ export interface TxLedgerRow {
 }
 
 const dispositions = ["Pending", "Confirmed", "Under Review", "Acknowledged", "Returned"];
-const entities = ["SPP", "MISO", "WFEC", "Westar", "OG&E", "KCP&L", "AECI", "ERCOT"];
+const entities = [...new Set([brand.clientCode, "MISO", "WFEC", "Westar", "OG&E", "KCP&L", "AECI", "ERCOT"])];
 const regions = ["Eastern", "Central", "Southern", "Northern"];
 const fuels = ["Natural Gas", "Coal", "Wind", "Solar", "Hydro", "Nuclear"];
 

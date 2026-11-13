@@ -1,11 +1,11 @@
-import sppLogo from "@/assets/spp-logo.png";
 import { Shield, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePortalView, setPortalView, type PortalView } from "@/store/portalContextStore";
+import { brand } from "@/config/brand";
 
 const OPTIONS: { key: PortalView; label: string; Icon: typeof User }[] = [
   { key: "STAKEHOLDER", label: "Participant View (USP)", Icon: User },
-  { key: "SPP_ENGINEER", label: "SPP Engineer View (EP)", Icon: Shield },
+  { key: "SPP_ENGINEER", label: `${brand.clientShortName} Engineer View (EP)`, Icon: Shield },
 ];
 
 const GlobalHeader = () => {
@@ -13,11 +13,19 @@ const GlobalHeader = () => {
 
   return (
     <header className="h-14 shrink-0 bg-atmo-1 border-b border-atmo-3 flex items-center justify-between px-4">
-      <img
-        src={sppLogo}
-        alt="SPP — Powering Progress"
-        className="h-8 w-auto select-none"
-      />
+      <div className="flex items-center gap-3 min-w-0">
+        <img
+          src={brand.logoSrc}
+          alt={brand.logoAlt}
+          className={cn(brand.logoClassName, "select-none shrink-0")}
+        />
+        {brand.showProductNameInHeader && (
+          <>
+            <span aria-hidden="true" className="h-6 w-px bg-atmo-4 shrink-0" />
+            <span className="text-sm font-semibold text-foreground truncate">{brand.productName}</span>
+          </>
+        )}
+      </div>
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-1 rounded-lg bg-[#E2E8F0] p-1">
           {OPTIONS.map(({ key, label, Icon }) => (

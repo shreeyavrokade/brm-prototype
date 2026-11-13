@@ -6,12 +6,15 @@ import type { DatasetStatus } from "@/components/submission/datasetStatus";
  * Detail screens publish their derived status here so the parent tab
  * directories render the same pill without a page reload.
  */
-const overrides = new Map<string, DatasetStatus>();
+/** Dataset lifecycle plus the transient intake/hand-off states shown in directories. */
+export type LiveStatus = DatasetStatus | "Validation in Progress" | "Pending Acceptance";
+
+const overrides = new Map<string, LiveStatus>();
 const listeners = new Set<() => void>();
 
 const emit = () => listeners.forEach((l) => l());
 
-export const setDatasetStatus = (id: string, status: DatasetStatus) => {
+export const setDatasetStatus = (id: string, status: LiveStatus) => {
   if (overrides.get(id) === status) return;
   overrides.set(id, status);
   emit();
@@ -24,10 +27,10 @@ const subscribe = (cb: () => void) => {
   return () => listeners.delete(cb);
 };
 
-export const useDatasetStatus = <T extends string>(id: string, base: T): DatasetStatus | T =>
+export const useDatasetStatus = <T extends string>(id: string, base: T): LiveStatus | T =>
   useSyncExternalStore(
     subscribe,
-    () => (overrides.get(id) ?? base) as DatasetStatus | T,
+    () => (overrides.get(id) ?? base) as LiveStatus | T,
     () => base,
   );
 

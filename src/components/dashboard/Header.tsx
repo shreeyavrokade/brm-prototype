@@ -23,6 +23,10 @@ interface HeaderProps {
   onBack?: () => void;
   onDownloadCurrent?: () => void;
   onDownloadRatings?: () => void;
+  onUploadNewVersion?: () => void;
+  onSubmit?: () => void;
+  /** Overrides the default "errors must be 0" submit gate (e.g. while validating or after submittal). */
+  submitDisabledReason?: string;
 }
 
 const Header = ({
@@ -37,8 +41,11 @@ const Header = ({
   onBack,
   onDownloadCurrent,
   onDownloadRatings,
+  onUploadNewVersion,
+  onSubmit,
+  submitDisabledReason,
 }: HeaderProps) => {
-  const canSubmit = errorCount === 0;
+  const canSubmit = errorCount === 0 && !submitDisabledReason;
   const handleDownloadCurrent = onDownloadCurrent ?? (() => console.log("Download current file"));
   const handleDownloadRatings = onDownloadRatings ?? (() => console.log("Download ratings file"));
 
@@ -108,7 +115,7 @@ const Header = ({
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button variant="outline" size="sm" className="text-xs gap-1.5 h-8 ml-1 rounded-full px-4 border-[#222222] text-[#222222] bg-transparent hover:bg-[#222222] hover:text-atmo-0">
+        <Button variant="outline" size="sm" onClick={onUploadNewVersion} className="text-xs gap-1.5 h-8 ml-1 rounded-full px-4 border-[#222222] text-[#222222] bg-transparent hover:bg-[#222222] hover:text-atmo-0">
           <Upload className="h-3.5 w-3.5" />
           Upload New Version
         </Button>
@@ -120,6 +127,7 @@ const Header = ({
                   size="sm"
                   variant="brand"
                   disabled={!canSubmit}
+                  onClick={onSubmit}
                   className="text-xs gap-1.5 h-8 rounded-full px-4 disabled:!bg-atmo-3 disabled:!text-secondary-60 disabled:!opacity-100 bg-neutral-950"
                 >
                   {canSubmit ? <Send className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}
@@ -134,7 +142,10 @@ const Header = ({
             </TooltipTrigger>
             {!canSubmit && (
               <TooltipContent>
-                <p>Resolve all {errorCount} error{errorCount !== 1 ? "s" : ""} to enable submission.</p>
+                <p>
+                  {submitDisabledReason ??
+                    `Resolve all ${errorCount} error${errorCount !== 1 ? "s" : ""} to enable submission.`}
+                </p>
               </TooltipContent>
             )}
           </Tooltip>
