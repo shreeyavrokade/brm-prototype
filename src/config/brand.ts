@@ -66,7 +66,7 @@ export const BRAND_PRESETS = {
     logoClassName: "h-8 w-auto",
     faviconSrc: asset("brand/ercot/mark.svg"),
     showProductNameInHeader: true,
-    accessPassword: "SPP2026",
+    accessPassword: "USP@2026",
   },
   /** Fictional demo client ("Acme" is the standard stand-in name). */
   acme: {
