@@ -52,7 +52,7 @@ export const BilateralTransactionsWidget = () => {
             </div>
             <div className="mt-2 flex items-center gap-1.5 text-xs text-foreground">
               <span className="truncate">{t.fromEntity}</span>
-              <ArrowLeftRight className="h-3.5 w-3.5 shrink-0 text-atmo-8" />
+              <ArrowLeftRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
               <span className="truncate">{t.toEntity}</span>
             </div>
             <div className="mt-3 flex gap-2">

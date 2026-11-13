@@ -230,7 +230,7 @@ const WorkflowExplainerModal = ({
         {/* Preview card */}
         <div className="mt-2 grid grid-cols-3 divide-x divide-atmo-3 rounded-xl border border-atmo-3 bg-atmo-1">
           <div className="p-4">
-            <div className="text-[11px] font-semibold uppercase tracking-wide text-atmo-8">
+            <div className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               Macro Status
             </div>
             <div className="mt-2">
@@ -240,7 +240,7 @@ const WorkflowExplainerModal = ({
           </div>
 
           <div className="p-4">
-            <div className="text-[11px] font-semibold uppercase tracking-wide text-atmo-8">
+            <div className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               Acknowledgment State
             </div>
             <div className="mt-2">
@@ -260,7 +260,7 @@ const WorkflowExplainerModal = ({
           </div>
 
           <div className="p-4">
-            <div className="text-[11px] font-semibold uppercase tracking-wide text-atmo-8">
+            <div className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               Available Actions
             </div>
             <p className="mt-2 text-xs leading-relaxed text-foreground">{snap.actions[role]}</p>
@@ -271,7 +271,7 @@ const WorkflowExplainerModal = ({
         <div className="mt-2 grid grid-cols-2 gap-3">
           <div className="rounded-xl border border-atmo-3 bg-atmo-0 p-4">
             <div className="flex items-center gap-2 text-sm font-semibold">
-              <Layers className="h-4 w-4 text-atmo-8" />
+              <Layers className="h-4 w-4 text-muted-foreground" />
               Macro Status = Model Build Journey
             </div>
             <p className="mt-1.5 text-xs leading-relaxed text-atmo-9">
@@ -282,7 +282,7 @@ const WorkflowExplainerModal = ({
           </div>
           <div className="rounded-xl border border-atmo-3 bg-atmo-0 p-4">
             <div className="flex items-center gap-2 text-sm font-semibold">
-              <UserCheck className="h-4 w-4 text-atmo-8" />
+              <UserCheck className="h-4 w-4 text-muted-foreground" />
               Acknowledgment State = Action Needed vs Acknowledged
             </div>
             <p className="mt-1.5 text-xs leading-relaxed text-atmo-9">

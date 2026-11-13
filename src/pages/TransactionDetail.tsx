@@ -40,7 +40,7 @@ const TransactionDetail = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 px-2 shrink-0 text-atmo-8 hover:text-foreground gap-1.5"
+            className="h-8 px-2 shrink-0 text-muted-foreground hover:text-foreground gap-1.5"
             onClick={() => navigate("/?tab=transactions")}
             aria-label="Back"
           >
@@ -77,7 +77,7 @@ const TransactionDetail = () => {
 
       {id && (
         <div className="px-6 py-2 border-b border-atmo-3 bg-atmo-0 shrink-0">
-          <div className="text-[11px] text-atmo-8 font-mono">Submission ID: {id}</div>
+          <div className="text-[11px] text-muted-foreground font-mono">Submission ID: {id}</div>
         </div>
       )}
 

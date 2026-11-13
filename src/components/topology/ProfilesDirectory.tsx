@@ -86,7 +86,7 @@ const ProfilesDirectory = ({ query = "", profileKind }: ProfilesDirectoryProps) 
             ))}
             {rows.length === 0 && (
               <TableRow>
-                <TableCell colSpan={8} className="text-center text-atmo-8 text-sm py-12 border border-[#E2E8F0]">
+                <TableCell colSpan={8} className="text-center text-muted-foreground text-sm py-12 border border-[#E2E8F0]">
                   No profiles match the current filters.
                 </TableCell>
               </TableRow>

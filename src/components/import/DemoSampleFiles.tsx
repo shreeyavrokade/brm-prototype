@@ -25,7 +25,7 @@ const DemoSampleFiles = () => (
     <summary className="px-4 py-3 cursor-pointer text-sm font-medium text-foreground flex items-center gap-2 list-none">
       <FlaskConical className="h-4 w-4 text-atmo-9" />
       Demo sample files
-      <span className="ml-1 text-xs font-normal text-atmo-8">Simulated data for walkthroughs — download, then upload above</span>
+      <span className="ml-1 text-xs font-normal text-muted-foreground">Simulated data for walkthroughs — download, then upload above</span>
     </summary>
     <ul className="px-4 pb-4 space-y-1.5">
       {TOPOLOGY_SAMPLES.map((s) => (

@@ -25,7 +25,7 @@ const SPP_MEMBERS = new Set([
 
 const KV = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div>
-    <div className="text-[11px] uppercase tracking-wide text-atmo-8 font-medium mb-1">{label}</div>
+    <div className="text-[11px] uppercase tracking-wide text-muted-foreground font-medium mb-1">{label}</div>
     <div className="text-sm text-foreground font-medium">{value}</div>
   </div>
 );
@@ -106,7 +106,7 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
               <h2 className="text-base font-semibold text-foreground font-mono truncate">
                 Activity &amp; History — #{tx.id}
               </h2>
-              <p className="text-xs text-atmo-8 mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 Submitted {fmt(submitted)} by {tx.fromEntity}
               </p>
               <div className="mt-3 flex items-center gap-2">
@@ -139,7 +139,7 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
             )}
 
             <div>
-              <div className="text-[11px] uppercase tracking-wide text-atmo-8 font-semibold mb-2">
+              <div className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold mb-2">
                 Transaction Parameters
               </div>
               <div className="bg-muted/40 border border-atmo-3 rounded-xl p-4 grid grid-cols-2 gap-4 text-sm">
@@ -149,7 +149,7 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
                     <>
                       {tx.fromEntity}
                       {!SPP_MEMBERS.has(tx.fromEntity) && (
-                        <span className="text-atmo-8 font-normal"> (External)</span>
+                        <span className="text-muted-foreground font-normal"> (External)</span>
                       )}
                     </>
                   }
@@ -160,7 +160,7 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
                     <>
                       {tx.toEntity}
                       {!SPP_MEMBERS.has(tx.toEntity) && (
-                        <span className="text-atmo-8 font-normal"> (External)</span>
+                        <span className="text-muted-foreground font-normal"> (External)</span>
                       )}
                     </>
                   }
@@ -178,7 +178,7 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
             {/* Proof of Coordination */}
             {isExternal && (
               <div>
-                <div className="text-[11px] uppercase tracking-wide text-atmo-8 font-semibold mb-2">
+                <div className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold mb-2">
                   Proof of Coordination
                 </div>
                 <div className="border border-atmo-3 rounded-xl p-4 flex items-center justify-between bg-white gap-3">
@@ -188,7 +188,7 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
                       <div className="text-sm font-medium text-foreground truncate">
                         Proof_of_Coordination_{tx.toEntity.replace(/\s+/g, "")}.pdf
                       </div>
-                      <div className="text-xs text-atmo-8 mt-0.5 flex items-center gap-2">
+                      <div className="text-xs text-muted-foreground mt-0.5 flex items-center gap-2">
                         <span>1.2 MB</span>
                         <span className="text-atmo-6">•</span>
                         <span className="inline-flex items-center gap-1 text-atmo-9">
@@ -208,7 +208,7 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
 
             {/* Audit */}
             <section>
-              <div className="text-[11px] uppercase tracking-wide text-atmo-8 font-semibold mb-3">
+              <div className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold mb-3">
                 Audit Log
               </div>
               <ol className="relative border-l border-atmo-3 ml-2 space-y-4">
@@ -219,7 +219,7 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
                         a.complete ? "bg-emerald-500" : "bg-atmo-5"
                       }`}
                     />
-                    <div className="text-[11px] text-atmo-8 font-mono">{a.t}</div>
+                    <div className="text-[11px] text-muted-foreground font-mono">{a.t}</div>
                     <div className="text-sm text-foreground font-medium mt-0.5">{a.title}</div>
                     {a.detail && <div className="text-xs text-atmo-9 mt-0.5">{a.detail}</div>}
                   </li>
@@ -229,7 +229,7 @@ const TransactionActivitySheet = ({ tx, open, onOpenChange }: Props) => {
 
             {/* Discussion */}
             <section>
-              <div className="text-[11px] uppercase tracking-wide text-atmo-8 font-semibold mb-3">
+              <div className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold mb-3">
                 Discussion
               </div>
               <div className="space-y-3">

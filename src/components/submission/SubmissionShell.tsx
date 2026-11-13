@@ -178,7 +178,7 @@ const SubmissionShell = ({
       </div>
       <div className="flex-1 overflow-auto p-3">
         {issueCount === 0 ? (
-          <p className="text-xs text-atmo-8 text-center mt-8">No engineering anomalies detected.</p>
+          <p className="text-xs text-muted-foreground text-center mt-8">No engineering anomalies detected.</p>
         ) : (
           <ValidationLog warnings={validationWarnings} />
         )}

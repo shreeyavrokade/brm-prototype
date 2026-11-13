@@ -43,7 +43,7 @@ const PAGE_SIZE = 20;
 const statusConfig: Record<FieldStatus, { label: string; className: string }> = {
   valid: { label: "Valid", className: "bg-success/10 text-success border-success/20" },
   // NEXT Semantic/*_20 fill + border + text pairs (≥4.5:1 text contrast).
-  warning: { label: "Warning", className: "bg-[#FCF2D9] text-[#6D4D09] border-[#FFBE2E]" },
+  warning: { label: "Warning", className: "bg-[#FCF2D9] text-[#6D4D09] border-[#B7791F]" },
   error: { label: "Error", className: "bg-[#FBE5E8] text-[#A51C2A] border-[#C82333]" },
 };
 

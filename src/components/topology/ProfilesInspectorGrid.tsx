@@ -94,7 +94,7 @@ const ProfilesInspectorGrid = ({ rows, issues = [], filter = "all", focusRowId =
               ))}
               <TableHead className="w-10 text-xs font-semibold text-atmo-10 border border-[#E2E8F0] bg-atmo-1 text-center">
                 <span className="sr-only">Actions</span>
-                <MoreVertical className="h-3.5 w-3.5 mx-auto text-atmo-8" aria-hidden />
+                <MoreVertical className="h-3.5 w-3.5 mx-auto text-muted-foreground" aria-hidden />
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -148,7 +148,7 @@ const ProfilesInspectorGrid = ({ rows, issues = [], filter = "all", focusRowId =
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-7 w-7 text-atmo-8 hover:text-atmo-10"
+                      className="h-7 w-7 text-muted-foreground hover:text-atmo-10"
                       aria-label={`Actions for ${r.busI} ${r.name}`}
                     >
                       <MoreVertical className="h-4 w-4" />
@@ -159,7 +159,7 @@ const ProfilesInspectorGrid = ({ rows, issues = [], filter = "all", focusRowId =
             })}
             {visible.length === 0 && (
               <TableRow>
-                <TableCell colSpan={COLS.length + 1} className="text-xs text-atmo-8 text-center py-8">
+                <TableCell colSpan={COLS.length + 1} className="text-xs text-muted-foreground text-center py-8">
                   No records match this filter.
                 </TableCell>
               </TableRow>

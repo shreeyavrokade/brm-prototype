@@ -31,7 +31,7 @@ export const ReportCardBar = () => {
               East (EDST)
             </div>
             <div className="mt-1 text-sm text-foreground">
-              42 Members Responded <span className="text-atmo-8">|</span> 12 Pending Review
+              42 Members Responded <span className="text-muted-foreground">|</span> 12 Pending Review
             </div>
           </div>
           <div>
@@ -39,7 +39,7 @@ export const ReportCardBar = () => {
               West (Workbook)
             </div>
             <div className="mt-1 text-sm text-foreground">
-              23 Members Responded <span className="text-atmo-8">|</span> 23 Confirmed No Change
+              23 Members Responded <span className="text-muted-foreground">|</span> 23 Confirmed No Change
             </div>
           </div>
         </div>

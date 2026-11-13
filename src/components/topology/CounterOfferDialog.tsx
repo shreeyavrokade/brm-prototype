@@ -142,7 +142,7 @@ const CounterOfferDialog = ({ tx, open, onOpenChange }: Props) => {
             <h2 className="text-base font-semibold text-foreground">
               Counter Offer — <span className="font-mono">Transaction #{tx.id}</span>
             </h2>
-            <p className="text-xs text-atmo-8 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               Submitting Entity: {tx.fromEntity} | Counterparty: {tx.toEntity}
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -150,10 +150,10 @@ const CounterOfferDialog = ({ tx, open, onOpenChange }: Props) => {
                 <ArrowsLeftRight size={12} weight="bold" />
                 Negotiation turn {turn}
               </span>
-              <span className="inline-flex items-center gap-1.5 text-[11px] text-atmo-8">
+              <span className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
                 {partyLabel(tx, "cp1")}: <AckStatePill state={tx.cp1Ack} />
               </span>
-              <span className="inline-flex items-center gap-1.5 text-[11px] text-atmo-8">
+              <span className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
                 {partyLabel(tx, "cp2")}: <AckStatePill state={tx.cp2Ack} />
               </span>
             </div>
@@ -170,7 +170,7 @@ const CounterOfferDialog = ({ tx, open, onOpenChange }: Props) => {
         {/* Body */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           <div>
-            <div className="text-[11px] uppercase tracking-wide text-atmo-8 font-semibold mb-2">
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold mb-2">
               Seasonal Capacity Comparison (Out-Year MW)
             </div>
             <div className="border border-[#D9D9D9] rounded-md overflow-hidden">
@@ -204,7 +204,7 @@ const CounterOfferDialog = ({ tx, open, onOpenChange }: Props) => {
                             <span className="font-medium">
                               {meta.year} {meta.label}
                             </span>{" "}
-                            <span className="font-mono text-atmo-8">[{meta.code}]</span>
+                            <span className="font-mono text-muted-foreground">[{meta.code}]</span>
                           </td>
                           <td className="px-2 py-1.5 text-right font-mono tabular-nums text-atmo-10 border-b border-[#EEF1F5]">
                             {orig.toFixed(2)}
@@ -269,7 +269,7 @@ const CounterOfferDialog = ({ tx, open, onOpenChange }: Props) => {
             </>
           ) : (
             <>
-              <span className="text-[11px] text-atmo-8">
+              <span className="text-[11px] text-muted-foreground">
                 Review the most recent counter, then accept or counter again.
               </span>
               <div className="flex items-center gap-2">

@@ -152,7 +152,7 @@ const RatingsInspectorGrid = ({ rows = mockRatingsInspector, issues = [], filter
             })}
             {visible.length === 0 && (
               <TableRow>
-                <TableCell colSpan={COLS.length} className="text-xs text-atmo-8 text-center py-8">
+                <TableCell colSpan={COLS.length} className="text-xs text-muted-foreground text-center py-8">
                   No records match this filter.
                 </TableCell>
               </TableRow>

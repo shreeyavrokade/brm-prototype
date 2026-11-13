@@ -269,8 +269,9 @@ const ImportSubmission = () => {
   const docsForType = isTopology && projectType ? requiredDocs[projectType as ProjectType] : undefined;
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex flex-col bg-atmo-1 w-full">
+    <SidebarProvider className="h-svh min-h-0 overflow-hidden">
+      {/* Viewport-height layout: header, sub-header and footer stay put; only <main> scrolls if needed. */}
+      <div className="h-full min-h-0 flex flex-col bg-atmo-1 w-full">
         <GlobalHeader />
 
         {/* Sub-header: breadcrumb + close */}
@@ -291,10 +292,10 @@ const ImportSubmission = () => {
           </Button>
         </div>
 
-        <main className="flex-1 px-6 py-10">
+        <main className="flex-1 min-h-0 overflow-y-auto px-6 py-6">
           <Stepper steps={STEPS} current={step} />
 
-          <div className="max-w-3xl mx-auto mt-12">
+          <div className="max-w-3xl mx-auto mt-6">
             {step === 0 && (
               <section>
                 <h1 className="text-2xl font-semibold text-foreground mb-2">Upload File</h1>
@@ -549,7 +550,7 @@ const ImportSubmission = () => {
                             variant="outline"
                             className={cn(
                               "w-full justify-between font-normal",
-                              !effectiveDate && "text-atmo-8"
+                              !effectiveDate && "text-muted-foreground"
                             )}
                           >
                             {effectiveDate ? format(effectiveDate, "d MMM yyyy") : "Enter date"}
@@ -624,12 +625,12 @@ const ImportSubmission = () => {
                   </>
                 )}
 
-                <div className={isProfiles ? "" : "mt-8"}>
+                <div className={isProfiles ? "" : "mt-6"}>
                   {!isProfiles && (
                     <div className="flex items-baseline justify-between mb-2">
                       <div className="flex items-baseline gap-2">
                         <span className="text-sm font-semibold text-foreground">Comment</span>
-                        <span className="text-xs text-atmo-8">
+                        <span className="text-xs text-muted-foreground">
                           Optional information to provide context to {brand.clientShortName}.
                         </span>
                       </div>

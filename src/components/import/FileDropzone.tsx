@@ -22,7 +22,7 @@ const FileDropzone = ({ accept, multiple, hint, label = "Add File", onFiles }: F
     <div>
       <div className="flex items-baseline justify-between mb-2">
         <span className="text-sm font-medium text-primary-200">{label}</span>
-        <span className="text-xs text-atmo-8">{hint}</span>
+        <span className="text-xs text-muted-foreground">{hint}</span>
       </div>
       <div
         onClick={() => inputRef.current?.click()}
@@ -36,7 +36,7 @@ const FileDropzone = ({ accept, multiple, hint, label = "Add File", onFiles }: F
           "h-[140px] flex items-center justify-center gap-3 hover:bg-atmo-2 transition-colors"
         )}
       >
-        <FileIcon className="h-6 w-6 text-atmo-8" strokeWidth={1.5} />
+        <FileIcon className="h-6 w-6 text-muted-foreground" strokeWidth={1.5} />
         <div className="text-sm text-foreground">
           <div>{multiple ? "Drop files here" : "Drop file here"}</div>
           <div className="text-atmo-9">

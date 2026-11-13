@@ -90,7 +90,10 @@
     --secondary-foreground: var(--base-dark);
 
     --muted: var(--atmo-2);
-    --muted-foreground: var(--atmo-8);
+    /* Secondary text: NEXT Outline #6C6B6B darkened one step to #686767 so it passes
+       AA (≥4.5:1) on white 5.64, panel #F0F0F0 4.95 and hover #E8E8E8 4.60, while
+       staying clearly lighter than primary text #222222. Was atmo-8 #737373. */
+    --muted-foreground: 0 1% 40.6%;
 
     --accent: var(--atmo-2);
     --accent-foreground: var(--base-dark);

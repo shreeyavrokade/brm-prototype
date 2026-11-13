@@ -57,7 +57,7 @@ const Header = ({
         <Button
           variant="ghost"
           size="sm"
-          className="h-8 px-2 shrink-0 text-atmo-8 hover:text-foreground gap-1.5"
+          className="h-8 px-2 shrink-0 text-muted-foreground hover:text-foreground gap-1.5"
           onClick={onBack ?? onClose}
           aria-label="Back"
         >

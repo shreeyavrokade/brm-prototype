@@ -115,7 +115,7 @@ const RatingsManagement = () => {
       <div className="flex items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-2 flex-1">
           <div className="relative w-full max-w-xs">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-atmo-8 pointer-events-none" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -201,7 +201,7 @@ const RatingsManagement = () => {
               })}
               {rows.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={COLS.length} className="text-center text-atmo-8 text-sm py-12 border border-[#E2E8F0]">
+                  <TableCell colSpan={COLS.length} className="text-center text-muted-foreground text-sm py-12 border border-[#E2E8F0]">
                     No tie-lines match the current filters.
                   </TableCell>
                 </TableRow>

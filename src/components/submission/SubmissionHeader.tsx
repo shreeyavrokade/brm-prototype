@@ -33,7 +33,7 @@ const SubmissionHeader = ({
   return (
     <header className="border-b bg-card px-6 py-3 flex items-center justify-between gap-6 shrink-0">
       <div className="flex items-center gap-2 min-w-0">
-        <Button asChild variant="ghost" size="sm" className="h-8 px-2 shrink-0 text-atmo-8 hover:text-foreground gap-1.5">
+        <Button asChild variant="ghost" size="sm" className="h-8 px-2 shrink-0 text-muted-foreground hover:text-foreground gap-1.5">
           <Link to={backTo} aria-label="Back">
             <ArrowLeft className="h-4 w-4" />
             <span className="text-xs font-medium">Back</span>

@@ -138,7 +138,7 @@ const ChangesetTable = ({ query = "" }: ChangesetTableProps) => {
                     className="inline-flex items-center gap-1.5 text-sm text-foreground hover:text-brand underline-offset-2 hover:underline"
                   >
                     {row.projectName}
-                    {idx === 0 && <ExternalLink className="h-3 w-3 text-atmo-8" />}
+                    {idx === 0 && <ExternalLink className="h-3 w-3 text-muted-foreground" />}
                   </Link>
                 </TableCell>
                 <TableCell className="border border-[#E2E8F0]"><LiveStatusBadge id={row.id} status={row.reviewStatus} /></TableCell>

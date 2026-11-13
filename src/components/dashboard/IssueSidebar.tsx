@@ -91,8 +91,8 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
         issue.dismissed ? "opacity-40" : ""
       } ${
         issue.status === "error"
-          ? "border-l-destructive border-y-destructive/15 border-r-destructive/15 bg-destructive/[0.04]"
-          : "border-l-warning border-y-warning/20 border-r-warning/20 bg-warning/[0.04]"
+          ? "border-l-[#C82333] border-y-[#C82333]/30 border-r-[#C82333]/30 bg-white"
+          : "border-l-[#B7791F] border-y-[#B7791F]/40 border-r-[#B7791F]/40 bg-white"
       }`}
       onMouseEnter={() => onHoverIssue(issue.rowId, issue.cellKey)}
       onMouseLeave={() => onHoverIssue(null, null)}
@@ -112,7 +112,7 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
                 ? "border-muted-foreground/30 text-muted-foreground bg-transparent"
                 : issue.status === "error"
                 ? "bg-[#C82333] hover:bg-[#C82333]"
-                : "border-[#FFBE2E] text-[#6D4D09] bg-[#FCF2D9]"
+                : "border-[#B7791F] text-[#6D4D09] bg-[#FCF2D9]"
             }`}
           >
             {!issue.dismissed && (
@@ -229,7 +229,7 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
                     </Badge>
                   )}
                   {warningCount > 0 && (
-                    <Badge variant="outline" className="text-[11px] font-semibold h-5 px-2 border-[#FFBE2E] text-[#6D4D09] bg-[#FCF2D9]">
+                    <Badge variant="outline" className="text-[11px] font-semibold h-5 px-2 border-[#B7791F] text-[#6D4D09] bg-[#FCF2D9]">
                       {warningCount}
                     </Badge>
                   )}
@@ -319,7 +319,7 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
                             </Badge>
                           )}
                           {warnings > 0 && (
-                            <Badge variant="outline" className="text-[11px] font-semibold h-5 px-2 border-[#FFBE2E] text-[#6D4D09] bg-[#FCF2D9]">
+                            <Badge variant="outline" className="text-[11px] font-semibold h-5 px-2 border-[#B7791F] text-[#6D4D09] bg-[#FCF2D9]">
                               {warnings} warning{warnings !== 1 ? "s" : ""}
                             </Badge>
                           )}

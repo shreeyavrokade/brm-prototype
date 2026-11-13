@@ -83,7 +83,7 @@ const CommentsCell = ({
           disabled={disabled}
           className={cn(
             "inline-flex items-center gap-1.5 h-7 px-2 rounded-sm border text-xs hover:bg-atmo-1 disabled:opacity-50",
-            err ? "border-destructive text-destructive" : value ? "border-atmo-5 text-foreground" : "border-dashed border-atmo-5 text-atmo-8",
+            err ? "border-destructive text-destructive" : value ? "border-atmo-5 text-foreground" : "border-dashed border-atmo-5 text-muted-foreground",
           )}
         >
           <MessageSquare className="h-3 w-3" />
@@ -100,7 +100,7 @@ const CommentsCell = ({
           placeholder="Add reviewer note…"
           disabled={disabled}
         />
-        <div className={cn("mt-1 flex justify-between text-[11px]", err ? "text-destructive" : "text-atmo-8")}>
+        <div className={cn("mt-1 flex justify-between text-[11px]", err ? "text-destructive" : "text-muted-foreground")}>
           <span>{err ?? "Markdown not supported."}</span>
           <span>{value.length}/{commentsMaxLen}</span>
         </div>
@@ -138,8 +138,8 @@ const EditableInput = ({
 
 const AuditCell = ({ a }: { a: BusRow["audit"] }) => (
   <div className="text-[11px] leading-tight text-atmo-9">
-    <div><span className="text-atmo-8">Created</span> {a.createdBy} · {a.createdDate}</div>
-    <div><span className="text-atmo-8">Modified</span> {a.modifiedBy} · {a.modifiedDate}</div>
+    <div><span className="text-muted-foreground">Created</span> {a.createdBy} · {a.createdDate}</div>
+    <div><span className="text-muted-foreground">Modified</span> {a.modifiedBy} · {a.modifiedDate}</div>
   </div>
 );
 
@@ -242,7 +242,7 @@ export const BusGrid = ({
                   <td className={TD}><StatusBadge status={r.status} /></td>
                   <td className={cn(TD, "font-mono tabular-nums")}>
                     <span className={cn("inline-flex items-center gap-1", numErr && "text-destructive")}>
-                      {r.locked && <Lock className="h-3 w-3 text-atmo-8" />}
+                      {r.locked && <Lock className="h-3 w-3 text-muted-foreground" />}
                       {r.busNumber}
                     </span>
                     {numErr && <div className="mt-0.5 text-[10px] font-semibold text-destructive">{numErr}</div>}
@@ -267,7 +267,7 @@ export const BusGrid = ({
                       </div>
                     ) : (
                       <span className={cn("text-atmo-10", dirty.has(r.id) && "border-l-2 border-l-amber-500 pl-1.5 -ml-1.5")}>
-                        {r.busLongName || <span className="italic text-atmo-8">—</span>}
+                        {r.busLongName || <span className="italic text-muted-foreground">—</span>}
                       </span>
                     )}
                   </td>
@@ -286,7 +286,7 @@ export const BusGrid = ({
                         {eiaErr && <div className="mt-0.5 text-[10px] font-semibold text-destructive">{eiaErr}</div>}
                       </div>
                     ) : (
-                      <span className="text-atmo-10 tabular-nums">{r.eiaPlantCode || <span className="italic text-atmo-8">—</span>}</span>
+                      <span className="text-atmo-10 tabular-nums">{r.eiaPlantCode || <span className="italic text-muted-foreground">—</span>}</span>
                     )}
                   </td>
                   <td className={TD}><RO>{r.region}</RO></td>
@@ -405,7 +405,7 @@ const GenStatusPill = ({ status }: { status: GeneratorRow["status"] }) => (
 );
 
 const cellValue = (v: unknown) =>
-  v === "" || v === null || v === undefined ? <span className="italic text-atmo-8">—</span> : String(v);
+  v === "" || v === null || v === undefined ? <span className="italic text-muted-foreground">—</span> : String(v);
 
 type GenDraft = {
   longName: string;

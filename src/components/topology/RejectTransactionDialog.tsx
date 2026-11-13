@@ -78,7 +78,7 @@ const RejectTransactionDialog = ({ tx, open, onOpenChange }: Props) => {
                 <RadioGroupItem value="reject" className="mt-0.5" />
                 <span>
                   <span className="block text-sm font-medium">Reject outright</span>
-                  <span className="block text-xs text-atmo-8">
+                  <span className="block text-xs text-muted-foreground">
                     Terminal state — status becomes Rejected.
                   </span>
                 </span>
@@ -87,7 +87,7 @@ const RejectTransactionDialog = ({ tx, open, onOpenChange }: Props) => {
                 <RadioGroupItem value="return" className="mt-0.5" />
                 <span>
                   <span className="block text-sm font-medium">Return for revision</span>
-                  <span className="block text-xs text-atmo-8">
+                  <span className="block text-xs text-muted-foreground">
                     Status returns to Review Needed; both counterparties must act again.
                   </span>
                 </span>

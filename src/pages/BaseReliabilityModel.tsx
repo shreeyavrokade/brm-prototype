@@ -153,7 +153,7 @@ const BaseReliabilityModel = () => {
                 <div className={TAB_TOOLBAR}>
 
                   <div className="relative w-full max-w-xs">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-atmo-8 pointer-events-none" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                     <Input
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
@@ -176,7 +176,7 @@ const BaseReliabilityModel = () => {
 
 
                     <div className="relative w-full max-w-xs">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-atmo-8 pointer-events-none" />
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                       <Input
                         value={profilesQuery}
                         onChange={(e) => setProfilesQuery(e.target.value)}
@@ -213,7 +213,7 @@ const BaseReliabilityModel = () => {
               <TabsContent value="ratings" className="mt-6">
                 <div className={TAB_TOOLBAR}>
                   <div className="relative w-full max-w-xs">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-atmo-8 pointer-events-none" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                     <Input
                       value={ratingsQuery}
                       onChange={(e) => setRatingsQuery(e.target.value)}
@@ -242,7 +242,7 @@ const BaseReliabilityModel = () => {
               <TabsContent value="transactions" className="mt-6">
                 <div className={TAB_TOOLBAR}>
                   <div className="relative w-full max-w-xs">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-atmo-8 pointer-events-none" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                     <Input
                       value={txQuery}
                       onChange={(e) => setTxQuery(e.target.value)}

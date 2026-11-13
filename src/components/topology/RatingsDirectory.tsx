@@ -74,7 +74,7 @@ const RatingsDirectory = ({ query = "" }: { query?: string }) => {
             ))}
             {rows.length === 0 && (
               <TableRow>
-                <TableCell colSpan={6} className="text-center text-atmo-8 text-sm py-12 border border-[#E2E8F0]">
+                <TableCell colSpan={6} className="text-center text-muted-foreground text-sm py-12 border border-[#E2E8F0]">
                   No rating sets match the current search.
                 </TableCell>
               </TableRow>

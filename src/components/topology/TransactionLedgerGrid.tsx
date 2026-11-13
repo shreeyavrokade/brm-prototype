@@ -14,7 +14,7 @@ const ACTION_STYLES: Record<CellAction, string> = {
   ADD: "bg-[#D7E6CF] text-[#1F4D1F]",
   MOD: "bg-[#FBF2D8] text-[#4D4D4D]",
   DEL: "bg-[#F6DCDD] text-[#DC2626]",
-  NONE: "bg-transparent text-atmo-8",
+  NONE: "bg-transparent text-muted-foreground",
 };
 
 const Flag = ({ on }: { on: boolean }) => (
@@ -35,7 +35,7 @@ const NumCell = ({ value, action }: { value: number | DeltaValue; action: CellAc
   if (isDelta(value)) {
     return (
       <span className="tabular-nums inline-flex items-center gap-1 text-[#4D4D4D]">
-        <span className="line-through text-atmo-8">{value.prev}</span>
+        <span className="line-through text-muted-foreground">{value.prev}</span>
         <ArrowRight className="h-3 w-3" />
         <span className="font-semibold">{value.next}</span>
       </span>
@@ -137,7 +137,7 @@ const TransactionLedgerGrid = ({ rows = txLedgerRows }: Props) => {
               return (
                 <tr key={row.id} className={cn(zebra && "bg-[#F4F6F8]")}>
                   <td
-                    className={cn(TD_BASE, "sticky z-10 text-center text-atmo-8 tabular-nums")}
+                    className={cn(TD_BASE, "sticky z-10 text-center text-muted-foreground tabular-nums")}
                     style={{ left: STICKY_OFFSETS[0], minWidth: STICKY_WIDTHS[0], background: stickyBg }}
                   >
                     {idx + 1}
@@ -168,7 +168,7 @@ const TransactionLedgerGrid = ({ rows = txLedgerRows }: Props) => {
                   </td>
                   <td className={TD_BASE}>{row.disposition}</td>
                   <td className={cn(TD_BASE, "font-mono text-[11px]")}>{row.changesetId}</td>
-                  <td className={cn(TD_BASE, "font-mono text-[11px] text-atmo-8")}>{row.prevChangesetId}</td>
+                  <td className={cn(TD_BASE, "font-mono text-[11px] text-muted-foreground")}>{row.prevChangesetId}</td>
                   <td className={cn(TD_BASE, "font-mono text-[11px]")}>{row.recordKey}</td>
 
                   <td className={TD_BASE}>{row.responsibleEntity}</td>

@@ -39,7 +39,7 @@ const ValidationLog = ({ warnings }: { warnings: ValidationWarning[] }) => {
               <span className={cn("shrink-0 rounded-full px-2 py-0.5 font-semibold uppercase tracking-wide", SEVERITY_CLS[w.severity])}>
                 {w.severity}
               </span>
-              <span className="shrink-0 w-24 font-mono text-[11px] text-atmo-8 uppercase">{w.category}</span>
+              <span className="shrink-0 w-24 font-mono text-[11px] text-muted-foreground uppercase">{w.category}</span>
               <span className="font-mono text-[11px] text-atmo-10 shrink-0 w-28">{w.asset ?? "—"}</span>
               <span className="text-foreground">{w.message}</span>
             </div>

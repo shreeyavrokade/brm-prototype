@@ -66,8 +66,8 @@ const IssueResolutionPanel = ({ sections, activeSection, onDismiss }: Props) => 
         "text-xs cursor-pointer transition-all border-l-4 rounded-xl shadow-sm hover:border-[#2064B4]",
         issue.dismissed && "opacity-40",
         issue.severity === "error"
-          ? "border-l-[#C82333] border-y-[#C82333]/20 border-r-[#C82333]/20 bg-[#FBE5E8]/30"
-          : "border-l-[#FFBE2E] border-y-[#FFBE2E]/30 border-r-[#FFBE2E]/30 bg-[#FCF2D9]/30",
+          ? "border-l-[#C82333] border-y-[#C82333]/30 border-r-[#C82333]/30 bg-white"
+          : "border-l-[#B7791F] border-y-[#B7791F]/40 border-r-[#B7791F]/40 bg-white",
       )}
     >
       <CardHeader className="p-3 pb-1.5">
