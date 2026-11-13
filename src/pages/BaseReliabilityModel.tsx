@@ -86,10 +86,10 @@ const BaseReliabilityModel = () => {
 
   if (portalView === "SPP_ENGINEER") {
     return (
-      <div className="min-h-screen flex flex-col w-full bg-atmo-1">
+      <div className="h-screen flex flex-col w-full bg-atmo-1 overflow-hidden">
         <GlobalHeader />
-        <SidebarProvider>
-          <div className="flex flex-1 w-full">
+        <SidebarProvider className="min-h-0 flex-1">
+          <div className="flex flex-1 w-full min-h-0">
             <AppSidebar />
             <main className="flex-1 p-8 overflow-auto">
               <SppEngineerDashboard />
@@ -101,10 +101,10 @@ const BaseReliabilityModel = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col w-full bg-atmo-1">
+    <div className="h-screen flex flex-col w-full bg-atmo-1 overflow-hidden">
       <GlobalHeader />
-      <SidebarProvider>
-        <div className="flex flex-1 w-full">
+      <SidebarProvider className="min-h-0 flex-1">
+        <div className="flex flex-1 w-full min-h-0">
           <AppSidebar />
           <main className="flex-1 p-8 overflow-auto">
             <h1 className="text-2xl font-semibold text-foreground mb-6">Base Reliability Model</h1>

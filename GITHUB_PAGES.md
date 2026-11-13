@@ -39,3 +39,11 @@ There is no push trigger, so committing or pushing these changes does not automa
 Existing repository-wide ESLint errors remain tracked separately; lint is not included as a deployment gate yet. The existing large-bundle warning is also unchanged. The browser demo gate and browser-local state retain their documented prototype limitations.
 
 Reference: [Vite Pages deployment guidance](https://vite.dev/guide/static-deploy#github-pages).
+
+## Updating an already hosted prototype
+
+Continue editing locally, run tests and both TypeScript checks, then run `npm run build:pages`. Commit/push the intended revision and manually run the Pages workflow. Publishing is not triggered by pushes in the current workflow. Verify the live URL after each successful deployment; refresh old tabs when necessary.
+
+Keep package.json and package-lock.json synchronized: the workflow uses `npm ci`. The final 2026-11-13 audit still finds a lockfile mismatch, so that must be fixed before the first successful deployment. See GITHUB_PAGES_AUDIT.md for the current release gate.
+
+Browser-side interactions remain supported, but in-memory demo uploads/state do not survive a page reload. Future server-side features require separate services and a fresh assessment.

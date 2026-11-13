@@ -100,7 +100,8 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-atmo-3">
+    // Start below the 56px GlobalHeader (h-14) so the sidebar doesn't cover the logo and product name.
+    <Sidebar collapsible="icon" className="top-14 h-[calc(100svh-3.5rem)] border-r border-atmo-3">
       <SidebarContent className="bg-atmo-0 pt-4">
         <SidebarGroup>
           <SidebarGroupContent>

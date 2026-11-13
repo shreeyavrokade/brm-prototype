@@ -28,6 +28,72 @@ Date: 2026-11-13. Scope: current application source, brand configuration, shared
 
 A Dawn comment or lack of a NEXT npm package is not by itself proof of noncompliance. The issue is the verified mismatch and missing traceability/state validation. Figma components do not automatically become runtime React components.
 
+## NEXT 6.3.1 foundations (recorded 2026-11-13)
+
+Source: NEXT Design System 6.3.1 (`IP7UpMBipYr1A9cGUNpPQd`), read-only via Figma MCP `get_variable_defs` on the component frames listed. Values are the resolved variables Figma returned; nothing is guessed. The workspace also has a separate "Legacy: NEXT Design System 6.3.1" library; these values come from the current file. Policy (user, 2026-11-13): the accent stays fixed to NEXT, not per brand.
+
+### Colour
+
+| NEXT variable | Value | Current app token | Match |
+| --- | --- | --- | --- |
+| `Accent/primary` / `Base/dark` / `TextNormal` | `#222222` | `--base-dark`, `--text-primary` `#222222`; **`--brand` `#CC0000`** (active tabs, `bg-brand` buttons) | **Mismatch:** NEXT's primary accent is near-black, and the app uses Hitachi red as its accent |
+| `Accent/focus` / `BorderFocusState` | `#5B78BE` | `--ring` `#5B78BE` (light); dark-mode `--ring` differs | Match (light) |
+| `BorderHover&Selected` | `#4D4D4D` | `--atmo-10` `#4D4D4D` | Match |
+| `Outline` / `TextPlaceholder` / `Accent/placeholder` | `#6C6B6B` | `--text-secondary` `#6C6B6B` | Match |
+| `Text&borderDisabled` | `#999999` | `--text-tertiary` `#999999` | Match |
+| `ContainerDisabledBackground` / `Atmosphere/atmo3` | `#E8E8E8` | `--atmo-3` | Match |
+| `ContainerBackground` / `Atmosphere/atmo2` | `#F0F0F0` | `--atmo-2` | Match |
+| `ContainerHoverBackground` / `Accent/hover_container` | `#D9D9D9` at 60% | `--atmo-4` `#D9D9D9` (opaque) | Opacity differs |
+| `ContainerSecondaryBackground` / `Atmosphere/atmo1` / `Base/light` | `#FBFCFC` | `--atmo-1`, `--surface-page` | Match |
+| `Atmosphere/atmo0` / `PageBackground` | `#FFFFFF` | `--atmo-0` | Match |
+| `TextLink` | `#2064B4` | `--action-primary` `#0056B3`; literal `#2064B4` at call sites | **Mismatch** in the token; literals are correct |
+| `Semantic/positive` · `_20` | `#146C2E` · `#DEEDE2` | `--green-text` · `--green-light` | Match |
+| `Semantic/warning` · `_20` · `warning_text` | `#FFBE2E` · `#FCF2D9` · `#6D4D09` | literals only (`--base-warning` is `#FBF2D8`) | No token; `--base-warning` is close but different |
+| `Semantic/negative` · `_20` | `#C82333` · `#FBE5E8` | `--red-primary` · `--red-light`; `--danger-text` `#CC0000` | Match, except `--danger-text` |
+| `Semantic/catastrophic` · `_20` | `#921581` · `#F1DFEC` | none | Missing (not needed on the current demo path) |
+| `Semantic/informative` · `Informative_20` | `#BFCDED` · `#E0E6F5` | `--info-tint` `#E0E6F5` | `_20` matches; base missing |
+| `Categorical/Cat1/140` | `#5B78BE` | hitachi.focus | Same value |
+
+### Type
+
+| NEXT style | Font | App |
+| --- | --- | --- |
+| `Desktop/Body` | Hitachi Sans Regular 14/24 | Inter |
+| `Desktop/Label` (buttons, tags) | Hitachi Sans SemiBold 14/21 | Button: Inter `font-medium` 14 |
+| `Desktop/Title 4` · `Title 4 Label` | 16/24 Regular · Bold | — |
+| `Desktop/Title 3` · `Title 3 Label` (dialog title) | 18/30 Regular · Bold | — |
+
+Hitachi Sans is a licensed Hitachi typeface and isn't in the repo. Inter is the current substitute. **Open question for the user (GAP-10):** can the Hitachi Sans webfont be supplied? If not, record Inter as an approved exception and match sizes, weights and line heights.
+
+### Spacing, size, radius, elevation
+
+| NEXT variable | Value | App |
+| --- | --- | --- |
+| `spacing/xs` · `sm` · `md` | 8 · 16 · 24 | Tailwind 2 · 4 · 6 (same px) |
+| `height/md` (button, input, tag Title 4) | 32 | Button default `h-10` (40) — **mismatch (DS-02)** |
+| `Component/buttonRadius` · `Base Radius/pill` | 999 (pill) | Button `rounded-md` (≈4px) — **mismatch (DS-02)** |
+| `Component/inputRadius` · `containerRadius` | 8 | `--radius` 6px (0.375rem) — **mismatch** |
+| `Component/listitemRadius` | 4 | — |
+| `Container Shadow` | drop shadow `#2222221F`, 0/0 offset, blur 8 | Tailwind `shadow-sm`/`shadow-lg` (different) |
+
+### Component specimens inspected
+
+| Component | Node | Findings |
+| --- | --- | --- |
+| Button (all types/states) | `10:4129`, context `19:9856` | Screenshot inspected. Primary: `#222222` pill, 32px, Label type, `spacing/sm` horizontal padding. Hover is a lighter grey; Disabled uses `#E8E8E8` fill + `#999999` text. Focus is a 2px `#5B78BE` ring around the pill. Secondary: outline (`Outline` `#6C6B6B`) pill. Ghost: no border until hover. Text Link: `#2064B4`. Context buttons: Positive `#146C2E`, Negative `#C82333`. |
+| Dialog | `324:45775`, parts `2211:1237802` | Screenshot (Informative, Simple 412px). Icon + Title 3 Label title, Body text, `containerRadius` 8, Container Shadow, 24px padding. **Button order: primary first, then Cancel (secondary)**, right-aligned. Variants: Informative, Positive, Critical-Delete, Critical-Leave × Simple/Advanced (684px). |
+| Tag | `36355:975` (Status), `36355:1051` (Categorical) | Status tags: Positive, Warning, Negative, Catastrophic, Info, using the semantic colours and their `_20` tints. Categorical tags use `inputRadius` 8, not a pill. |
+| Input | `56:15757` | States Enabled, Hover, Focus, Error, Read Only, Disabled. 32px field, `inputRadius` 8, `Outline` border, `BorderHover&Selected` on hover, `BorderFocusState` on focus, `Semantic/negative` on error. |
+| Notification banner / snackbar | `672:196644` / `672:196677` | Screenshot inspected. **Solid** pill banners: Informational `#BFCDED` dark text, Success `#146C2E` white text, Warning `#FFBE2E` dark text, Error `#C82333` white text, Catastrophic `#921581` white text. Icon + Body text + close. App banners use light tints with coloured borders: a different pattern. |
+
+### What this means for the next steps
+
+1. **Accent (DS-01):** NEXT's primary accent is `#222222`. Hitachi red `#CC0000` (`--brand`, active tab text, `danger-text`) isn't a NEXT accent variable here. Per the "stick to NEXT" decision, primary actions and selected states move to `#222222`, and red stays for `Semantic/negative` only. The red Hitachi logo is unaffected.
+2. **Buttons (DS-02):** 32px pill, Label type, NEXT hover/disabled/focus states; Secondary = outline pill; context Positive/Negative variants.
+3. **Tokens (DS-03):** add the missing NEXT tokens (warning set, catastrophic, informative base, TextLink, hover-container 60%, Container Shadow) so call-site literals can be replaced.
+4. **Dialog order:** NEXT puts the primary action first. The submit-with-warnings pop-up currently has Cancel first. Decide on NEXT order (GAP-10 lists this with the font question).
+5. **Banners:** the validation banners are tinted cards with actions. NEXT's Notification banner is a solid single-line pill. Keep the tinted cards as a documented product pattern (they carry counts and actions), or move to NEXT banner + separate actions. To be decided in WL-05.
+
 ## Component coverage and next checks
 
 | Application component | Current implementation | NEXT source / comparison state |

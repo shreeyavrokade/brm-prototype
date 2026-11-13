@@ -1,5 +1,38 @@
 # GitHub Pages readiness audit
 
+## Final pre-deployment review — 2026-11-13
+
+**Decision: suitable for GitHub Pages as an interactive browser-local prototype; hold deployment until the dependency lockfile is synchronized.** This review covers commit `676bd4f` plus the current sidebar edit. Audit/documentation only; no dependencies, app code, GitHub settings or deployment were changed.
+
+| Gate | Final evidence |
+| --- | --- |
+| Deployment install | **Fail.** `npm ci --dry-run --ignore-scripts --no-audit --no-fund` exits 1, EUSAGE: package-lock.json is missing @fontsource/inter, @phosphor-icons/react and peer/transitive dependencies. GAP-HOST-03 remains open. The workflow would fail before building. |
+| Builds | `npm run build:pages` and `npm run build` pass. Pages artifact 1,305,987 bytes; entry JS/CSS/favicon exist under /brm-prototype/. JS approximately 943 kB / 276 kB gzip; nonblocking chunk-size warning. |
+| Tests and types | 20/20 tests pass across seven files, including brand selection, validation, warning submission, engineer return and auto-accept guards. Both TypeScript projects pass --noEmit. |
+| Lint | 33 errors and 11 warnings remain. Not currently part of the deployment workflow. |
+| Browser interaction proof | Chromium on a plain static server mounted at /brm-prototype/: neutral-preset access gate, v1 .prj upload, project-type selection, submit, simulated validation, detail/issue display and disabled submission with 4 required fixes; corrected v2 upload and revalidation; optional-warning confirmation; simulated acceptance. Final banner explicitly retains 3 accepted warnings. |
+| Static-host navigation | Direct hash entry and refresh on MEM Generation pass; unknown-route home recovery stays inside the repository path. |
+| Design readiness | Neutral default now exists; current brand configuration uses session-scoped selection. Full NEXT component adoption, generalized demo data and audience-specific scenario preparation remain design/sales follow-ups, not static-host prerequisites. Do not treat successful hosting as design sign-off. |
+| Remote hosting | Repository Pages source, account eligibility, workflow execution, actual deployment URL and live-host regression checks not verified or changed. |
+
+The browser script initially waited for a different acceptance phrase; inspecting the actual state and explicitly asserting “Dataset Accepted” and the retained-warning banner confirmed success. No application change was needed.
+
+### Release requirements
+
+1. Synchronize package-lock.json against the intended package.json, commit it, and validate an actual clean install plus tests/types/Pages build. A local build with existing node_modules is not a substitute.
+2. Include the intended sidebar and other application edits in the release commit. Keep unrelated in-progress design documents separate if desired.
+3. Select GitHub Actions in Settings → Pages, then run the existing manual workflow for the intended revision when ready to publish. Verify the resulting live URL and the neutral demo path.
+4. Keep HOST-03 open until remote deployment and live checks pass. No full-module regression or production-readiness claim is made by this audit.
+
+### Continuing development after hosting
+
+Future UI, branding, sample-data and browser-side interaction changes can use the same hosting approach. Edit locally → test/type-check → build:pages → commit and push → run the manual Pages workflow → verify the published URL. The workflow has no push trigger: local edits and pushes alone do not update the hosted site. A successful new deployment replaces the published artifact; a failed install/build does not publish that new revision.
+
+Treat each release as a checked snapshot, not a guarantee that any edit will work. Preserve hash routing, deployment-base-aware asset paths, dependency-lock consistency and static/browser-compatible features. Build-time VITE settings require rebuilding. Long-open tabs may need a refresh after a deployment; do not rely on in-memory demo sessions surviving reload or redeployment. Existing browser storage follows its documented scope and should be included in replay/reset checks.
+
+GitHub Pages does not add server authentication, shared databases, persistent upload processing or external workflow integrations. If future requirements add those capabilities, the static frontend will need separate services and another hosting/security assessment.
+
+
 ## Latest re-audit — 2026-11-13
 
 **Verdict: the edited interactive app remains suitable for static Pages hosting, but the current deployment workflow is blocked by an out-of-sync npm lockfile.**

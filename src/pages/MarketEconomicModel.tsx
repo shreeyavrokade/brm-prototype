@@ -241,10 +241,10 @@ const MarketEconomicModel = () => {
 
   // CHECKLIST HUB — sidebar visible.
   return (
-    <div className="min-h-screen flex flex-col w-full bg-atmo-1">
+    <div className="h-screen flex flex-col w-full bg-atmo-1 overflow-hidden">
       <GlobalHeader />
-      <SidebarProvider>
-        <div className="flex flex-1 w-full">
+      <SidebarProvider className="min-h-0 flex-1">
+        <div className="flex flex-1 w-full min-h-0">
           <AppSidebar />
           <main className="flex-1 p-8 overflow-auto">
             <div className="flex items-center justify-between gap-4 mb-4">
