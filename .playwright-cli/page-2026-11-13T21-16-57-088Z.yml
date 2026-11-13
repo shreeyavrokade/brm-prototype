@@ -1,0 +1,216 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - img "Regional Grid Operator" [ref=e6]
+        - generic [ref=e8]: Unified Submission Portal
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - button "Participant View (USP)" [pressed] [ref=e11] [cursor=pointer]
+          - button "Grid Operator Engineer View (EP)" [ref=e15] [cursor=pointer]
+        - generic [ref=e18]: EL
+    - generic [ref=e20]:
+      - list [ref=e28]:
+        - listitem [ref=e30]:
+          - link "Studies" [ref=e31] [cursor=pointer]:
+            - /url: "#/studies"
+        - listitem [ref=e33]:
+          - button "ITP" [ref=e34] [cursor=pointer]
+        - listitem [ref=e39]:
+          - link "Base Reliability Model" [ref=e40] [cursor=pointer]:
+            - /url: "#/"
+        - listitem [ref=e44]:
+          - link "Dynamic Stability Model" [ref=e45] [cursor=pointer]:
+            - /url: "#/dynamic-stability"
+        - generic [ref=e47]:
+          - listitem [ref=e48]:
+            - link "Market Economic Model" [ref=e49] [cursor=pointer]:
+              - /url: "#/market-economic"
+          - listitem [ref=e54]:
+            - link "MEM Generation" [ref=e55] [cursor=pointer]:
+              - /url: "#/market-economic?track=gen"
+          - listitem [ref=e58]:
+            - link "MEM Load" [ref=e59] [cursor=pointer]:
+              - /url: "#/market-economic?track=load"
+        - listitem [ref=e62]:
+          - link "GI" [ref=e63] [cursor=pointer]:
+            - /url: "#/gi"
+        - listitem [ref=e66]:
+          - link "Reports" [ref=e67] [cursor=pointer]:
+            - /url: "#/reports"
+      - main [ref=e69]:
+        - heading "Base Reliability Model" [level=1] [ref=e70]
+        - generic [ref=e71]:
+          - tablist [ref=e73]:
+            - tab "Topology Changeset 1" [selected] [ref=e74] [cursor=pointer]:
+              - text: Topology Changeset
+              - generic "1 submission in Review Needed" [ref=e75]: "1"
+            - tab "Profiles 2" [ref=e76] [cursor=pointer]:
+              - text: Profiles
+              - generic "2 submissions in Review Needed" [ref=e77]: "2"
+            - tab "Ratings 1" [ref=e78] [cursor=pointer]:
+              - text: Ratings
+              - generic "1 submission in Review Needed" [ref=e79]: "1"
+            - tab "Equipment Details" [ref=e80] [cursor=pointer]
+            - tab "Transactions" [ref=e81] [cursor=pointer]
+          - tabpanel "Topology Changeset 1" [ref=e82]:
+            - generic [ref=e83]:
+              - textbox "Search by ID or Project Name" [ref=e85]
+              - link "Import Submission" [ref=e86] [cursor=pointer]:
+                - /url: "#/import-submission"
+            - generic [ref=e87]:
+              - table [ref=e90]:
+                - rowgroup [ref=e91]:
+                  - row [ref=e92]:
+                    - columnheader "ID" [ref=e93]
+                    - columnheader "Submission Name" [ref=e94]:
+                      - button "Submission Name" [ref=e95] [cursor=pointer]
+                    - columnheader "Review Status" [ref=e99]:
+                      - button "Review Status" [ref=e100] [cursor=pointer]
+                    - columnheader "Type" [ref=e104]:
+                      - button "Type" [ref=e105] [cursor=pointer]
+                    - columnheader "Submitter" [ref=e109]
+                    - columnheader "Submission Date" [ref=e110]:
+                      - button "Submission Date" [ref=e111] [cursor=pointer]
+                - rowgroup [ref=e115]:
+                  - row [ref=e116]:
+                    - cell "M80675" [ref=e117]
+                    - cell [ref=e118]:
+                      - link "527_WFEC_BoswellTap" [ref=e119] [cursor=pointer]:
+                        - /url: "#/submission/M80675"
+                    - cell [ref=e124]:
+                      - 'generic "Review Needed: Validation found errors or warnings that need attention. Next step: Open it, fix the errors by uploading a corrected version, and review the warnings." [ref=e125]': Review Needed
+                    - cell "Modeling Correction" [ref=e127]
+                    - cell "J. Smith" [ref=e128]
+                    - cell "14 Jan 2024" [ref=e129]
+                  - row [ref=e130]:
+                    - cell "M80679" [ref=e131]
+                    - cell [ref=e132]:
+                      - link "701 Comanche_Pueblo CO Upgrade" [ref=e133] [cursor=pointer]:
+                        - /url: "#/submission/M80679"
+                    - cell [ref=e134]:
+                      - 'generic "Draft: Saved but not submitted yet. Only your organization can see it. Next step: Finish the details and submit it for validation." [ref=e135]': Draft
+                    - cell "Modeling Correction" [ref=e137]
+                    - cell "J. Smith" [ref=e138]
+                    - cell "14 Jan 2024" [ref=e139]
+                  - row [ref=e140]:
+                    - cell "M80683" [ref=e141]
+                    - cell [ref=e142]:
+                      - link "133 Flint Hills_Manhattan KS Line" [ref=e143] [cursor=pointer]:
+                        - /url: "#/submission/M80683"
+                    - cell [ref=e144]:
+                      - 'generic "Draft: Saved but not submitted yet. Only your organization can see it. Next step: Finish the details and submit it for validation." [ref=e145]': Draft
+                    - cell "Modeling Correction" [ref=e147]
+                    - cell "J. Smith" [ref=e148]
+                    - cell "14 Jan 2024" [ref=e149]
+                  - row [ref=e150]:
+                    - cell "M80676" [ref=e151]
+                    - cell [ref=e152]:
+                      - link "524 Delay Mountain_Burg OK Rebuild" [ref=e153] [cursor=pointer]:
+                        - /url: "#/submission/M80676"
+                    - cell [ref=e154]:
+                      - 'generic "Pending Acceptance: Submitted and waiting for Grid Operator to review it. Next step: Watch for acceptance or a return note in Activity." [ref=e155]': Pending Acceptance
+                    - cell "Network Status" [ref=e157]
+                    - cell "A. Patel" [ref=e158]
+                    - cell "14 Jan 2024" [ref=e159]
+                  - row [ref=e160]:
+                    - cell "M80680" [ref=e161]
+                    - cell [ref=e162]:
+                      - link "318 Ozark_Springfield MO Tie" [ref=e163] [cursor=pointer]:
+                        - /url: "#/submission/M80680"
+                    - cell [ref=e164]:
+                      - 'generic "Pending Acceptance: Submitted and waiting for Grid Operator to review it. Next step: Watch for acceptance or a return note in Activity." [ref=e165]': Pending Acceptance
+                    - cell "Network Status" [ref=e167]
+                    - cell "A. Patel" [ref=e168]
+                    - cell "14 Jan 2024" [ref=e169]
+                  - row [ref=e170]:
+                    - cell "M80684" [ref=e171]
+                    - cell [ref=e172]:
+                      - link "566 Black Mesa_Tulsa OK Phase" [ref=e173] [cursor=pointer]:
+                        - /url: "#/submission/M80684"
+                    - cell [ref=e174]:
+                      - 'generic "Pending Acceptance: Submitted and waiting for Grid Operator to review it. Next step: Watch for acceptance or a return note in Activity." [ref=e175]': Pending Acceptance
+                    - cell "Network Status" [ref=e177]
+                    - cell "A. Patel" [ref=e178]
+                    - cell "14 Jan 2024" [ref=e179]
+                  - row [ref=e180]:
+                    - cell "M80677" [ref=e181]
+                    - cell [ref=e182]:
+                      - link "612 Sunflower_Topeka KS Reconductor" [ref=e183] [cursor=pointer]:
+                        - /url: "#/submission/M80677"
+                    - cell [ref=e184]:
+                      - 'generic "Accepted: Grid Operator accepted it for the model build. Next step: Nothing further this cycle." [ref=e185]': Accepted
+                    - cell "Modeling Correction" [ref=e187]
+                    - cell "M. Chen" [ref=e188]
+                    - cell "14 Jan 2024" [ref=e189]
+                  - row [ref=e190]:
+                    - cell "M80681" [ref=e191]
+                    - cell [ref=e192]:
+                      - link "245 Red River_Wichita Falls Loop" [ref=e193] [cursor=pointer]:
+                        - /url: "#/submission/M80681"
+                    - cell [ref=e194]:
+                      - 'generic "Accepted: Grid Operator accepted it for the model build. Next step: Nothing further this cycle." [ref=e195]': Accepted
+                    - cell "Modeling Correction" [ref=e197]
+                    - cell "M. Chen" [ref=e198]
+                    - cell "14 Jan 2024" [ref=e199]
+                  - row [ref=e200]:
+                    - cell "M80685" [ref=e201]
+                    - cell [ref=e202]:
+                      - link "402 Cherokee_Joplin MO Switch" [ref=e203] [cursor=pointer]:
+                        - /url: "#/submission/M80685"
+                    - cell [ref=e204]:
+                      - 'generic "Accepted: Grid Operator accepted it for the model build. Next step: Nothing further this cycle." [ref=e205]': Accepted
+                    - cell "Modeling Correction" [ref=e207]
+                    - cell "M. Chen" [ref=e208]
+                    - cell "14 Jan 2024" [ref=e209]
+                  - row [ref=e210]:
+                    - cell "M80678" [ref=e211]
+                    - cell [ref=e212]:
+                      - link "489 Cimarron_Liberal Tap" [ref=e213] [cursor=pointer]:
+                        - /url: "#/submission/M80678"
+                    - cell [ref=e214]:
+                      - 'generic "Rejected: Grid Operator returned it with notes. Next step: Read the notes in Activity, correct the submission and resubmit." [ref=e215]': Rejected
+                    - cell "Network Status" [ref=e217]
+                    - cell "R. Davis" [ref=e218]
+                    - cell "14 Jan 2024" [ref=e219]
+                  - row [ref=e220]:
+                    - cell "M80682" [ref=e221]
+                    - cell [ref=e222]:
+                      - link "892 Panhandle_Amarillo TX Sub" [ref=e223] [cursor=pointer]:
+                        - /url: "#/submission/M80682"
+                    - cell [ref=e224]:
+                      - 'generic "Rejected: Grid Operator returned it with notes. Next step: Read the notes in Activity, correct the submission and resubmit." [ref=e225]': Rejected
+                    - cell "Network Status" [ref=e227]
+                    - cell "R. Davis" [ref=e228]
+                    - cell "14 Jan 2024" [ref=e229]
+                  - row [ref=e230]:
+                    - cell "M80686" [ref=e231]
+                    - cell [ref=e232]:
+                      - link "778 Mustang_Norman OK Reactor" [ref=e233] [cursor=pointer]:
+                        - /url: "#/submission/M80686"
+                    - cell [ref=e234]:
+                      - 'generic "Rejected: Grid Operator returned it with notes. Next step: Read the notes in Activity, correct the submission and resubmit." [ref=e235]': Rejected
+                    - cell "Network Status" [ref=e237]
+                    - cell "R. Davis" [ref=e238]
+                    - cell "14 Jan 2024" [ref=e239]
+              - generic [ref=e240]:
+                - generic [ref=e241]:
+                  - generic [ref=e242]: 25 ▾
+                  - generic [ref=e243]: of 204 rows
+                - generic [ref=e244]:
+                  - button [ref=e245] [cursor=pointer]
+                  - button [ref=e246] [cursor=pointer]
+                  - generic [ref=e247]: "1"
+                  - generic [ref=e248]: / 8
+                  - button [ref=e249] [cursor=pointer]
+                  - button [ref=e250] [cursor=pointer]
+  - generic [ref=e252]:
+    - img "Regional Grid Operator" [ref=e253]
+    - heading "Unified Submission Portal" [level=1] [ref=e254]
+    - paragraph [ref=e255]: This environment is protected. Please enter the master access password supplied by your Planning Coordinator.
+    - generic [ref=e256]: Access Password
+    - textbox "Access Password" [active] [ref=e258]
+    - button "Unlock Prototype" [ref=e259] [cursor=pointer]

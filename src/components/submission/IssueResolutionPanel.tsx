@@ -79,7 +79,7 @@ const IssueResolutionPanel = ({ sections, activeSection, onDismiss }: Props) => 
           </div>
           <Badge
             className={cn(
-              "text-[9px] shrink-0 inline-flex items-center gap-1 border-0 rounded",
+              "text-[11px] font-semibold shrink-0 inline-flex items-center gap-1 border-0 rounded",
               issue.dismissed
                 ? "bg-transparent border border-[#D9D9D9] text-[#6C6B6B]"
                 : issue.severity === "error"
@@ -118,7 +118,7 @@ const IssueResolutionPanel = ({ sections, activeSection, onDismiss }: Props) => 
                 <Button
                   size="sm"
                   variant="outline"
-                  className="text-[10px] h-6 px-2"
+                  className="text-[11px] h-6 px-2"
                   onClick={() => {
                     onDismiss(issue.id, reason);
                     setDismissingId(null);
@@ -127,7 +127,7 @@ const IssueResolutionPanel = ({ sections, activeSection, onDismiss }: Props) => 
                 >
                   Save
                 </Button>
-                <Button size="sm" variant="ghost" className="text-[10px] h-6 px-2" onClick={() => setDismissingId(null)}>
+                <Button size="sm" variant="ghost" className="text-[11px] h-6 px-2" onClick={() => setDismissingId(null)}>
                   Cancel
                 </Button>
               </div>
@@ -136,7 +136,7 @@ const IssueResolutionPanel = ({ sections, activeSection, onDismiss }: Props) => 
             <Button
               size="sm"
               variant="ghost"
-              className="text-[10px] h-6 px-2 text-[#6C6B6B]"
+              className="text-[11px] h-6 px-2 text-[#6C6B6B]"
               onClick={(e) => {
                 e.stopPropagation();
                 setDismissingId(issue.id);
@@ -151,11 +151,11 @@ const IssueResolutionPanel = ({ sections, activeSection, onDismiss }: Props) => 
       {issue.dismissed && (
         <CardFooter className="px-3 pb-2 pt-0">
           <div className="flex items-center gap-1.5 min-w-0">
-            <Badge variant="outline" className="text-[9px] border-[#D9D9D9] text-[#6C6B6B]">
+            <Badge variant="outline" className="text-[11px] border-[#D9D9D9] text-[#6C6B6B]">
               Dismissed by J. Smith
             </Badge>
             {issue.dismissReason && (
-              <span className="text-[10px] text-[#6C6B6B] italic truncate">— {issue.dismissReason}</span>
+              <span className="text-[11px] text-[#6C6B6B] italic truncate">— {issue.dismissReason}</span>
             )}
           </div>
         </CardFooter>
@@ -171,17 +171,17 @@ const IssueResolutionPanel = ({ sections, activeSection, onDismiss }: Props) => 
         </h2>
         <div className="flex items-center gap-1.5">
           {total.errors > 0 && (
-            <Badge className="h-4 px-1.5 text-[10px] bg-[#C82333] text-white border-0 hover:bg-[#C82333]">
+            <Badge className="h-5 px-2 text-[11px] font-semibold bg-[#C82333] text-white border-0 hover:bg-[#C82333]">
               {total.errors} error{total.errors !== 1 ? "s" : ""}
             </Badge>
           )}
           {total.warnings > 0 && (
-            <Badge className="h-4 px-1.5 text-[10px] bg-[#FCF2D9] text-[#6D4D09] border-0 hover:bg-[#FCF2D9]">
+            <Badge className="h-5 px-2 text-[11px] font-semibold bg-[#FCF2D9] text-[#6D4D09] border-0 hover:bg-[#FCF2D9]">
               {total.warnings} warning{total.warnings !== 1 ? "s" : ""}
             </Badge>
           )}
           {selectedRowId && (
-            <Button variant="ghost" size="sm" className="text-[10px] h-6 px-2" onClick={() => setSelectedRowId(null)}>
+            <Button variant="ghost" size="sm" className="text-[11px] h-6 px-2" onClick={() => setSelectedRowId(null)}>
               Show All
             </Button>
           )}
@@ -207,12 +207,12 @@ const IssueResolutionPanel = ({ sections, activeSection, onDismiss }: Props) => 
                   ) : (
                     <span className="flex items-center gap-1">
                       {total.errors > 0 && (
-                        <Badge className="h-4 px-1.5 text-[9px] bg-[#C82333] text-white border-0 hover:bg-[#C82333]">
+                        <Badge className="h-5 px-2 text-[11px] font-semibold bg-[#C82333] text-white border-0 hover:bg-[#C82333]">
                           {total.errors} error{total.errors !== 1 ? "s" : ""}
                         </Badge>
                       )}
                       {total.warnings > 0 && (
-                        <Badge className="h-4 px-1.5 text-[9px] bg-[#FCF2D9] text-[#6D4D09] border-0 hover:bg-[#FCF2D9]">
+                        <Badge className="h-5 px-2 text-[11px] font-semibold bg-[#FCF2D9] text-[#6D4D09] border-0 hover:bg-[#FCF2D9]">
                           {total.warnings} warning{total.warnings !== 1 ? "s" : ""}
                         </Badge>
                       )}
@@ -227,7 +227,7 @@ const IssueResolutionPanel = ({ sections, activeSection, onDismiss }: Props) => 
                       <AccordionTrigger className="py-1.5 px-2 text-xs font-medium hover:no-underline">
                         <span className="flex items-center gap-2">
                           {category}
-                          <span className="text-[10px] text-[#6C6B6B] font-normal">({list.length})</span>
+                          <span className="text-[11px] text-[#6C6B6B] font-normal">({list.length})</span>
                         </span>
                       </AccordionTrigger>
                       <AccordionContent className="pb-1 pl-2">

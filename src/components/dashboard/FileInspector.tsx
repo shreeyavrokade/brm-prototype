@@ -42,8 +42,9 @@ const PAGE_SIZE = 20;
 
 const statusConfig: Record<FieldStatus, { label: string; className: string }> = {
   valid: { label: "Valid", className: "bg-success/10 text-success border-success/20" },
-  warning: { label: "Warning", className: "bg-warning/10 text-warning border-warning/30" },
-  error: { label: "Error", className: "bg-destructive/10 text-destructive border-destructive/20" },
+  // NEXT Semantic/*_20 fill + border + text pairs (≥4.5:1 text contrast).
+  warning: { label: "Warning", className: "bg-[#FCF2D9] text-[#6D4D09] border-[#FFBE2E]" },
+  error: { label: "Error", className: "bg-[#FBE5E8] text-[#A51C2A] border-[#C82333]" },
 };
 
 const getRowStatus = (row: FileRow): FieldStatus => {
@@ -206,13 +207,14 @@ const FileInspector = ({
     const isHovered = hoveredRowId === row.id && (!hoveredCellKey || hoveredCellKey === colKey);
     const isSelected = selectedRowId === row.id;
 
+    // Flagged cells: NEXT Semantic negative_20 / warning_20 tint, slightly deeper on hover/selection.
     if (cs && cs.status === "error") {
-      if (isSelected || isHovered) return "!bg-[hsl(0,86%,94%)]";
-      return "!bg-[hsl(0,86%,97%)]";
+      if (isSelected || isHovered) return "!bg-[#F7D3D8]";
+      return "!bg-[#FBE5E8]";
     }
     if (cs && cs.status === "warning") {
-      if (isSelected || isHovered) return "!bg-[hsl(48,100%,92%)]";
-      return "!bg-[hsl(48,100%,96%)]";
+      if (isSelected || isHovered) return "!bg-[#F9E7BC]";
+      return "!bg-[#FCF2D9]";
     }
 
     if (isHovered || isSelected) {
@@ -429,9 +431,9 @@ const FileInspector = ({
                                   <TooltipTrigger asChild>
                                     <span className="inline-flex shrink-0 cursor-help">
                                       {rowStatus === "error" ? (
-                                        <XCircle className="h-3.5 w-3.5 text-destructive" />
+                                        <XCircle className="h-4 w-4 text-[#C82333]" strokeWidth={2.25} aria-label="Has required fixes" />
                                       ) : (
-                                        <AlertTriangle className="h-3.5 w-3.5 text-warning" />
+                                        <AlertTriangle className="h-4 w-4 text-[#B7791F]" strokeWidth={2.25} aria-label="Has optional fixes" />
                                       )}
                                     </span>
                                   </TooltipTrigger>
@@ -451,12 +453,19 @@ const FileInspector = ({
                                   {rawValue === "0" ? "Out-of-Service [0]" : "In-Service [1]"}
                                 </span>
                               ) : (
-                                <span className="truncate">{rawValue || "—"}</span>
+                                <span className={`truncate ${hasIssue ? "font-semibold text-[#222222]" : ""}`}>{rawValue || "—"}</span>
                               )}
                               {hasIssue && (
-                                <Badge variant="outline" className={`text-[9px] font-medium ml-1 shrink-0 ${statusConfig[cs.status].className}`}>
+                                <span
+                                  className={`ml-1 inline-flex h-5 shrink-0 items-center gap-1 rounded-full border px-2 font-sans text-[11px] font-semibold leading-none ${statusConfig[cs.status].className}`}
+                                >
+                                  {cs.status === "error" ? (
+                                    <XCircle className="h-3 w-3" strokeWidth={2.5} aria-hidden />
+                                  ) : (
+                                    <AlertTriangle className="h-3 w-3" strokeWidth={2.5} aria-hidden />
+                                  )}
                                   {statusConfig[cs.status].label}
-                                </Badge>
+                                </span>
                               )}
                             </span>
                           );

@@ -107,12 +107,12 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
           </div>
           <Badge
             variant={issue.status === "error" && !issue.dismissed ? "destructive" : "outline"}
-            className={`text-[9px] shrink-0 inline-flex items-center gap-1 ${
+            className={`text-[11px] font-semibold shrink-0 inline-flex items-center gap-1 ${
               issue.dismissed
                 ? "border-muted-foreground/30 text-muted-foreground bg-transparent"
                 : issue.status === "error"
-                ? ""
-                : "border-warning/30 text-warning bg-warning/10"
+                ? "bg-[#C82333] hover:bg-[#C82333]"
+                : "border-[#FFBE2E] text-[#6D4D09] bg-[#FCF2D9]"
             }`}
           >
             {!issue.dismissed && (
@@ -144,10 +144,10 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
                 className="text-xs min-h-[48px] resize-none"
               />
               <div className="flex gap-1.5">
-                <Button size="sm" variant="outline" className="text-[10px] h-6 px-2" onClick={() => handleDismiss(issue.id)}>
+                <Button size="sm" variant="outline" className="text-[11px] h-6 px-2" onClick={() => handleDismiss(issue.id)}>
                   Save
                 </Button>
-                <Button size="sm" variant="ghost" className="text-[10px] h-6 px-2" onClick={() => setDismissingId(null)}>
+                <Button size="sm" variant="ghost" className="text-[11px] h-6 px-2" onClick={() => setDismissingId(null)}>
                   Cancel
                 </Button>
               </div>
@@ -156,7 +156,7 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
             <Button
               size="sm"
               variant="ghost"
-              className="text-[10px] h-6 px-2 text-muted-foreground"
+              className="text-[11px] h-6 px-2 text-muted-foreground"
               onClick={(e) => { e.stopPropagation(); setDismissingId(issue.id); }}
             >
               Dismiss
@@ -168,11 +168,11 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
       {issue.dismissed && (
         <CardFooter className="px-3 pb-2 pt-0">
           <div className="flex items-center gap-1.5">
-            <Badge variant="outline" className="text-[9px] border-muted-foreground/30 text-muted-foreground">
+            <Badge variant="outline" className="text-[11px] border-muted-foreground/30 text-muted-foreground">
               Dismissed by J. Smith
             </Badge>
             {issue.dismissReason && (
-              <span className="text-[10px] text-muted-foreground italic truncate">
+              <span className="text-[11px] text-muted-foreground italic truncate">
                 — {issue.dismissReason}
               </span>
             )}
@@ -218,27 +218,27 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
                 <div className="flex items-center gap-2 min-w-0">
                   <Layers className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                   <span className="font-semibold truncate">{groupName}</span>
-                  <span className="text-[10px] text-muted-foreground">
+                  <span className="text-[11px] text-muted-foreground">
                     ({groupIssues.length} issues)
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   {errorCount > 0 && (
-                    <Badge variant="destructive" className="text-[9px] h-4 px-1.5">
+                    <Badge variant="destructive" className="text-[11px] font-semibold h-5 px-2 bg-[#C82333] hover:bg-[#C82333]">
                       {errorCount} error{errorCount !== 1 ? "s" : ""}
                     </Badge>
                   )}
                   {warningCount > 0 && (
-                    <Badge variant="outline" className="text-[9px] h-4 px-1.5 border-warning/30 text-warning bg-warning/10">
+                    <Badge variant="outline" className="text-[11px] font-semibold h-5 px-2 border-[#FFBE2E] text-[#6D4D09] bg-[#FCF2D9]">
                       {warningCount}
                     </Badge>
                   )}
                   {dismissedCount > 0 && (
-                    <Badge variant="outline" className="text-[9px] h-4 px-1.5 border-muted-foreground/30 text-muted-foreground">
+                    <Badge variant="outline" className="text-[11px] font-semibold h-5 px-2 border-muted-foreground/30 text-muted-foreground">
                       {dismissedCount} dismissed
                     </Badge>
                   )}
-                  <span className="text-muted-foreground text-[10px]">
+                  <span className="text-muted-foreground text-[11px]">
                     {isExpanded ? "▾" : "▸"}
                   </span>
                 </div>
@@ -264,7 +264,7 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
         </h2>
         <div className="flex items-center gap-1.5">
           {selectedRowId && (
-            <Button variant="ghost" size="sm" className="text-[10px] h-6 px-2" onClick={() => onSelectIssue(null)}>
+            <Button variant="ghost" size="sm" className="text-[11px] h-6 px-2" onClick={() => onSelectIssue(null)}>
               Show All
             </Button>
           )}
@@ -314,12 +314,12 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
                       ) : (
                         <span className="flex items-center gap-1">
                           {errors > 0 && (
-                            <Badge variant="destructive" className="text-[9px] h-4 px-1.5">
+                            <Badge variant="destructive" className="text-[11px] font-semibold h-5 px-2 bg-[#C82333] hover:bg-[#C82333]">
                               {errors} error{errors !== 1 ? "s" : ""}
                             </Badge>
                           )}
                           {warnings > 0 && (
-                            <Badge variant="outline" className="text-[9px] h-4 px-1.5 border-warning/30 text-warning bg-warning/10">
+                            <Badge variant="outline" className="text-[11px] font-semibold h-5 px-2 border-[#FFBE2E] text-[#6D4D09] bg-[#FCF2D9]">
                               {warnings} warning{warnings !== 1 ? "s" : ""}
                             </Badge>
                           )}
@@ -334,7 +334,7 @@ const IssueSidebar = ({ issues, activeRecordType, selectedRowId, onDismiss, onHo
                           <AccordionTrigger className="py-1.5 px-2 text-xs font-medium hover:no-underline">
                             <span className="flex items-center gap-2">
                               {category}
-                              <span className="text-[10px] text-muted-foreground font-normal">
+                              <span className="text-[11px] text-muted-foreground font-normal">
                                 ({catIssues.length})
                               </span>
                             </span>
