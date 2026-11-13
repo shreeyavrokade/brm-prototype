@@ -15,9 +15,10 @@ A clickable sales prototype of the data-submitter experience: upload a topology 
   npm run dev            # opens on http://localhost:8080
   ```
 
-- **Password:** `Ask`
-- **Branding:** neutral by default ("Regional Grid Operator"). To show a client preset, add `?brand=acme` (or `placeholder`, `ercot`) to the URL. Details are in [WHITE_LABEL.md](./WHITE_LABEL.md).
-- **Fresh start:** reload the page before every run. Use a full-screen browser window at 1440×900 or larger.
+<!-- - **Password:** `USP@2026` -->
+
+<!-- - **Branding:** neutral by default ("Regional Grid Operator"). To show a client preset, add `?brand=acme` (or `placeholder`, `ercot`) to the URL. Details are in [WHITE_LABEL.md](./WHITE_LABEL.md).
+- **Fresh start:** reload the page before every run. Use a full-screen browser window at 1440×900 or larger. -->
 
 ### 2. The test files
 
