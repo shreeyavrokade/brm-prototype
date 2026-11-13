@@ -1,0 +1,55 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - img "ERCOT" [ref=e7]
+        - generic [ref=e9]: Unified Submission Portal
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - button "Participant View (USP)" [pressed] [ref=e12] [cursor=pointer]
+          - button "ERCOT Engineer View (EP)" [ref=e16] [cursor=pointer]
+        - generic [ref=e19]: EL
+    - generic [ref=e20]:
+      - navigation [ref=e21]:
+        - generic [ref=e22]: Topology Changeset
+        - generic [ref=e25]: Import Submission
+      - button "Close" [ref=e26] [cursor=pointer]
+    - main [ref=e27]:
+      - generic [ref=e28]:
+        - generic [ref=e30]:
+          - generic [ref=e31]: "1"
+          - generic [ref=e32]: Upload File
+        - generic [ref=e36]:
+          - generic [ref=e37]: "2"
+          - generic [ref=e38]: Review Submission Details
+        - generic [ref=e42]:
+          - generic [ref=e43]: "3"
+          - generic [ref=e44]: Supporting Information
+      - generic [ref=e46]:
+        - heading "Upload File" [level=1] [ref=e47]
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: Add File
+            - generic [ref=e51]: Max. file size 10MB (.prj)
+          - generic [ref=e56] [cursor=pointer]:
+            - generic [ref=e57]: Drop file here
+            - generic [ref=e58]: or click to upload
+        - group [ref=e59]:
+          - generic "Demo sample files Simulated data for walkthroughs — download, then upload above" [ref=e60] [cursor=pointer]:
+            - text: Demo sample files
+            - generic [ref=e63]: Simulated data for walkthroughs — download, then upload above
+        - heading [level=3] [ref=e66]:
+          - button "View File Naming Convention Guidelines by Project Type" [ref=e67] [cursor=pointer]
+    - contentinfo [ref=e70]:
+      - button "Cancel" [ref=e71] [cursor=pointer]
+      - button "Next" [disabled]
+  - generic [ref=e73]:
+    - img "ERCOT" [ref=e74]
+    - heading "Unified Submission Portal" [level=1] [ref=e75]
+    - paragraph [ref=e76]: This environment is protected. Please enter the master access password supplied by your ERCOT Planning Coordinator.
+    - generic [ref=e77]: Access Password
+    - textbox "Access Password" [active] [ref=e79]
+    - button "Unlock Prototype" [ref=e80] [cursor=pointer]
