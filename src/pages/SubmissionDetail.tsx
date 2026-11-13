@@ -1,6 +1,7 @@
-import { useState, useCallback, useMemo, useEffect, useRef } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { toast } from "sonner";
-import { Clock } from "lucide-react";
+import { CheckCircle2, Clock, MessageSquare, Undo2, UploadCloud, UserCog } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "@/components/dashboard/Header";
 import FileInspector from "@/components/dashboard/FileInspector";
@@ -14,17 +15,30 @@ import { Issue, ActivityItem, SupportingDoc, RecordType } from "@/components/das
 import { hasReviewableIssues } from "@/components/submission/datasetStatus";
 import { useChangesetRows } from "@/store/changesetStore";
 import { setDatasetStatus, useDatasetStatus } from "@/store/datasetStatusStore";
-import { markSubmittedAsIs, storeTopologyFile, useTopologySubmission } from "@/store/topologySubmissionStore";
+import {
+  AUTO_ACCEPT_ON_SUBMIT,
+  DEMO_SUBMITTER,
+  acceptSubmission,
+  addSubmissionActivity,
+  returnSubmission,
+  submitForReview,
+  storeTopologyFile,
+  useTopologySubmission,
+} from "@/store/topologySubmissionStore";
+import { setPortalView, usePortalView } from "@/store/portalContextStore";
+import { ReturnSubmissionModal } from "@/components/spp/ReturnSubmissionModal";
 import { countIssues, type ParsedPrj } from "@/lib/topologyPrj";
 import ValidationSummaryBanner from "@/components/submission/ValidationSummaryBanner";
 import ResubmitDialog from "@/components/submission/ResubmitDialog";
-import AcceptResponsibilityDialog from "@/components/submission/AcceptResponsibilityDialog";
+import SubmitWithWarningsDialog from "@/components/submission/SubmitWithWarningsDialog";
 import { isDatasetStatus } from "@/components/submission/datasetStatus";
 import { brand } from "@/config/brand";
 
-const CURRENT_USER = "Eddie Lake";
-const stamp = () =>
-  new Date().toLocaleString("en-US", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+const CURRENT_USER = DEMO_SUBMITTER;
+const ENGINEER = `${brand.clientShortName} Engineer (M. Torres)`;
+/** Reviewer named in the trail when the demo auto-accepts a submission. */
+const AUTO_REVIEWER = `${brand.clientShortName} Engineering`;
+const onAutoAccepted = () => toast.success(`Accepted by ${AUTO_REVIEWER} for the model build.`);
 
 
 const SubmissionDetail = () => {
@@ -39,13 +53,14 @@ const SubmissionDetail = () => {
   const phasesSource = sub?.parsed.phases ?? phasesData;
 
   const [issues, setIssues] = useState<Issue[]>(reviewMode ? (sub?.parsed.issues ?? initialIssues) : []);
-  const [activityItems, setActivityItems] = useState<ActivityItem[]>(
-    sub
-      ? [{ id: "A-up-1", type: "history", user: "System", message: `${sub.parsed.fileName} uploaded by ${CURRENT_USER}`, timestamp: stamp() }]
-      : initialActivity,
-  );
+  // Uploaded files keep a shared, traceable activity trail in the store; seeded rows use mock activity.
+  const [localActivity, setLocalActivity] = useState<ActivityItem[]>(initialActivity);
+  const activityItems = sub ? sub.activity : localActivity;
   const [resubmitOpen, setResubmitOpen] = useState(false);
-  const [responsibilityOpen, setResponsibilityOpen] = useState(false);
+  const [warningsDialogOpen, setWarningsDialogOpen] = useState(false);
+  const [returnOpen, setReturnOpen] = useState(false);
+  const portalView = usePortalView();
+  const isEngineer = portalView === "SPP_ENGINEER";
   const [docs, setDocs] = useState<SupportingDoc[]>(initialDocs);
   const [hoveredRowId, setHoveredRowId] = useState<string | null>(null);
   const [hoveredCellKey, setHoveredCellKey] = useState<string | null>(null);
@@ -65,14 +80,12 @@ const SubmissionDetail = () => {
   const firstPhaseKey = useMemo(() => Object.keys(phasesSource)[0], [phasesSource]);
   const currentPhaseMetadata = phasesSource[firstPhaseKey]?.metadata;
 
+  const hasSub = !!sub;
   const addActivityEntry = useCallback((type: "comment" | "history", user: string, message: string) => {
-    const now = new Date();
-    const timestamp = now.toLocaleString("en-US", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
-    setActivityItems((prev) => [
-      ...prev,
-      { id: `A${Date.now()}`, type, user, message, timestamp },
-    ]);
-  }, []);
+    if (hasSub) return addSubmissionActivity(id, type, user, message);
+    const timestamp = new Date().toLocaleString("en-US", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+    setLocalActivity((prev) => [...prev, { id: `A${Date.now()}`, type, user, message, timestamp }]);
+  }, [hasSub, id]);
 
   const handleDismiss = useCallback((id: string, reason: string) => {
     setIssues((prev) =>
@@ -123,15 +136,6 @@ const SubmissionDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [revision, validating, reviewMode]);
 
-  // Log each completed validation once.
-  const loggedRevision = useRef<number | undefined>(sub && !sub.validating ? sub.revision : undefined);
-  useEffect(() => {
-    if (!sub || sub.validating || loggedRevision.current === sub.revision) return;
-    loggedRevision.current = sub.revision;
-    const c = countIssues(sub.parsed.issues);
-    addActivityEntry("history", "System", `Validation completed for version ${sub.parsed.version}: ${c.errors} errors, ${c.warnings} warnings found`);
-  }, [sub, addActivityEntry]);
-
   // Dismissing the last warning (with no errors left) moves the dataset on.
   useEffect(() => {
     if (!sub || validating || baseStatus !== "Review Needed") return;
@@ -145,7 +149,6 @@ const SubmissionDetail = () => {
   const handleResubmit = useCallback(
     (parsed: ParsedPrj) => {
       setResubmitOpen(false);
-      addActivityEntry("history", "System", `Version ${parsed.version} (${parsed.fileName}) uploaded by ${CURRENT_USER} — re-validation started`);
       storeTopologyFile(id, parsed, {
         validate: true,
         pendingStatus: "Pending Validation",
@@ -162,37 +165,50 @@ const SubmissionDetail = () => {
       });
       toast.info(`Version ${parsed.version} received — re-validating (simulated).`);
     },
-    [id, addActivityEntry],
+    [id],
   );
 
   const openWarnings = useMemo(() => issues.filter((i) => i.status === "warning" && !i.dismissed), [issues]);
 
   const handleSubmitForReview = useCallback(() => {
-    setDatasetStatus(id, "Pending Acceptance");
     addActivityEntry("history", "System", `Submitted for ${brand.clientShortName} review by ${CURRENT_USER}`);
+    submitForReview(id, 0, { reviewer: AUTO_REVIEWER, onAccepted: onAutoAccepted });
     toast.success(`Submitted to ${brand.clientShortName} for review. Status: Pending Acceptance.`);
   }, [id, addActivityEntry]);
 
   /** Submit button: with open optional fixes, ask the submitter to accept responsibility first. */
   const handleSubmitClick = useCallback(() => {
-    if (sub && openWarnings.length > 0) setResponsibilityOpen(true);
+    if (sub && openWarnings.length > 0) setWarningsDialogOpen(true);
     else handleSubmitForReview();
   }, [sub, openWarnings.length, handleSubmitForReview]);
 
   const handleConfirmAsIs = useCallback(() => {
     const n = openWarnings.length;
-    setResponsibilityOpen(false);
-    markSubmittedAsIs(id, n);
-    setDatasetStatus(id, "Pending Acceptance");
+    setWarningsDialogOpen(false);
     addActivityEntry(
       "history",
       "System",
-      `Submitted as-is by ${CURRENT_USER} with ${n} optional fix${n !== 1 ? "es" : ""} open — submitter accepted responsibility for: ${openWarnings
+      `Submitted for ${brand.clientShortName} review by ${CURRENT_USER} with ${n} unresolved warning${n !== 1 ? "s" : ""} — submitter accepted responsibility for: ${openWarnings
         .map((w) => `${w.rowId.replace(/^[A-Z]+-/, "")} ${w.fieldName}`)
         .join(", ")}`,
     );
-    toast.success(`Submitted to ${brand.clientShortName} with ${n} accepted optional fix${n !== 1 ? "es" : ""}. Status: Pending Acceptance.`);
+    submitForReview(id, n, { reviewer: AUTO_REVIEWER, onAccepted: onAutoAccepted });
+    toast.success(`Submitted to ${brand.clientShortName} with ${n} unresolved warning${n !== 1 ? "s" : ""}. Status: Pending Acceptance.`);
   }, [id, openWarnings, addActivityEntry]);
+
+  // ---- Engineer review (demo: same page, engineer perspective) ----
+  const handleReturn = useCallback((notes: string) => {
+    setReturnOpen(false);
+    returnSubmission(id, notes, ENGINEER);
+    toast.success("Returned to the submitter — status changed to Review Needed.");
+  }, [id]);
+
+  const handleAccept = useCallback(() => {
+    acceptSubmission(id, ENGINEER);
+    toast.success("Submission accepted for the model build.");
+  }, [id]);
+
+  const activeReturn = sub?.returnNote && sub.returnNote.revision === sub.revision && baseStatus === "Review Needed" ? sub.returnNote : undefined;
 
   const handleDownloadCurrent = useCallback(() => {
     if (!sub) return toast.info("The original file isn't available in this preview.");
@@ -239,35 +255,111 @@ const SubmissionDetail = () => {
 
       {sub && (
         <div className="px-6 pt-4 shrink-0">
-          {baseStatus === "Pending Acceptance" ? (
-            <div role="status" className="rounded-xl p-4 mb-4 flex items-center gap-3 border bg-[#FCF2D9] border-[#FFBE2E]">
-              <Clock className="h-5 w-5 text-[#6D4D09] shrink-0" />
-              <div>
-                <p className="text-sm font-bold text-[#222222]">Pending Acceptance</p>
-                <p className="text-xs text-[#6C6B6B] mt-0.5">
-                  Submitted to {brand.clientShortName}
-                  {accepted > 0
-                    ? ` with ${accepted} optional fix${accepted !== 1 ? "es" : ""} accepted as-is (submitter accepted responsibility)`
-                    : ""}
-                  . You'll see acceptance or a return note here.
-                </p>
+          {baseStatus === "Pending Acceptance" && isEngineer && !AUTO_ACCEPT_ON_SUBMIT && (
+            <div className="rounded-xl p-4 mb-4 border bg-white border-[#5B78BE] shadow-sm space-y-3">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="flex items-start gap-3">
+                  <UserCog className="h-5 w-5 text-[#2064B4] shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-bold text-[#222222]">{brand.clientShortName} engineering review</p>
+                    <p className="text-xs text-[#6C6B6B] mt-0.5">
+                      Version {sub.parsed.version} submitted by {CURRENT_USER}.{" "}
+                      {accepted > 0
+                        ? `Submitted with ${accepted} unresolved warning${accepted !== 1 ? "s" : ""} — the submitter accepted responsibility.`
+                        : "No open warnings."}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Button variant="outline" size="sm" onClick={() => setReturnOpen(true)} className="rounded-full gap-1.5 border-[#C82333] text-[#C82333] hover:bg-[#FBE5E8] hover:text-[#C82333]">
+                    <Undo2 className="h-3.5 w-3.5" /> Return to Submitter
+                  </Button>
+                  <Button size="sm" onClick={handleAccept} className="rounded-full gap-1.5 bg-[#146C2E] hover:bg-[#0F4F22] text-white">
+                    <CheckCircle2 className="h-3.5 w-3.5" /> Accept
+                  </Button>
+                </div>
+              </div>
+              {accepted > 0 && (
+                <ul className="rounded-md border border-[#FFBE2E] bg-[#FCF2D9] divide-y divide-[#F6E2B6] text-xs">
+                  {sub.parsed.issues.filter((i) => i.status === "warning").map((w) => (
+                    <li key={w.id} className="px-3 py-1.5">
+                      <span className="font-mono font-semibold text-[#6D4D09]">{w.rowId.replace(/^[A-Z]+-/, "")} · {w.fieldName}</span>{" "}
+                      <span className="text-[#4D4D4D]">{w.message}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <button type="button" onClick={() => setPortalView("STAKEHOLDER")} className="text-xs text-[#2064B4] underline underline-offset-2">
+                Demo: back to participant view
+              </button>
+            </div>
+          )}
+
+          {baseStatus === "Pending Acceptance" && (!isEngineer || AUTO_ACCEPT_ON_SUBMIT) && (
+            <div role="status" className="rounded-xl p-4 mb-4 flex flex-wrap items-center justify-between gap-3 border bg-[#FCF2D9] border-[#FFBE2E]">
+              <div className="flex items-center gap-3">
+                <Clock className="h-5 w-5 text-[#6D4D09] shrink-0" />
+                <div>
+                  <p className="text-sm font-bold text-[#222222]">Pending Acceptance</p>
+                  <p className="text-xs text-[#6C6B6B] mt-0.5">
+                    Submitted to {brand.clientShortName}
+                    {accepted > 0
+                      ? ` with ${accepted} unresolved warning${accepted !== 1 ? "s" : ""} (you accepted responsibility)`
+                      : ""}
+                    .{" "}
+                    {AUTO_ACCEPT_ON_SUBMIT
+                      ? `${brand.clientShortName} Engineering is reviewing it.`
+                      : `${brand.clientShortName} Engineers may accept it or return it with comments.`}
+                  </p>
+                </div>
+              </div>
+              {!AUTO_ACCEPT_ON_SUBMIT && (
+                <button type="button" onClick={() => setPortalView("SPP_ENGINEER")} className="text-xs font-medium text-[#2064B4] underline underline-offset-2">
+                  Demo: review as {brand.clientShortName} engineer
+                </button>
+              )}
+            </div>
+          )}
+
+          {activeReturn && (
+            <div role="alert" className="rounded-xl p-4 mb-4 border bg-[#FBE5E8] border-[#C82333] flex flex-wrap items-start justify-between gap-3">
+              <div className="flex items-start gap-3 min-w-0">
+                <Undo2 className="h-5 w-5 text-[#C82333] shrink-0 mt-0.5" />
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-[#222222]">Returned by {brand.clientShortName} Engineering</p>
+                  <p className="text-sm text-[#4D4D4D] mt-1">&ldquo;{activeReturn.note}&rdquo;</p>
+                  <p className="text-xs text-[#6C6B6B] mt-1">
+                    {activeReturn.by} · {activeReturn.at}. Review the comments, correct the file and upload version {nextVersion}.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button variant="outline" size="sm" onClick={() => setShowActivity(true)} className="rounded-full gap-1.5 bg-white">
+                  <MessageSquare className="h-3.5 w-3.5" /> View Comments
+                </Button>
+                <Button size="sm" onClick={() => setResubmitOpen(true)} className="rounded-full gap-1.5 bg-[#222222] hover:bg-[#4D4D4D] text-white">
+                  <UploadCloud className="h-3.5 w-3.5" /> Upload Corrected Version
+                </Button>
               </div>
             </div>
-          ) : (
-            isDatasetStatus(bannerStatus) && (
+          )}
+
+          {baseStatus !== "Pending Acceptance" &&
+            isDatasetStatus(bannerStatus) &&
+            !(activeReturn && errorCount + warningCount === 0) && (
               <ValidationSummaryBanner
                 status={bannerStatus}
                 errors={errorCount}
                 warnings={warningCount}
                 datasetLabel="Topology changeset"
                 reviewHint={reviewHint}
+                acceptedWarnings={accepted}
                 onInspect={() => setShowIssuePanel(true)}
                 onSubmit={handleSubmitForReview}
                 onUploadNewVersion={() => setResubmitOpen(true)}
-                onSubmitAsIs={() => setResponsibilityOpen(true)}
+                onSubmitAsIs={() => setWarningsDialogOpen(true)}
               />
-            )
-          )}
+            )}
         </div>
       )}
 
@@ -344,20 +436,19 @@ const SubmissionDetail = () => {
         </SheetContent>
       </Sheet>
 
-      {responsibilityOpen && (
-        <AcceptResponsibilityDialog
-          open={responsibilityOpen}
-          onOpenChange={setResponsibilityOpen}
-          projectName={sub?.parsed.projectName ?? row?.projectName ?? id}
-          version={sub?.parsed.version ?? 1}
-          warnings={openWarnings}
-          onConfirm={handleConfirmAsIs}
-          onUploadCorrected={() => {
-            setResponsibilityOpen(false);
-            setResubmitOpen(true);
-          }}
-        />
-      )}
+      <SubmitWithWarningsDialog
+        open={warningsDialogOpen}
+        onOpenChange={setWarningsDialogOpen}
+        warningCount={openWarnings.length}
+        onConfirm={handleConfirmAsIs}
+      />
+
+      <ReturnSubmissionModal
+        open={returnOpen}
+        onOpenChange={setReturnOpen}
+        subject={`${sub?.parsed.fileName ?? row?.projectName ?? id} — version ${sub?.parsed.version ?? 1}`}
+        onConfirm={handleReturn}
+      />
 
       {resubmitOpen && (
         <ResubmitDialog

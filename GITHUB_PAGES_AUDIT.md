@@ -1,5 +1,33 @@
 # GitHub Pages readiness audit
 
+## Latest re-audit — 2026-11-13
+
+**Verdict: the edited interactive app remains suitable for static Pages hosting, but the current deployment workflow is blocked by an out-of-sync npm lockfile.**
+
+Scope: commit `44220a9` plus ongoing working-tree edits. Submission-dialog and engineer-return edits arrived during the audit, so the Pages build, tests, and TypeScript checks were repeated. No application, dependency, or deployment configuration was changed by this audit.
+
+| Area | Current result |
+| --- | --- |
+| Clean CI install | **BLOCKER:** `npm ci --dry-run --ignore-scripts --no-audit --no-fund` exits 1 (EUSAGE). Lockfile lacks `@fontsource/inter`, `@phosphor-icons/react`, and required peer/transitive packages including `@testing-library/dom`. The existing Actions workflow uses `npm ci` and would stop here. Local node_modules masks this mismatch. |
+| Pages build | Pass on latest edits: `npm run build:pages`; correct `/brm-prototype/` entry asset paths and hash router. Latest JS about 945 kB (276 kB gzip); chunk-size warning remains nonblocking. |
+| Normal build | Pass earlier in this audit; Pages output remains isolated in dist-pages/. |
+| Tests | Final rerun: 13/13 pass across five files, including updated warning-submission and engineer-return tests. One test remains a placeholder. |
+| TypeScript | Both app and node configurations pass with --noEmit on final rerun. |
+| ESLint | Fails: 33 errors, 11 warnings. Workflow currently does not gate on lint. |
+| Static-server browser checks | Chromium under `/brm-prototype/`: deep entry, refresh, back/forward, home recovery, topology and transaction import screens, MEM Load and Load Review, and seeded submission detail render. All five brand presets load and decode their header logos; corrected sample download HTTP 200. No failed resources or uncaught exceptions in the route/brand smoke check. |
+| Brand assets | All ten configured logo/favicon paths exist in the generated Pages artifact, including the new ERCOT preset. |
+| Workflow | Tracked workflow YAML parses and has only workflow_dispatch; base path comes from configure-pages and the deploy job has Pages/OIDC permissions. Remote execution and repository settings remain unverified. |
+
+### Required before deployment
+
+1. Synchronize and commit package-lock.json with the intended package.json dependencies. Re-run a clean `npm ci`, tests, TypeScript, and the Pages build in a clean environment. This audit only ran the non-mutating install preflight and did not repair dependencies.
+2. Enable/verify the GitHub Pages publishing source and run the manual workflow when deployment is authorized, then smoke-test the live URL. No deployment or GitHub settings changes were performed.
+
+Existing limitations remain: the demo password is browser-side, state is local/in-memory, and uploads/validation are simulated. These are compatible with static hosting but provide no production authentication, shared persistence, or server processing. Full end-to-end user acceptance, new dialog click-throughs, and live-host behavior were not certified. The old Lovable social-preview image remains in index.html; it affects sharing/branding, not runtime hosting.
+
+The sections below preserve the historical audit and configuration evidence.
+
+
 Date: 2026-11-13. Scope: current local working tree, including existing uncommitted white-label work. No deployment or application/configuration changes were made.
 
 **Follow-up (2026-11-13):** Configuration fixes are now implemented; see [GITHUB_PAGES.md](./GITHUB_PAGES.md). Findings below preserve the original audit snapshot. Live deployment remains unverified.

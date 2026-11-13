@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PhaseMetadata } from "./types";
 import { StatusPill } from "@/components/shared/statusBadge";
+import { brand } from "@/config/brand";
 
 interface HeaderProps {
   errorCount: number;
@@ -131,7 +132,7 @@ const Header = ({
                   className="text-xs gap-1.5 h-8 rounded-full px-4 disabled:!bg-atmo-3 disabled:!text-secondary-60 disabled:!opacity-100 bg-neutral-950"
                 >
                   {canSubmit ? <Send className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}
-                  Submit for Review
+                  Submit for {brand.clientShortName} Review
                   {errorCount > 0 && (
                     <Badge className="ml-1 h-4 px-1.5 text-[10px] bg-destructive text-destructive-foreground hover:bg-destructive border-0">
                       {errorCount}

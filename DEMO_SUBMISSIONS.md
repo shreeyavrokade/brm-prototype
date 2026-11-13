@@ -10,13 +10,13 @@ Sample `.prj` files for walking stakeholders through the submission flow. They'r
 | --- | --- | --- |
 | Meaning | Critical data-quality problem; blocks the workflow | Potential issue to review; may be intentional |
 | Can it be accepted? | **No.** Submit is locked | **Yes.** Submit as-is and accept responsibility |
-| How to resolve | Correct the source data offline → upload a new version (`_v2`, `_v3`…) → re-validated | **A:** correct it in a new version, or **B:** Submit for Review → responsibility pop-up → **Pending Acceptance** |
+| How to resolve | Correct the source data offline → upload a new version (`_v2`, `_v3`…) → re-validated | **A:** correct it in a new version, or **B:** Submit for Review → *Submit File with Unresolved Warnings?* pop-up → **Pending Acceptance**. Engineers may still return it |
 
 ## The files
 
 | File | Result | What the audience sees |
 | --- | --- | --- |
-| `527_NRE_BoswellTap_Rebuild.prj` | Passes everything | **Happy path.** Validation in Progress → **Pending Submittal** → Submit for Review → **Pending Acceptance** |
+| `527_NRE_BoswellTap_Rebuild.prj` | Passes everything | **Happy path.** Validation in Progress → **Pending Submittal** → Submit for Review → **Pending Acceptance** → **Accepted** |
 | `612_CVP_Ashford_Reconductor.prj` (v1) | 4 required fixes, 3 optional fixes | **Review Needed** (red): flagged cells, **Submit locked**, "Upload Corrected Version" |
 | `612_CVP_Ashford_Reconductor_v2.prj` | Required fixes corrected; 3 optional fixes left | **Review Needed** (amber): choose **Upload Corrected Version** (A) or **Submit As-Is…** (B) |
 | `612_CVP_Ashford_Reconductor_v3.prj` | Optional fixes corrected too | **Pending Submittal**, the clean end of path A |
@@ -33,8 +33,10 @@ Sample `.prj` files for walking stakeholders through the submission flow. They'r
 5. **Correct and resubmit:** **Upload Corrected Version** → the dialog explains the process (download the current version, fix it offline, next version number). Drop `…_v2.prj` → **Resubmit** → *Pending Validation* → required fixes resolved; the banner turns amber with 3 optional fixes.
 6. **Choose a path for the optional fixes:**
    - **A, correct them:** Upload Corrected Version → `…_v3.prj` → no fixes left → **Pending Submittal** → Submit for Review → **Pending Acceptance**.
-   - **B, accept responsibility:** **Submit As-Is…** (or Submit for Review) → the pop-up lists the 3 open optional fixes and reminds the user they're confirming the data is intentional. Tick the acknowledgement → **Accept responsibility & submit** → **Pending Acceptance**. The banner and Activity record the accepted warnings.
-7. To show both paths, run step 3 again to create a second submission.
+   - **B, accept responsibility:** **Submit for ERCOT Review** (or Submit As-Is… in the banner) → pop-up *"Submit File with Unresolved Warnings?"*: the file passed critical error checks, engineers will evaluate the warnings and may return it → **Submit for ERCOT Review** → **Pending Acceptance**. Activity records which warnings were submitted unresolved.
+7. **Acceptance (simulated):** after submitting, the status shows **Pending Acceptance** for ~3 seconds (same delay as validation), then moves to **Accepted** on its own. Activity records "Accepted for the model build by ERCOT Engineering". No engineer view needed.
+   - *Optional, off by default:* manual engineer review (Return to Submitter with comments / Accept). Run with `VITE_DEMO_ENGINEER_REVIEW=true` to turn off auto-accept; the Pending Acceptance banner then shows **Demo: review as ERCOT engineer**.
+8. To show both paths, run step 3 again to create a second submission.
 
 Statuses also update in the Topology Changeset directory. State resets on page reload.
 
@@ -65,9 +67,9 @@ fromBus,toBus,circuit,status,resistance,reactance,charging,rateA,rateB,length
 | Piece | File |
 | --- | --- |
 | Parser, naming and format checks, validation rules | `src/lib/topologyPrj.ts` |
-| Stored files + simulated validation timer | `src/store/topologySubmissionStore.ts` |
+| Stored files + simulated validation and acceptance timers (`AUTO_ACCEPT_ON_SUBMIT`) | `src/store/topologySubmissionStore.ts` |
 | Upload step, error card, sample file list | `src/pages/ImportSubmission.tsx`, `src/components/import/UploadErrorCard.tsx`, `src/components/import/DemoSampleFiles.tsx` |
-| Detail page: banners, resubmission, submit, submit as-is | `src/pages/SubmissionDetail.tsx`, `src/components/submission/ValidationSummaryBanner.tsx`, `ResubmitDialog.tsx`, `AcceptResponsibilityDialog.tsx`, `src/components/dashboard/Header.tsx` |
+| Detail page: banners, resubmission, submit, submit as-is | `src/pages/SubmissionDetail.tsx`, `src/components/submission/ValidationSummaryBanner.tsx`, `ResubmitDialog.tsx`, `SubmitWithWarningsDialog.tsx`, `src/components/spp/ReturnSubmissionModal.tsx`, `src/components/dashboard/Header.tsx` |
 | Tests for every sample file | `src/test/topologyPrj.test.ts` |
 
 To add a scenario, drop a new `.prj` into `public/sample-submissions/`, list it in `DemoSampleFiles.tsx`, and add a test case.

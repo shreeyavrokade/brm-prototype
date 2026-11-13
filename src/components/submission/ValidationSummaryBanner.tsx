@@ -20,6 +20,8 @@ interface Props {
    */
   onUploadNewVersion?: () => void;
   onSubmitAsIs?: () => void;
+  /** Accepted banner: warnings the submitter accepted responsibility for. */
+  acceptedWarnings?: number;
 }
 
 const shell = "rounded-xl p-4 mb-6 flex items-center justify-between shadow-sm gap-6 border";
@@ -40,6 +42,7 @@ const ValidationSummaryBanner = ({
   reviewHint,
   onUploadNewVersion,
   onSubmitAsIs,
+  acceptedWarnings = 0,
 }: Props) => {
   if (status === "Draft") return null;
 
@@ -165,7 +168,9 @@ const ValidationSummaryBanner = ({
           <div className="min-w-0">
             <p className="text-sm font-bold text-[#146C2E]">Dataset Accepted</p>
             <p className="text-xs text-[#146C2E]/80 mt-0.5">
-              0 Warnings, 0 Errors. All parameters meet model build specifications.
+              {acceptedWarnings > 0
+                ? `Accepted by ${brand.clientShortName} with ${plural(acceptedWarnings, "warning")} you accepted responsibility for. Included in the model build.`
+                : "0 Warnings, 0 Errors. All parameters meet model build specifications."}
             </p>
           </div>
         </div>
