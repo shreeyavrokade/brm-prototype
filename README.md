@@ -11,7 +11,7 @@ npm install
 npm run dev            # opens on http://localhost:8080
 ```
 
-- **Password:** `Ask`
+- **Password:** `Will be shared by link provider`
 - **Branding:** neutral by default ("Regional Grid Operator"). To show a client preset, add `?brand=acme` (or `placeholder`, `ercot`) to the URL. Details are in [WHITE_LABEL.md](./WHITE_LABEL.md).
 - **Fresh start:** reload the page before every run. Use a full-screen browser window at 1440×900 or larger.
 
