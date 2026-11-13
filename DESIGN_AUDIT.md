@@ -223,3 +223,7 @@ Measured computed browser colors for titles, descriptions, icons, actions and di
 These exceed [WCAG 1.4.3's 4.5:1 normal-text minimum](https://www.w3.org/WAI/WCAG20/Understanding/contrast-minimum.html). Legacy destructive-toast colors were also checked in the browser. This verifies these opaque color pairs; it is not a full WCAG conformance certification or final NEXT state-parity sign-off. Existing toast timing, announcement behavior and APIs were retained. Custom call-site style overrides can still require review.
 
 Validation: 20 tests pass, app TypeScript passes, Pages build passes, ESLint on changed TSX files has zero errors and one existing Fast Refresh warning. DS-03 and WL-05 remain open for the other components and states.
+
+## Broad accessibility/regression follow-up — 2026-11-13
+
+See [ACCESSIBILITY_AUDIT.md](./ACCESSIBILITY_AUDIT.md) for the final revision-85d23d2 audit: 26 axe screen/state scans, keyboard/focus/reflow checks, all toast severities in both theme classes, and current build/test/lint/deployment-install results. Recent issue-panel contrast fixes pass their tested default state; notification pairs still pass. Remaining A11Y-01–A11Y-13 findings prevent an AA conformance claim. NEXT adoption and WL-07/WL-08 remain incomplete. No implementation changes were made by the audit.

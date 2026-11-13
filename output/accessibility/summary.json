@@ -1,0 +1,348 @@
+{
+  "date": "2026-11-13",
+  "revision": "85d23d256b919c7ee4765186d9e7a69e751fb985",
+  "engine": "axe-core 4.10.3",
+  "scope": "WCAG 2 A/AA, WCAG 2.1 A/AA, available WCAG 2.2 AA tags, best practice",
+  "artifactSha256": "0b6493b71b8395997835fbd19fa28a40be0835bf32f6ed9b8718bc7d5faa0b6a",
+  "states": [
+    {
+      "name": "access-gate",
+      "violationRuleIds": [
+        "color-contrast",
+        "heading-order",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 3
+        }
+      ]
+    },
+    {
+      "name": "brm-topology",
+      "violationRuleIds": [
+        "button-name",
+        "color-contrast",
+        "list",
+        "listitem",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 12
+        }
+      ]
+    },
+    {
+      "name": "brm-profiles",
+      "violationRuleIds": [
+        "button-name",
+        "color-contrast",
+        "list",
+        "listitem",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 4
+        }
+      ]
+    },
+    {
+      "name": "brm-ratings",
+      "violationRuleIds": [
+        "color-contrast",
+        "list",
+        "listitem",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 6
+        }
+      ]
+    },
+    {
+      "name": "brm-equipment",
+      "violationRuleIds": [
+        "color-contrast",
+        "list",
+        "listitem",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 5
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 4
+        }
+      ]
+    },
+    {
+      "name": "brm-transactions",
+      "violationRuleIds": [
+        "color-contrast",
+        "list",
+        "listitem",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 10
+        }
+      ]
+    },
+    {
+      "name": "topology-import",
+      "violationRuleIds": [
+        "color-contrast",
+        "heading-order"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 2
+        }
+      ]
+    },
+    {
+      "name": "ratings-import",
+      "violationRuleIds": [
+        "color-contrast"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 2
+        }
+      ]
+    },
+    {
+      "name": "profiles-import",
+      "violationRuleIds": [
+        "color-contrast"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 2
+        }
+      ]
+    },
+    {
+      "name": "transaction-import",
+      "violationRuleIds": [
+        "color-contrast"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 2
+        }
+      ]
+    },
+    {
+      "name": "ratings-detail",
+      "violationRuleIds": [
+        "color-contrast",
+        "landmark-one-main",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "aria-valid-attr-value",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "name": "profiles-detail",
+      "violationRuleIds": [
+        "color-contrast",
+        "landmark-one-main",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "name": "topology-detail",
+      "violationRuleIds": [
+        "button-name",
+        "landmark-one-main",
+        "region",
+        "scrollable-region-focusable"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "name": "mem-generation",
+      "violationRuleIds": [
+        "color-contrast",
+        "list",
+        "listitem",
+        "region"
+      ],
+      "incomplete": []
+    },
+    {
+      "name": "mem-load",
+      "violationRuleIds": [
+        "color-contrast",
+        "list",
+        "listitem",
+        "region"
+      ],
+      "incomplete": []
+    },
+    {
+      "name": "mem-load-review",
+      "violationRuleIds": [
+        "aria-progressbar-name",
+        "color-contrast",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "name": "engineer-dashboard",
+      "violationRuleIds": [
+        "button-name",
+        "color-contrast",
+        "list",
+        "listitem",
+        "region"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 11
+        }
+      ]
+    },
+    {
+      "name": "import-details-step",
+      "violationRuleIds": [
+        "color-contrast",
+        "label"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "name": "project-type-dropdown",
+      "violationRuleIds": [
+        "scrollable-region-focusable"
+      ],
+      "incomplete": []
+    },
+    {
+      "name": "import-review-step",
+      "violationRuleIds": [
+        "color-contrast"
+      ],
+      "incomplete": []
+    },
+    {
+      "name": "uploaded-required-errors",
+      "violationRuleIds": [
+        "button-name",
+        "landmark-one-main",
+        "region",
+        "scrollable-region-focusable"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "name": "resubmit-dialog",
+      "violationRuleIds": [],
+      "incomplete": []
+    },
+    {
+      "name": "warning-confirmation-dialog",
+      "violationRuleIds": [],
+      "incomplete": []
+    },
+    {
+      "name": "accepted-submission",
+      "violationRuleIds": [
+        "button-name",
+        "landmark-one-main",
+        "region",
+        "scrollable-region-focusable"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "name": "mem-dataset-workspace",
+      "violationRuleIds": [
+        "button-name",
+        "color-contrast"
+      ],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 8
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 24
+        }
+      ]
+    },
+    {
+      "name": "transaction-explainer",
+      "violationRuleIds": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 1
+        }
+      ]
+    }
+  ]
+}
