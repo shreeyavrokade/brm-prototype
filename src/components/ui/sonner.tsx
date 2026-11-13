@@ -10,13 +10,17 @@ const Toaster = ({ ...props }: ToasterProps) => {
     <Sonner
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
+      // NEXT 6.3.1 Snackbar (Figma 672:196677): solid semantic pill, Body text,
+      // Secondary notification button. Untyped toast() uses Informational.
       toastOptions={{
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton: "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton: "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+            "group toast notification-toast !rounded-[24px] !border-0 !min-h-12 !py-2 !pl-3 !pr-4 !gap-2 !text-sm !leading-6 !font-sans !shadow-[0_0_8px_rgba(34,34,34,0.12)]",
+          title: "!font-normal",
+          description: "!opacity-100 !text-inherit",
+          actionButton:
+            "!h-8 !rounded-full !border !border-current !bg-transparent !px-4 !text-sm !font-semibold !text-inherit",
+          cancelButton: "!bg-transparent !text-inherit !opacity-100",
         },
       }}
       {...props}

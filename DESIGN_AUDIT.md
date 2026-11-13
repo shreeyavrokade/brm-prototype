@@ -206,3 +206,20 @@ These are proposed delivery steps, with owners and dates unassigned:
 6. **PITCH-06 — Prepare the pilot conversation.** Supply a short presenter guide with the opening problem, demonstrated evidence, honest prototype limits and follow-up questions. Record buyer-specific requests for later assessment instead of modifying the neutral core during the pitch.
 
 Readiness means the same neutral core can tell a coherent story, survive an incorrect input, be reset and replayed, and support a relevant follow-up discussion. Record actual rehearsal results and defects in TRACKER.md; do not mark these proposals implemented because they have been documented here.
+
+## Toast contrast correction — 2026-11-13
+
+Implemented a focused notification contrast fix within the existing components. Sonner toasts and the legacy Radix toast now share explicit semantic foreground/background tokens in `src/index.css`; the in-progress NextNotification banner consumes the same tokens. Sonner no longer combines competing generic and severity color classes. Descriptions and icons inherit the opaque semantic foreground, and actions/cancel/dismiss controls retain readable colors and visible focus treatment. Legacy dismiss controls have an accessible name.
+
+Measured computed browser colors for titles, descriptions, icons, actions and dismiss controls in light and dark theme classes:
+
+| Toast | Foreground / background | Minimum measured contrast |
+| --- | --- | --- |
+| Neutral / info | #222222 / #BFCDED | 9.98:1 |
+| Warning | #222222 / #FFBE2E | 9.59:1 |
+| Error | #FFFFFF / #C82333 | 5.61:1 |
+| Success | #FFFFFF / #146C2E | 6.53:1 |
+
+These exceed [WCAG 1.4.3's 4.5:1 normal-text minimum](https://www.w3.org/WAI/WCAG20/Understanding/contrast-minimum.html). Legacy destructive-toast colors were also checked in the browser. This verifies these opaque color pairs; it is not a full WCAG conformance certification or final NEXT state-parity sign-off. Existing toast timing, announcement behavior and APIs were retained. Custom call-site style overrides can still require review.
+
+Validation: 20 tests pass, app TypeScript passes, Pages build passes, ESLint on changed TSX files has zero errors and one existing Fast Refresh warning. DS-03 and WL-05 remain open for the other components and states.

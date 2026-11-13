@@ -179,3 +179,67 @@
     padding: 0 40px;
   }
 }
+
+/* Shared NEXT notification palette. Keep semantic feedback independent of
+   client accents; opaque foregrounds avoid inherited low-contrast greys. */
+:root {
+  --notification-info-background: #BFCDED;
+  --notification-info-foreground: #222222;
+  --notification-success-background: #146C2E;
+  --notification-success-foreground: #FFFFFF;
+  --notification-warning-background: #FFBE2E;
+  --notification-warning-foreground: #222222;
+  --notification-error-background: #C82333;
+  --notification-error-foreground: #FFFFFF;
+  --notification-catastrophic-background: #921581;
+  --notification-catastrophic-foreground: #FFFFFF;
+}
+
+.notification-toast {
+  --notification-background: var(--notification-info-background);
+  --notification-foreground: var(--notification-info-foreground);
+  background: var(--notification-background) !important;
+  color: var(--notification-foreground) !important;
+  border-color: currentColor !important;
+}
+.notification-toast[data-type="success"] {
+  --notification-background: var(--notification-success-background);
+  --notification-foreground: var(--notification-success-foreground);
+}
+.notification-toast[data-type="warning"] {
+  --notification-background: var(--notification-warning-background);
+  --notification-foreground: var(--notification-warning-foreground);
+}
+.notification-toast[data-type="error"], .notification-toast.destructive {
+  --notification-background: var(--notification-error-background);
+  --notification-foreground: var(--notification-error-foreground);
+}
+.notification-toast [data-title],
+.notification-toast [data-description],
+.notification-toast [data-icon] {
+  color: inherit !important;
+  opacity: 1 !important;
+}
+.notification-toast [data-button],
+.notification-toast [data-close-button],
+.notification-toast-action,
+.notification-toast-close {
+  color: inherit !important;
+  background: var(--notification-background) !important;
+  border: 1px solid currentColor !important;
+  opacity: 1 !important;
+}
+.notification-toast [data-button]:focus-visible,
+.notification-toast [data-close-button]:focus-visible,
+.notification-toast-action:focus-visible,
+.notification-toast-close:focus-visible {
+  outline: 2px solid currentColor !important;
+  outline-offset: 2px;
+  box-shadow: none !important;
+}
+.notification-toast [data-button]:hover,
+.notification-toast [data-close-button]:hover,
+.notification-toast-action:hover,
+.notification-toast-close:hover {
+  text-decoration: underline;
+}

@@ -236,7 +236,8 @@ const ImportSubmission = () => {
             const { errors, warnings } = countIssues(p.issues);
             const result = statusForIssues(p);
             if (result === "Review Needed") {
-              toast.warning(`${name}: validation found ${errors} error${errors !== 1 ? "s" : ""} and ${warnings} warning${warnings !== 1 ? "s" : ""}. Open it to resolve them.`);
+              if (errors > 0) toast.error(`${name}: Review Needed — ${errors} required fix${errors !== 1 ? "es" : ""}, ${warnings} optional fix${warnings !== 1 ? "es" : ""}.`, { description: "Open it to see the flagged cells, then upload a corrected version.", duration: 8000 });
+              else toast.warning(`${name}: ${warnings} optional fix${warnings !== 1 ? "es" : ""} to review.`, { description: "Correct them in a new version, or submit as-is.", duration: 8000 });
             } else {
               toast.success(`${name} passed validation — ready for submittal.`);
             }

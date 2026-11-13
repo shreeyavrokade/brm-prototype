@@ -33,6 +33,8 @@ import ResubmitDialog from "@/components/submission/ResubmitDialog";
 import SubmitWithWarningsDialog from "@/components/submission/SubmitWithWarningsDialog";
 import { isDatasetStatus } from "@/components/submission/datasetStatus";
 import { brand } from "@/config/brand";
+import { VALIDATION_FEEDBACK } from "@/config/ui";
+import NextNotification from "@/components/ui/next-notification";
 
 const CURRENT_USER = DEMO_SUBMITTER;
 const ENGINEER = `${brand.clientShortName} Engineer (M. Torres)`;
@@ -253,7 +255,19 @@ const SubmissionDetail = () => {
         submitDisabledReason={submitDisabledReason}
       />
 
-      {sub && (
+      {sub && VALIDATION_FEEDBACK === "toast" && activeReturn && (
+        <div className="px-6 pt-4 shrink-0">
+          <NextNotification
+            status="error"
+            title={`Returned by ${brand.clientShortName} Engineering:`}
+            actions={[{ label: "View Comments", onClick: () => setShowActivity(true) }]}
+          >
+            &ldquo;{activeReturn.note}&rdquo; Correct the file and upload version {nextVersion}.
+          </NextNotification>
+        </div>
+      )}
+
+      {sub && (baseStatus === "Pending Acceptance" && isEngineer && !AUTO_ACCEPT_ON_SUBMIT || VALIDATION_FEEDBACK === "banner") && (
         <div className="px-6 pt-4 shrink-0">
           {baseStatus === "Pending Acceptance" && isEngineer && !AUTO_ACCEPT_ON_SUBMIT && (
             <div className="rounded-xl p-4 mb-4 border bg-white border-[#5B78BE] shadow-sm space-y-3">
@@ -295,7 +309,7 @@ const SubmissionDetail = () => {
             </div>
           )}
 
-          {baseStatus === "Pending Acceptance" && (!isEngineer || AUTO_ACCEPT_ON_SUBMIT) && (
+          {VALIDATION_FEEDBACK === "banner" && baseStatus === "Pending Acceptance" && (!isEngineer || AUTO_ACCEPT_ON_SUBMIT) && (
             <div role="status" className="rounded-xl p-4 mb-4 flex flex-wrap items-center justify-between gap-3 border bg-[#FCF2D9] border-[#FFBE2E]">
               <div className="flex items-center gap-3">
                 <Clock className="h-5 w-5 text-[#6D4D09] shrink-0" />
@@ -321,7 +335,7 @@ const SubmissionDetail = () => {
             </div>
           )}
 
-          {activeReturn && (
+          {VALIDATION_FEEDBACK === "banner" && activeReturn && (
             <div role="alert" className="rounded-xl p-4 mb-4 border bg-[#FBE5E8] border-[#C82333] flex flex-wrap items-start justify-between gap-3">
               <div className="flex items-start gap-3 min-w-0">
                 <Undo2 className="h-5 w-5 text-[#C82333] shrink-0 mt-0.5" />
@@ -344,7 +358,8 @@ const SubmissionDetail = () => {
             </div>
           )}
 
-          {baseStatus !== "Pending Acceptance" &&
+          {VALIDATION_FEEDBACK === "banner" &&
+            baseStatus !== "Pending Acceptance" &&
             isDatasetStatus(bannerStatus) &&
             !(activeReturn && errorCount + warningCount === 0) && (
               <ValidationSummaryBanner
