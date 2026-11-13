@@ -1,5 +1,11 @@
 # GitHub Pages readiness audit
 
+## Live blank-page diagnosis — 2026-11-13
+
+Public URL returns HTTP 200, but serves the source index.html with `<script src="/src/main.tsx">` and an unresolved `%BASE_URL%` favicon path. The successful [Jekyll workflow run](https://github.com/shreeyavrokade/brm-prototype/actions/runs/43514352880) published the source rather than building Vite. The correct `.github/workflows/github-pages.yml` exists on remote main; disable the Jekyll workflow and manually run [Deploy to GitHub Pages (manual)](https://github.com/shreeyavrokade/brm-prototype/actions/workflows/github-pages.yml). Verify compiled `/brm-prototype/assets/` references and UI after it completes.
+
+The current local lockfile preflight now passes (`npm ci --dry-run --ignore-scripts --no-audit --no-fund`), superseding the earlier mismatch finding. An actual clean GitHub runner install and correct live deployment remain unverified. No remote writes/deployment were performed by this diagnosis.
+
 ## Final pre-deployment review — 2026-11-13
 
 **Decision: suitable for GitHub Pages as an interactive browser-local prototype; hold deployment until the dependency lockfile is synchronized.** This review covers commit `676bd4f` plus the current sidebar edit. Audit/documentation only; no dependencies, app code, GitHub settings or deployment were changed.
