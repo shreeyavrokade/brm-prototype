@@ -1,18 +1,18 @@
 # Product Requirements Document
 
-## Unified Submission Portal — BRM Prototype
+## Generalized Energy Submission & Model Review Platform
 
 **Status:** Reconstructed from the current application and its `.lovable/plan` implementation notes  
-**Product type:** Interactive front-end prototype  
+**Product type:** Interactive front-end sales prototype  
 **Repository:** `shreeyavrokade/brm-prototype`
 
 > This document consolidates the product and technical requirements represented by the running application. The repository does not contain a separate approved business PRD or backend specification. Historical implementation notes may describe UI that has since changed; the current app is the source of truth for delivered behavior.
 
 ## 1. Product overview
 
-The Unified Submission Portal prototype demonstrates submission, review, and model-build workflows for SPP planning data. It provides participant-facing workspaces for Base Reliability Model (BRM) and Market Economic Model (MEM) activities, plus an SPP engineer view for reviewing shared demo data.
+The current Unified Submission Portal demonstrates submission, review, and model-build workflows using SPP-specific terminology and demo data. The sales-prototype direction is to generalize this foundation into a brand-neutral energy-sector platform, white-labeled with Hitachi's NEXT Design System. It retains the existing participant and engineer workflows while replacing client-specific branding, terminology, and identifiers with representative, non-proprietary content.
 
-The application is intended for workflow demonstration and user testing. It uses mock and in-memory data, with selected browser `localStorage` persistence. It is not a production submission or system-of-record platform.
+The application is intended for sales demonstrations and user testing. It uses mock and in-memory data, with selected browser `localStorage` persistence. It is not a production submission or system-of-record platform. Requirements in Section 12 describe the target sales-prototype direction; they do not imply that rebranding, NEXT Design System adoption, Figma references, or storytelling enhancements are already implemented.
 
 ## 2. Goals
 
@@ -225,3 +225,74 @@ This PRD was consolidated from the current route structure, pages, components, s
 - [src/store/transactionsStore.ts](./src/store/transactionsStore.ts) — client-side transaction state and transitions.
 - [src/store/memPassStore.ts](./src/store/memPassStore.ts) — MEM pass and module-visit state.
 - [src/store/portalContextStore.ts](./src/store/portalContextStore.ts) — participant/engineer view state.
+
+## 12. Additional design considerations for sales prototype
+
+These are target requirements for the sales-ready evolution of the prototype. They supplement the existing workflows above and do not describe functionality that is necessarily implemented in the current app.
+
+**Design-to-prototype approach:** Use the supplied design files as the visual and interaction reference, adapt/white-label those designs for the generalized energy-sector product and Hitachi NEXT Design System, then implement them as working screens in this existing codebase. The result must remain an interactive prototype: preserve and connect the workflows and behaviors already supported by the code, rather than delivering static mockups. Where a design specifies new behavior, implement a demonstrable client-side interaction consistent with the prototype's current architecture and clearly label simulation where it could be mistaken for production functionality.
+
+### 12.1 Generalization
+
+- Transform the SPP-specific prototype into a generalized energy-sector solution.
+- Remove SPP branding, proprietary terminology, and client-specific identifiers from the sales-facing experience.
+- Preserve industry-standard energy planning terminology and workflows where useful, replacing client-specific labels with clear, configurable, brand-neutral equivalents.
+
+### 12.2 White labeling using NEXT Design System
+
+**Required design reference:** [Hitachi NEXT Design System 6.3.1](https://www.figma.com/design/IP7UpMBipYr1A9cGUNpPQd/Next-Design-System-6.3.1?node-id=0-1) (file `IP7UpMBipYr1A9cGUNpPQd`). The supplied node `0:1` is the cover page; use the relevant component and widget pages for implementation details. Figma file access and the page inventory were verified on November 13, 2026; token values, variants, and visual parity still require inspection during implementation.
+
+- Use the Hitachi NEXT Design System as the primary design system.
+- Apply NEXT components, typography, colors, icons, and interaction patterns consistently across the application.
+- Replace existing UI components where appropriate while preserving their functionality and accessibility.
+- Ensure all new and existing screens follow applicable NEXT design guidelines.
+
+### 12.3 Existing prototype functionality
+
+- Retain the workflows and interactions documented in this PRD.
+- Preserve submission, validation, review, approval, and status-management functionality.
+- Maintain consistent supported behavior across Participant and Engineer views.
+
+### 12.4 Additional Figma references
+
+- Use additional Figma screens and files as references when they are provided.
+- Translate the referenced designs into the existing application; do not treat them as standalone static deliverables.
+- White-label and adapt referenced screens to the generalized product and NEXT Design System.
+- Implement relevant screens, workflows, and interactions in the current codebase, preserving existing interactive behavior and integrating new interactions with existing navigation and state where appropriate.
+- Integrate new screens with existing navigation and workflows.
+- The NEXT Design System file is identified in §12.2. Additional product-screen Figma references have not yet been supplied; incorporate them when provided.
+
+### 12.5 Sales demonstration readiness
+
+- Present a cohesive, brand-neutral enterprise energy platform.
+- Prioritize clarity, usability, and realistic end-to-end workflows.
+- Use representative sample data instead of proprietary client information.
+- Clearly distinguish simulated prototype functionality from production capabilities.
+
+### 12.6 Implementation considerations
+
+- Reuse existing components and functionality wherever possible.
+- Avoid unnecessary changes to established business logic.
+- Maintain visual and interaction consistency across modules.
+- Keep the prototype responsive, interactive, and suitable for sales demonstrations.
+- Treat the current application code and documented workflows as the functional baseline while applying the supplied designs and white-label treatment.
+- Implement the designed experience as functioning UI in this codebase, not as screenshots or a separate disconnected mockup.
+- Keep interactions demonstrable end to end using the existing client-side stores and prototype patterns; do not imply backend persistence or integrations unless they are actually implemented.
+
+### 12.7 Storytelling and contextual guidance
+
+- **Status descriptions:** Provide informative hover tooltips that explain each submission status, what it means, and the expected next step. Ensure equivalent information is available to keyboard and touch users.
+- **Resubmission validation:** Demonstrate validation when users resubmit corrected files, including clear success, warning, and error feedback.
+- **Resubmission guidance:** Provide contextual dialogs or popups explaining the resubmission process, required actions, and expected outcomes.
+- **Workflow storytelling:** Use these interactions to make the value of identifying issues, resolving them, and completing a submission understandable during a sales demonstration.
+- **Design consistency:** Use NEXT Design System components for tooltips, dialogs, notifications, and validation feedback.
+
+### 12.8 Sales-readiness acceptance criteria
+
+1. Sales-facing screens use brand-neutral names, representative data, and no unintended SPP/client-specific branding or identifiers.
+2. The NEXT Design System is applied consistently to updated and new screens without regressing existing workflows.
+3. Participant and Engineer views retain their supported submission, validation, review, approval, and status-management behavior.
+4. Status guidance explains both the current state and the expected next action, with accessible interaction on pointer, keyboard, and touch interfaces.
+5. Resubmission demonstrations show distinguishable success, warning, and error validation outcomes and explain what the user should do next.
+6. Demo content and messaging clearly identify simulated behavior and do not imply production integrations or capabilities that are not present.
+7. Any Figma-derived work is traceable to references supplied by the product owner and integrated into existing navigation.

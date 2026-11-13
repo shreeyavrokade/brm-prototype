@@ -2,7 +2,7 @@
 
 **Source:** [PRD.md](./PRD.md)  
 **Created:** November 11, 2026  
-**Scope:** Unified Submission Portal — BRM front-end prototype
+**Scope:** Unified Submission Portal — BRM front-end prototype and NEXT white-label adoption
 
 Each row tracks a PRD requirement. Initial statuses are **Needs verification**: the PRD describes existing behavior, but this tracker does not certify that behavior. Owners and target dates are unassigned. No product priorities or delivery deadlines have been inferred.
 
@@ -135,6 +135,21 @@ Update the status, owner, target date, and evidence as work progresses. Link def
 | REQ-6-16 | TypeScript checks should pass under the repository's configured compiler options. | Needs verification | Unassigned | — | Record implementation and verification evidence. |
 | REQ-6-17 | Provide runnable dev, build, lint, and test scripts (`npm run dev`, `npm run build`, `npm run lint`, `npm test`). | Needs verification | Unassigned | — | Record implementation and verification evidence. |
 
+## NEXT white-label adoption — PRD §12.2
+
+**Required reference:** [NEXT Design System 6.3.1](https://www.figma.com/design/IP7UpMBipYr1A9cGUNpPQd/Next-Design-System-6.3.1?node-id=0-1). The supplied node `0:1` is the cover, not an application screen. These are planned adoption tasks; verified Figma access does not establish implementation completion. Owners and dates remain unassigned.
+
+| ID | Requirement / task | Status | Owner | Target date | Evidence / next action |
+| --- | --- | --- | --- | --- | --- |
+| WL-01 | Inspect NEXT foundations and record exact token values, component variants, states, and source nodes. | In progress | Unassigned | — | File access and page inventory verified 2026-11-13; foundations and variants still to inspect. |
+| WL-02 | Map NEXT typography, colors, spacing, borders, and focus treatment to shared application theme tokens. | To do | Unassigned | — | Depends on WL-01; reuse shared primitives and theme configuration. |
+| WL-03 | Apply NEXT header and navigation patterns with configurable branding and brand-neutral sales-facing names. | To do | Unassigned | — | Inspect Header 324:100878 and Navigation System 600:173477; coordinate with PRD §12.1. |
+| WL-04 | Adapt shared buttons, inputs, selection controls, tabs, badges, search, pagination, and tables to the matching NEXT variants. | To do | Unassigned | — | Inspect relevant component pages and Table 759:116616; preserve sorting, filtering, grid editing, and lifecycle meaning. |
+| WL-05 | Apply NEXT patterns to file uploads, import steps, dialogs, tooltips, notifications, and validation feedback. | To do | Unassigned | — | Inspect File Uploader 324:82682, Wizard 687:262330, Dialog 324:43335, Tooltip 88:44328, and Notification 672:188628. |
+| WL-06 | Apply the shared theme across BRM, MEM, submission details, transactions, and both portal perspectives. | To do | Unassigned | — | Record screen-by-screen coverage and source component references; preserve existing workflows. |
+| WL-07 | Verify responsive layouts and keyboard, focus, disabled, error, and touch interactions after component adoption. | To do | Unassigned | — | Compare implemented states with inspected NEXT variants and document exceptions. |
+| WL-08 | Validate updated screens against Figma and rerun supported participant and engineer demo workflows. | To do | Unassigned | — | Capture comparison screenshots and AC-01 through AC-07 results before marking adoption complete. |
+
 ## Acceptance checks
 
 Run these end-to-end checks after the related requirements are verified. Record the date, browser or environment, result, and linked defects in Evidence.
@@ -148,6 +163,8 @@ Run these end-to-end checks after the related requirements are verified. Record 
 | AC-05 | §9.5 | Switch between participant and engineer views; verify supported actions share state and the selected view survives navigation and reload. | Not run | — |
 | AC-06 | §9.6 | Exercise Generation and Load checklists, dataset editing and validation, row review, focus mode, handoff, and pass changes. Verify visit persistence and pass-specific reset. | Not run | — |
 | AC-07 | §9.7 | Run npm run build, npm run lint, npm test, and the configured TypeScript checks; record exit results. Confirm npm run dev starts the app. | Not run | — |
+
+| AC-08 | §12.2 / §12.8.2 | Compare all updated screens and interaction states with the referenced NEXT components; verify consistent theme and branding, responsive and accessible interactions, and no regressions in AC-01 through AC-07. | Not run | — |
 
 ## Initial follow-ups
 
@@ -168,3 +185,5 @@ Run these end-to-end checks after the related requirements are verified. Record 
 | Date | Requirement / check | Change or decision | Evidence / defect |
 | --- | --- | --- | --- |
 | 2026-11-11 | All | Created tracker from PRD §§4–6 and acceptance checks from §9. Implementation has not been certified. | [PRD.md](./PRD.md) |
+| 2026-11-13 | Process | Added a project rule requiring TRACKER.md to be updated after every completed task. | [CLAUDE.md](./CLAUDE.md) |
+| 2026-11-13 | WL-01–WL-08 / AC-08 | Added supplied NEXT 6.3.1 reference and white-label adoption tasks; verified file access and component page inventory only. | PRD §12.2 |
