@@ -28,9 +28,9 @@ Use hash links when sharing Pages screens. Clean path links such as `/brm-protot
 
 ## Deploy when ready
 
-1. Commit and push the intended project files, including `.env.github-pages`, this configuration, and `.github/workflows/github-pages.yml`. The manual workflow must exist on the repository default branch to appear in Actions.
+1. Commit and push the intended project files, including `.env.github-pages`, this configuration, and `.github/workflows/github-pages.yml`. The workflow must exist on the repository default branch to appear in Actions.
 2. Verify the repository/account supports Pages. In Settings → Pages, select **GitHub Actions** as the source. For a custom domain, configure it there before running the workflow.
-3. Open Actions → **Deploy to GitHub Pages (manual)** → **Run workflow** and select the intended branch.
+3. Pushing to `main` deploys automatically. To deploy another branch or redeploy without a push, open Actions → **Deploy to GitHub Pages** → **Run workflow** and select the branch.
 4. The workflow installs locked dependencies with `npm ci`, checks both TypeScript projects, runs tests, builds using the base path returned by `actions/configure-pages`, uploads `dist-pages/`, and deploys to the `github-pages` environment.
 5. Verify the reported live URL, direct hash links, refresh, navigation, assets, sample-file downloads, brand selection, and participant/engineer workflows.
 
@@ -42,7 +42,7 @@ Reference: [Vite Pages deployment guidance](https://vite.dev/guide/static-deploy
 
 ## Updating an already hosted prototype
 
-Continue editing locally, run tests and both TypeScript checks, then run `npm run build:pages`. Commit/push the intended revision and manually run the Pages workflow. Publishing is not triggered by pushes in the current workflow. Verify the live URL after each successful deployment; refresh old tabs when necessary.
+Continue editing locally, run tests and both TypeScript checks, then run `npm run build:pages`. Commit and push to `main`: the Pages workflow runs on every push to `main` (and can still be run manually from Actions). Verify the live URL after each successful deployment; refresh old tabs when necessary.
 
 Keep package.json and package-lock.json synchronized: the workflow uses `npm ci`. The final 2026-11-13 audit still finds a lockfile mismatch, so that must be fixed before the first successful deployment. See GITHUB_PAGES_AUDIT.md for the current release gate.
 

@@ -46,7 +46,7 @@ In [`src/config/brand.ts`](./src/config/brand.ts):
 | `logoClassName` | `h-8 w-auto` | Logo size in the header (Tailwind classes) |
 | `faviconSrc` | `brand/acme/mark.svg` | Browser-tab icon |
 | `showProductNameInHeader` | `true` | Show "\| Unified Submission Portal" next to the logo (turn off if the logo already includes it) |
-| `accessPassword` | SPP2026 | Demo password gate. **Not a security control.** Change it per pitch if needed |
+| `accessPassword` | (set per pitch) | Demo password gate. **Not a security control.** Change it per pitch if needed |
 
 ### 3. Prompt level: ask Claude or Lovable
 

@@ -1,6 +1,10 @@
-name: Deploy to GitHub Pages (manual)
+name: Deploy to GitHub Pages
 
 on:
+  # Redeploy automatically on every push to main (so changes such as the
+  # access password reach the live site), and keep the manual Run button.
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
