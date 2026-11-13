@@ -57,3 +57,86 @@ A Dawn comment or lack of a NEXT npm package is not by itself proof of noncompli
 - Source inspection and lexical inventory cover TS/TSX files, CSS theme, Tailwind configuration, components.json, package dependencies, brand guide and HTML metadata.
 - Chromium check on the existing built Pages artifact under `/brm-prototype/`: ERCOT, Acme and Neutral logo paths switch; computed brand/active-text values and font remain identical. This verifies the configuration behavior, not all source edits or whole-screen visual parity.
 - No Figma writes, app changes, new build/tests, full accessibility certification, full responsive review or exhaustive component-state screenshot comparison were performed. Audit completion does not complete NEXT adoption.
+
+## Neutral sales-demo vision and NEXT adoption strategy
+
+The prototype should make a buyer confident that the platform understands their submission and review problems, can guide a user through them, and has a credible path to adoption. NEXT should give every screen a consistent interaction language while the demonstration supplies the evidence. Visual consistency supports the pitch; it cannot guarantee a sale.
+
+### Keep the product neutral and the conversation relevant
+
+Use a neutral product identity, generic operator terminology, fictional organizations and representative datasets as the default demonstration. Neutrality must include table records, filenames, activity authors, counterparties, diagrams, browser metadata and downloaded files—not just the header logo. Use “Submitting organization”, “Planning team”, and “Reviewing organization” where these communicate the role more clearly than client-specific acronyms. Retain established energy-planning terms where they are meaningful.
+
+The current source defaults to ERCOT. Switching the sales baseline to `neutral`, generalizing the demo catalog and neutralizing share metadata are **proposed changes**, not completed work. Explicit customer branding can remain an optional preset when requested. A presenter should be able to prepare a relevant pitch without modifying feature components or business logic.
+
+Separate three concerns:
+
+| Layer | What belongs here | What can change for a pitch |
+| --- | --- | --- |
+| NEXT foundations and shared components | Typography, spacing, surfaces, control anatomy, focus treatment, semantic status/severity and interaction states | Keep stable across pitches; permit only documented brand overrides that preserve contrast and meaning. |
+| Product identity | Neutral/default name and mark; optional client name, logo, favicon and permitted accent | Select a preset; no screen-specific styling patches. |
+| Demonstration scenario | Fictional organizations, sample submissions, issue examples, role labels, presenter checkpoints and starting state | Choose a coherent scenario and depth of walkthrough. This configuration is separate from the identity preset. |
+
+Do not ship one layout for each prospective customer. Build reusable product patterns on verified NEXT primitives and let content make the audience connection.
+
+### Lead with a short, repeatable proof of value
+
+Prepare one core walkthrough that can be delivered in roughly five minutes, with optional deeper branches. Start with a concrete problem: “A planning team receives a submission with inconsistent data and needs a clear path to an accepted model input.” Show the outcome through working interactions:
+
+| Moment | Demonstrable evidence | NEXT components to apply | Message the presenter can support |
+| --- | --- | --- | --- |
+| Orient | Queue identifies the item requiring attention and a clear next action | Header, navigation, table, status tag, tooltip | The team can see what needs attention and why. |
+| Diagnose | Validation summary leads to a specific issue and affected grid cell | Notification/banner, table/grid state, panel, contextual help | Feedback connects a problem to the data that needs correction. |
+| Correct | Download the example, upload the corrected version, and see changed validation results | File Uploader, Stepper/Wizard, Input, Button, feedback states | The user has an understandable correction path. |
+| Decide | Required errors block submission; optional warnings receive explicit guidance and confirmation | Semantic status, Dialog, primary/secondary actions | The workflow distinguishes mandatory correction from a documented review decision. |
+| Close the loop | Submission progresses to a clear final state and visible activity history | Status tag, notification, activity list/panel | The user can understand what happened and what comes next. |
+
+The current default auto-accepts after a simulated review delay. Identify that step as **simulated review** in the demonstration; it is not evidence of a real engineer's approval. Use the existing engineer-review mode for a deeper reviewer walkthrough, after confirming the supported behavior. Do not imply that the engineer dashboard queue is synchronized with the new submission store while the documented GAP-07 remains open.
+
+Close on the visible outcome and a concrete discovery question: which validation rules, handoffs or review decisions would the buyer need to validate in a pilot? Capture those as follow-ups rather than promising integrations that the prototype does not implement.
+
+### Use NEXT to create reusable product patterns
+
+Implement a small, traceable product layer over the shared components:
+
+- **Submission status:** one status tag, meaning, next action and allowed action set across queues, detail pages and activity. NEXT supplies the visual/state treatment; product logic supplies the lifecycle meaning.
+- **Validation feedback:** one consistent structure for severity, issue description, affected data and correction action. Use the same semantics in banners, cells, tooltips and dialogs.
+- **Submission decisions:** one dialog structure with a clear title, consequence, primary action and cancel action. Button hierarchy should make the intended next step obvious without pressuring users past warnings.
+- **Import and resubmission:** one uploader/stepper pattern with selected-file metadata, progress, specific error recovery and confirmation. Keyboard and touch access are part of completion.
+- **Review workspace:** consistent table density, selected-row treatment, inspection panel and activity presentation across Topology, Ratings, Profiles and MEM where their behavior genuinely overlaps.
+
+For each pattern, record the NEXT source node, mapped code component, supported states and approved exceptions. Adapt the existing Radix components when they can express the verified NEXT specification. Use official code mappings when available; do not import a similarly named library or rebuild working interactions solely to claim adoption. Component galleries and optional Code Connect mappings can make future Lovable/Claude changes easier to review, but neither alone proves conformity.
+
+### Prepare the demonstration as carefully as the screens
+
+Provide a presenter-only setup/reset path. It should select a neutral scenario, restore a known starting state and let the presenter choose the quick narrative or reviewer deep dive. Keep presentation controls separate from ordinary user tasks. Reset must clear the relevant in-memory state and stored demo selections consistently; the current stores do not yet provide a verified unified reset.
+
+Use deterministic examples: a clean submission, one with mandatory corrections, one with optional warnings and a corrected version. Make seeded activity and numbers internally consistent. Keep a tested recovery route if a file is uploaded incorrectly. Use short, readable content at shared-screen sizes, not only on the developer's laptop.
+
+Offer audience emphasis through presenter notes and walkthrough depth:
+
+| Audience interest | Show first | Optional depth |
+| --- | --- | --- |
+| Leadership | A submission moving from unresolved issues to an understandable outcome | Summarize the handoff and next pilot question. |
+| Planning / operations | Issue diagnosis, correction, status and resubmission | Inspect affected rows and review history. |
+| Technical / delivery | Shared lifecycle behavior, configurable identity and consistent interactions | Explain current browser-local simulation and identify production integration work separately. |
+
+The product stays neutral in all three cases. Do not infer the buyer's workflow solely from organization size, title or industry reputation; confirm their priorities during discovery.
+
+### Show evidence without inventing business results
+
+If an outcome summary is useful, derive it from the demonstrated session: issues identified, required fixes resolved, warnings retained, versions reviewed and current submission state. Label counts from seeded data as demo examples. Do not present claims such as hours saved, error-rate reductions, regulatory compliance, production security or integration readiness as measured results without evidence.
+
+A valuable pitch outcome is a buyer agreeing that the workflow addresses a real problem and identifying the scope and success criteria of a pilot. Track those sales observations separately from product completion. A visually successful demo is not proof of business impact.
+
+### Suggested implementation order and completion checks
+
+These are proposed delivery steps, with owners and dates unassigned:
+
+1. **PITCH-01 — Establish the neutral baseline.** Select the neutral default, generalize the scenario catalog and remove client-specific artifacts from the demo path. A fresh browser and an intentionally reset browser must show the same neutral experience.
+2. **PITCH-02 — Define the NEXT product patterns.** Complete the source-node/component/state matrix and semantic-token policy, then fix DS-01–DS-05 in the walkthrough path before expanding across every secondary screen. Keep existing workflow capabilities intact.
+3. **PITCH-03 — Configure the scenario and presenter setup.** Separate identity from scenario content; add an explicit, reliable reset and role-depth selection. Verify URL/build/stored-preference behavior, including DS-06.
+4. **PITCH-04 — Rehearse the complete value story.** Exercise diagnosis, correction, optional-warning decision, submission and simulated closure. Verify the reviewer branch only for the connected features. No unexplained dead ends or success toasts that hide an incomplete action.
+5. **PITCH-05 — Validate presentation quality.** Compare the chosen NEXT states with rendered screens, then test narrow and wide layouts, keyboard focus, touch, long neutral organization names and shared-screen readability. Verify one permitted accent change reaches all intended controls without editing feature components.
+6. **PITCH-06 — Prepare the pilot conversation.** Supply a short presenter guide with the opening problem, demonstrated evidence, honest prototype limits and follow-up questions. Record buyer-specific requests for later assessment instead of modifying the neutral core during the pitch.
+
+Readiness means the same neutral core can tell a coherent story, survive an incorrect input, be reset and replayed, and support a relevant follow-up discussion. Record actual rehearsal results and defects in TRACKER.md; do not mark these proposals implemented because they have been documented here.

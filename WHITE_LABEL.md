@@ -6,13 +6,13 @@ How to rebrand the Unified Submission Portal for the client you're pitching to. 
 
 | Preset | Client name | Logo | Use it for |
 | --- | --- | --- | --- |
-| `ercot` **(default, current pitch)** | Electric Reliability Council of Texas (ERCOT) | **Temporary text wordmark**: replace with the official logo in `public/brand/ercot/` | The ERCOT pitch |
+| `ercot` | Electric Reliability Council of Texas (ERCOT) | **Temporary text wordmark**: replace with the official logo in `public/brand/ercot/` | The ERCOT pitch |
 | `acme` | Acme Power & Grid | Fictional demo logo | Standard sales demos |
 | `placeholder` | [Client Name] | "Your logo here" box | Design reviews and templates: shows where the brand goes |
-| `neutral` | Regional Grid Operator | Generic mark | Unbranded demos |
+| `neutral` **(default)** | Regional Grid Operator | Generic mark | Sales demos: brand-neutral baseline |
 | `spp` | Southwest Power Pool | Original logo | The original client build |
 
-**Switch presets:** add `?brand=<preset>` to the URL (e.g. `http://localhost:8080/?brand=placeholder`). The browser remembers it until you pass another `?brand=`. For a build, set `VITE_BRAND=<preset>`. To change the default, edit `DEFAULT_BRAND_ID` in `src/config/brand.ts`.
+**Switch presets:** add `?brand=<preset>` to the URL (e.g. `http://localhost:8080/?brand=placeholder`). The tab remembers it (navigation and reloads) until you pass another `?brand=`; a new tab starts from the default again. Precedence: URL → this tab's pick → `VITE_BRAND` → `DEFAULT_BRAND_ID`. For a build, set `VITE_BRAND=<preset>`. To change the default, edit `DEFAULT_BRAND_ID` in `src/config/brand.ts`.
 
 ## Three ways to rebrand
 

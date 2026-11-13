@@ -51,7 +51,7 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
 export const BRAND_PRESETS = {
   /**
-   * ACTIVE PITCH — ERCOT. The logo in public/brand/ercot/ is a temporary text
+   * OPTIONAL PITCH PRESET — ERCOT (`?brand=ercot`). The logo in public/brand/ercot/ is a temporary text
    * wordmark; replace it with the official file before presenting.
    */
   ercot: {
@@ -132,24 +132,34 @@ export const BRAND_PRESETS = {
 
 export type BrandId = keyof typeof BRAND_PRESETS;
 
-export const DEFAULT_BRAND_ID: BrandId = "ercot";
+export const DEFAULT_BRAND_ID: BrandId = "neutral";
 
 const STORAGE_KEY = "usp_brand";
 
 const isBrandId = (v: unknown): v is BrandId =>
   typeof v === "string" && Object.prototype.hasOwnProperty.call(BRAND_PRESETS, v);
 
-function resolveBrandId(): BrandId {
-  try {
-    const fromUrl = new URLSearchParams(window.location.search).get("brand");
-    if (isBrandId(fromUrl)) {
-      localStorage.setItem(STORAGE_KEY, fromUrl);
-      return fromUrl;
+/**
+ * Precedence: `?brand=` in the URL → brand picked earlier in this tab →
+ * VITE_BRAND → DEFAULT_BRAND_ID. The pick is kept in sessionStorage, so it
+ * survives navigation and reloads in the same tab, but a new tab or browser
+ * session starts from the build/default brand again.
+ */
+export function resolveBrandId(search = typeof window !== "undefined" ? window.location.search : ""): BrandId {
+  const fromUrl = new URLSearchParams(search).get("brand");
+  if (isBrandId(fromUrl)) {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, fromUrl);
+    } catch {
+      /* storage blocked: the URL choice still applies */
     }
-    const saved = localStorage.getItem(STORAGE_KEY);
+    return fromUrl;
+  }
+  try {
+    const saved = sessionStorage.getItem(STORAGE_KEY);
     if (isBrandId(saved)) return saved;
   } catch {
-    /* storage or window unavailable: fall through */
+    /* storage blocked: fall through */
   }
   const fromEnv = import.meta.env.VITE_BRAND;
   if (isBrandId(fromEnv)) return fromEnv;

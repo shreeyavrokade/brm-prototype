@@ -1,5 +1,7 @@
 # Demo submission files: Topology Changeset
 
+`{client}` is the active brand's short name (default `neutral` preset: "Grid Operator").
+
 Sample `.prj` files for walking stakeholders through the submission flow. They're in [`public/sample-submissions/`](./public/sample-submissions/), and you can download them inside the app from **Import Submission → Upload File → Demo sample files**.
 
 > Everything here is **simulated in the browser**. The `.prj` format is a simplified demo format (not PSS/E), validation rules are illustrative, and "validation" is a ~3-second timer. No file leaves the browser.
@@ -33,9 +35,9 @@ Sample `.prj` files for walking stakeholders through the submission flow. They'r
 5. **Correct and resubmit:** **Upload Corrected Version** → the dialog explains the process (download the current version, fix it offline, next version number). Drop `…_v2.prj` → **Resubmit** → *Pending Validation* → required fixes resolved; the banner turns amber with 3 optional fixes.
 6. **Choose a path for the optional fixes:**
    - **A, correct them:** Upload Corrected Version → `…_v3.prj` → no fixes left → **Pending Submittal** → Submit for Review → **Pending Acceptance**.
-   - **B, accept responsibility:** **Submit for ERCOT Review** (or Submit As-Is… in the banner) → pop-up *"Submit File with Unresolved Warnings?"*: the file passed critical error checks, engineers will evaluate the warnings and may return it → **Submit for ERCOT Review** → **Pending Acceptance**. Activity records which warnings were submitted unresolved.
-7. **Acceptance (simulated):** after submitting, the status shows **Pending Acceptance** for ~3 seconds (same delay as validation), then moves to **Accepted** on its own. Activity records "Accepted for the model build by ERCOT Engineering". No engineer view needed.
-   - *Optional, off by default:* manual engineer review (Return to Submitter with comments / Accept). Run with `VITE_DEMO_ENGINEER_REVIEW=true` to turn off auto-accept; the Pending Acceptance banner then shows **Demo: review as ERCOT engineer**.
+   - **B, accept responsibility:** **Submit for {client} Review** (or Submit As-Is… in the banner) → pop-up *"Submit File with Unresolved Warnings?"*: the file passed critical error checks, engineers will evaluate the warnings and may return it → **Submit for {client} Review** → **Pending Acceptance**. Activity records which warnings were submitted unresolved.
+7. **Acceptance (simulated):** after submitting, the status shows **Pending Acceptance** for ~3 seconds (same delay as validation), then moves to **Accepted** on its own. Activity records "Accepted for the model build by {client} Engineering". No engineer view needed.
+   - *Optional, off by default:* manual engineer review (Return to Submitter with comments / Accept). Run with `VITE_DEMO_ENGINEER_REVIEW=true` to turn off auto-accept; the Pending Acceptance banner then shows **Demo: review as {client} engineer**.
 8. To show both paths, run step 3 again to create a second submission.
 
 Statuses also update in the Topology Changeset directory. State resets on page reload.
