@@ -81,7 +81,7 @@ export const BRAND_PRESETS = {
     logoClassName: "h-8 w-auto",
     faviconSrc: asset("brand/acme/mark.svg"),
     showProductNameInHeader: true,
-    accessPassword: "SPP2026",
+    accessPassword: "USP@2026",
   },
   /** Empty template: shows where the client's logo and name go. Use for design reviews. */
   placeholder: {
@@ -96,7 +96,7 @@ export const BRAND_PRESETS = {
     logoClassName: "h-8 w-auto",
     faviconSrc: asset("brand/placeholder/mark.svg"),
     showProductNameInHeader: true,
-    accessPassword: "SPP2026",
+    accessPassword: "USP@2026",
   },
   /** Generic, unbranded operator wording. */
   neutral: {
@@ -111,7 +111,7 @@ export const BRAND_PRESETS = {
     logoClassName: "h-8 w-auto",
     faviconSrc: asset("brand/neutral/mark.svg"),
     showProductNameInHeader: true,
-    accessPassword: "SPP2026",
+    accessPassword: "USP@2026",
   },
   /** Original client build, kept so the existing demo can still be shown. */
   spp: {
@@ -126,7 +126,7 @@ export const BRAND_PRESETS = {
     logoClassName: "h-8 w-auto",
     faviconSrc: asset("favicon.ico"),
     showProductNameInHeader: false,
-    accessPassword: "SPP2026",
+    accessPassword: "USP@2026",
   },
 } satisfies Record<string, BrandConfig>;
 
