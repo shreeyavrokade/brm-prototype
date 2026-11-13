@@ -6,12 +6,15 @@ A clickable sales prototype of the data-submitter experience: upload a topology 
 
 ### 1. Before you present (2 min)
 
-```sh
-npm install
-npm run dev            # opens on http://localhost:8080
-```
+- **Live demo:** [https://shreeyavrokade.github.io/brm-prototype/](https://shreeyavrokade.github.io/brm-prototype/). No setup needed. Updates on every push to `main`.
+- **Or run it locally:**
 
-- **Password:** `Will be shared by link provider`
+  ```sh
+  npm install
+  npm run dev            # opens on http://localhost:8080
+  ```
+
+- **Password:** `Ask`
 - **Branding:** neutral by default ("Regional Grid Operator"). To show a client preset, add `?brand=acme` (or `placeholder`, `ercot`) to the URL. Details are in [WHITE_LABEL.md](./WHITE_LABEL.md).
 - **Fresh start:** reload the page before every run. Use a full-screen browser window at 1440×900 or larger.
 
